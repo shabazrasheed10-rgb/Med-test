@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>End-Rotation_HDSF_2025-2026</title>
+
+    <style>
+        :root {
+            /* Light Mode */
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #f1f8e9;
+            --ans-text: #2e7d32;
+            --filter-bg: #f8f9fa;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode */
+            --bg-body: #0c0d0e;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #334155;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --filter-bg: #161a1d;
+        }
+
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: none;
+            padding: 20px 30px;
+        }
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .creator-info { display: flex; flex-direction: column; align-items: center; }
+        .created-by-label { font-size: 0.72rem; opacity: 0.6; }
+        .creator-name { font-size: 1.15rem; font-weight: bold; color: inherit; text-decoration: none; }
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-container {
+            background-color: var(--filter-bg);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background-color: #729fcf;
+            color: white;
+            border-color: #729fcf;
+        }
+
+        .divider { border: none; border-top: 1px solid var(--border-color); margin-bottom: 25px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+        .ans-row { display: flex; justify-content: space-between; align-items: center; }
+        .ans-text { font-weight: 700; color: var(--ans-text); visibility: hidden; background-color: var(--ans-bg); padding: 6px 12px; border-radius: 4px; }
+        .q-block.revealed .ans-text { visibility: visible; }
+        .ans-btn { background-color: #729fcf; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+
+        mark { background-color: #f0cf6a; color: #000; }
+        a { color: inherit; text-decoration: none; }
+
+        @media (max-width: 600px) { .header { flex-direction: column; gap: 12px; } }
+    </style>
+</head>
+
+<body oncontextmenu="return false;"> 
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">End-Rotation</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">HDSF • 2025-2026</p>
+        </div>
+        
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+    </div>
+   
+
+    <div class="filter-container" id="filter-bar">
+        <button class="filter-btn active" onclick="filterBySubject('All', this)">All</button>
+        <button class="filter-btn" onclick="filterBySubject('Anatomy', this)">Anatomy 🦴</button>
+        <button class="filter-btn" onclick="filterBySubject('Physiology', this)">Physiology 🫀</button>
+        <button class="filter-btn" onclick="filterBySubject('Microbiology', this)">Microbiology 🦠</button>
+        <button class="filter-btn" onclick="filterBySubject('Genetics', this)">Genetics 🧬</button>
+        <button class="filter-btn" onclick="filterBySubject('Cell Biology', this)">Cell Biology 🔬</button>
+        <button class="filter-btn" onclick="filterBySubject('Molecular Biology', this)">Molecular biology 🧬</button>
+           <button class="filter-btn" onclick="filterBySubject('Histology', this)">Histology 🫁</button>
+           <button class="filter-btn" onclick="filterBySubject('Embryology', this)">Embryology 👶</button>
+           
+    </div>
+   
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+
+
+<script>
+function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    const isDark = body.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+        body.removeAttribute('data-theme');
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    } else {
+        body.setAttribute('data-theme', 'dark');
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    }
+}
+
+const data = [
+    { n: 1, s: "Anatomy", q: "The nucleus of parasympathetic preganglionic neurons is located in:", o: ["A. Lateral horns (T1-T5)", "B. Lateral horns (C5-C8)", "C. Lateral horns (S2-S4)", "D. Anterior horns (T1-T4)", "E. Lateral horns (S2-S4)"], a: "E" },
+    { n: 2, s: "Anatomy", q: "Which one of the following all cervical vertebrae have?", o: ["A. Body", "B. Spinous", "C. Bifid spinous", "D. Criocoid tubercle", "E. Transverse foramen"], a: "E" },
+    { n: 3, s: "Anatomy", q: "The superior tibiofibular joint is:", o: ["A. Gliding joint", "B. Biaxial joint", "C. Multiaxial joint", "D. Uniaxial joint", "E. Fibrous joint"], a: "A" },
+    { n: 4, s: "Anatomy", q: "Dorsal ramus of spinal cord contains:", o: ["A. Motor neurons", "B. Sensory neurons", "C. Mixed neurons (sensory ans motor neurons)", "D. Parasympathetic nucleus", "E. Sympathetic nucleus"], a: "B" },
+    { n: 5, s: "Physiology", q: "Which of the following is responsible for the production of most ATP during cellular respiration and glucose metabolism?", o: ["A. Glycolysis", "B. Acetyl coenzyme A formation", "C. Krebs cycle", "D. Beta oxidation", "E. Electron transport chain"], a: "E" },
+    { n: 6, s: "Physiology", q: "Ketone bodies are formed during the normal catabolism of:?", o: ["A. Fatty acids", "B. Carbohydrates", "C. Nucleic acids", "D. Proteins", "E. Vitamins"], a: "A" },
+    { n: 7, s: "Physiology", q: "First cell that migrates to injured area during inflammation:", o: ["A. Lymphocytes", "B. Monocytes", "C. Basophils", "D. Neutrophils", "E. Eosinophils"], a: "D" },
+    { n: 8, s: "Microbiology", q: "Which of the following is correct about bacterial plasmids?", o: ["A. It is only found in gram-negative bacteria", "B. It is an essential structure of bacteria", "C. It replicates independently of the bacterial chromosome and may carry antibiotic resistance genes", "D. It is located inside the bacterial ribosome", "E. It is composed of RNA"], a: "C" },
+    { n: 9, s: "Microbiology", q: "Which term in antimicrobial chemotherapy refers to inhibition of microbial growth without harming the host?", o: ["A. Bactericidal", "B. Selective toxicity", "C. Bacteriostatic", "D. Broad-spectrum activity", "E. Superinfection"], a: "B" },
+    { n: 10, s: "Microbiology", q: "Terminal-spined eggs are characteristic of which of the following trematodes?", o: ["A. Schistosoma haematobium", "B. Schistosoma mansoni", "C. Schistosoma japonicum", "D. Clonorchis sinensis", "E. Paragonimus westermani"], a: "A" },
+    { n: 11, s: "Genetics", q: "Cri-du-chat syndrome is caused by which of the following chromosomal abnormalities?", o: ["A. Deletion of the short arm q arm of chromosome 3", "B. Deletion of the short arm q arm of chromosome 5", "C. Deletion of the short arm p arm of chromosome 5", "D. Duplication of the long arm p arm of chromosome 3", "E. Duplication of the long arm q arm of chromosome 3"], a: "C" },
+    { n: 12, s: "Genetics", q: "Which of the following is a monogenic disease?", o: ["A. Cystic fibrosis", "B. Down syndrome", "C. Diabetes mellitus", "D. Sickle cell anemia", "E. Hypertension"], a: "D" },
+    { n: 13, s: "Genetics", q: "Deletion of two alpha-globin genes results in which of the following conditions?", o: ["A. Silent carrier state", "B. Alpha thalassemia trait", "C. Hemoglobin H disease", "D. Hydrops fetalis (Hb Bart’s)", "E. Beta thalassemia major"], a: "B" },
+    { n: 14, s: "Cell Biology", q: "Glycolipids are located in which part of the plasma membrane?", o: ["A. Cannot be identified, it changes based on the cell type", "B. Outer membrane", "C. Inner membrane", "D. Distributed evenly throughout the membrane", "E. None of the above"], a: "B" },
+    { n: 15, s: "Cell Biology", q: "Which of the following is correct about heterochromatin:", o: ["A. Loosely packaged and transcriptionally active", "B. Loosely packaged and transcriptionally inactive", "C. The region where ribosome are made", "D. Tightly compacted and transcriptionally active", "E. Tightly compacted and transcriptionally inactive"], a: "E" },
+    { n: 16, s: "Embryology", q: "The critical period for the development of congenital anomalies occurs during which stage?", o: ["A. Pre-embryonic stage (week 1–2)", "B. Fetal stage (week 9 until birth)", "C. Embryonic stage (week 3–8)", "D. Puberty", "E. Maturation"], a: "C" },
+    { n: 17, s: "Histology", q: "Which of the following is a characteristic feature of epithelial cells?", o: ["A. Richly supplied with blood vessels to provide nutrients directly to the cells", "B. Surrounded by a large volume of extracellular fluid", "C. Attached to the underlying connective tissue by a specialized basement membrane", "D. Exhibits a very slow rate of cell division compared to other tissue types", "E. None of the above"], a: "C" },
+    { n: 18, s: "Molecular Biology", q: "What does 5' and 3' mean in the DNA nucleic acid molecules?", o: ["A. The amino group at position 5' carbon of one sugar joins the hydroxyl group at position 3' carbon of the next sugar by means of phosphodiester bond", "B. The phosphate group at position 5' carbon of one sugar joins the nitrogen group and at position 3' carbon of the next sugar by means of phosphodiester bond", "C. The hydroxyl group at position 5' carbon of one sugar joins the phosphate group and at position 3' carbon of the next sugar by means of a phosphodiester bond", "D. The phosphate group at position 5' carbon of one sugar joins the amino group and at position 3' carbon of the next sugar by means of a phosphodiester bond", "E. The phosphate group at position 5' carbon of one sugar joins the hydroxyl group and at position 3' carbon of the next sugar by means of phosphodiester bond"], a: "E" },
+    { n: 19, s: "Molecular Biology", q: "If a DNA template be like 5'TTCAGGCGA'3, the compliment DNA template will be?", o: ["A. 5'AAGTCCGCT'3", "B. 3'TCGCCTGAA'5", "C. 5'UUCAGGCGA'3", "D. 5'TCGCCTGAA'3", "E. 5'GGCAACGTT'3 "], a: "D" },
+    { n: 20, s: "Microbiology", q: "What is the primary underlying cause of an “Id reaction” in patients with a fungal infection?", o: ["A. Fungal invasion forming abscesses at distant sites", "B. Dissemination of fungal spores into the bloodstream", "C. Hypersensitivity reaction to fungal antigens", "D. Formation of IgG antibodies against the fungus", "E. Secondary bacterial infection at the site of fungal infection"], a: "C" }
+];
+
+
+const container = document.getElementById('quiz-content');
+
+function renderQuiz() {
+    container.innerHTML = '';
+    data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.subject = item.s;
+        div.dataset.searchText = (item.s + " " + item.q + " " + item.o.join(" ")).toLowerCase();
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <span class="ans-text">Answer: ${item.a}</span>
+                <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function filterBySubject(subject, btn) {
+    document.getElementById('search-input').value = '';
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        const qTextElem = block.querySelector('.q-text');
+        const optElems = block.querySelectorAll('li');
+        qTextElem.innerHTML = qTextElem.dataset.original;
+        optElems.forEach(li => li.innerHTML = li.dataset.original);
+        block.style.order = "0";
+
+        if (subject === 'All' || block.dataset.subject === subject) {
+            block.style.display = "block";
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+
+function handleSearch() {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('.filter-btn').classList.add('active');
+
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        const qTextElem = block.querySelector('.q-text');
+        const optElems = block.querySelectorAll('li');
+        qTextElem.innerHTML = qTextElem.dataset.original;
+        optElems.forEach(li => li.innerHTML = li.dataset.original);
+
+        if (searchTerm === "") {
+            block.style.display = "block";
+            block.style.order = "0";
+        } else if (block.dataset.searchText.includes(searchTerm)) {
+            block.style.display = "block";
+            block.style.order = "-1";
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            qTextElem.innerHTML = qTextElem.innerHTML.replace(regex, '<mark>$1</mark>');
+            optElems.forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+
+renderQuiz();
+</script>
+</body>
+</html>
