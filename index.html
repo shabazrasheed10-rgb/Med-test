@@ -208,18 +208,19 @@
     </a>
   </nav>
 
-  <script type="module">
+   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // PASTE YOUR CONFIG HERE
+    // Your specific Firebase configuration
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      apiKey: "AIzaSyDK8QW-UOElfgmNbFYslD3krgkpizTuaWg",
+      authDomain: "med-test-8a03f.firebaseapp.com",
+      projectId: "med-test-8a03f",
+      storageBucket: "med-test-8a03f.firebasestorage.app",
+      messagingSenderId: "667021400985",
+      appId: "1:667021400985:web:53b688f554e78adddd5108",
+      measurementId: "G-QMFYTZX5TP"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -238,7 +239,10 @@
 
     btn.onclick = async () => {
       const code = input.value.trim();
-      if (!code) return;
+      if (!code) {
+        status.innerText = "Please enter a code.";
+        return;
+      }
 
       status.innerText = "Verifying...";
       status.style.color = "#38bdf8";
@@ -248,10 +252,9 @@
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists() && docSnap.data().isUsed === false) {
-          // BURN THE CODE
+          // Marking the code as used in the database
           await updateDoc(docRef, { isUsed: true });
           
-          // SAVE SUCCESS
           localStorage.setItem('medq_active', 'true');
           status.innerText = "Success! Unlocking...";
           status.style.color = "#4ade80";
@@ -260,12 +263,15 @@
             overlay.style.display = 'none';
             document.body.classList.remove('locked');
           }, 1000);
+        } else if (docSnap.exists() && docSnap.data().isUsed === true) {
+          status.innerText = "Code already used by someone else.";
+          status.style.color = "#ff4444";
         } else {
-          status.innerText = "Invalid or expired code.";
+          status.innerText = "Invalid activation code.";
           status.style.color = "#ff4444";
         }
       } catch (e) {
-        status.innerText = "Error. Check connection.";
+        status.innerText = "Error. Check Firebase Rules.";
         console.error(e);
       }
     };
@@ -282,3 +288,4 @@
 
 </body>
 </html>
+
