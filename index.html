@@ -9,6 +9,7 @@
   <style>
     :root {
       --bg-color: #0c0d0e; 
+      /* Updated for Glassmorphism: slightly transparent */
       --card-bg: rgba(26, 28, 30, 0.7); 
       --header-bg: rgba(22, 24, 26, 0.85);
       --accent-hdsf: #f0cf6a;
@@ -24,10 +25,11 @@
     body {
       font-family: 'Segoe UI', Roboto, sans-serif;
       background-color: var(--bg-color);
+      /* Subtle gradient background to make the blur look better */
       background-image: radial-gradient(circle at 50% 0%, #16181a 0%, #0c0d0e 100%);
       color: var(--text-main);
       margin: 0;
-      padding: 15px 15px 100px 15px; /* Added bottom padding for footer */
+      padding: 15px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -36,21 +38,16 @@
       -webkit-user-select: none;
     }
 
-    /* LOCK STATE */
-    body.locked {
-      overflow: hidden;
-    }
-    body.locked .mcq-link {
-      pointer-events: none;
-      opacity: 0.5;
-    }
+    /* ===== ACTIVATION SYSTEM STYLES ===== */
+    body.locked { overflow: hidden; }
+    body.locked .mcq-link { pointer-events: none; opacity: 0.5; }
 
-    /* ACTIVATION OVERLAY */
     #activation-overlay {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(12, 13, 14, 0.95);
-      backdrop-filter: blur(15px);
+      background: rgba(12, 13, 14, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       z-index: 10000;
       display: flex;
       align-items: center;
@@ -60,104 +57,199 @@
     .activation-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      padding: 30px;
-      border-radius: 24px;
+      padding: 40px 30px;
+      border-radius: 28px;
       text-align: center;
       width: 90%;
-      max-width: 380px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      max-width: 400px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
     }
 
-    .activation-card h2 { margin-top: 0; color: #fff; }
-    .activation-card p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 20px; }
+    .activation-card h2 { margin: 0 0 10px; color: #fff; font-size: 1.8rem; }
+    .activation-card p { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; }
 
     .activation-card input {
       width: 100%;
-      padding: 14px;
+      padding: 16px;
       background: #000;
       border: 1px solid var(--border-color);
-      border-radius: 12px;
+      border-radius: 14px;
       color: #fff;
-      font-size: 1rem;
+      font-size: 1.1rem;
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       outline: none;
     }
 
     .activation-card button {
       width: 100%;
-      padding: 14px;
+      padding: 16px;
       background: var(--accent-bbb);
       color: #000;
       border: none;
-      border-radius: 12px;
+      border-radius: 14px;
       font-weight: 700;
+      font-size: 1rem;
       cursor: pointer;
       transition: 0.3s;
     }
 
-    /* FLOATING FOOTER */
-    .nav-bar {
-      position: fixed;
-      bottom: 25px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(22, 24, 26, 0.8);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border-color);
-      padding: 6px;
-      border-radius: 50px;
-      display: flex;
-      gap: 5px;
-      z-index: 999;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 22px;
-      border-radius: 40px;
-      color: var(--text-dim);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: 0.3s;
-    }
-
-    .nav-item.active {
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--accent-bbb);
-    }
-
-    .nav-item svg { width: 20px; height: 20px; fill: currentColor; }
-
-    /* EXISTING STYLES */
+    /* ===== HEADER ===== */
     .main-header {
       width: 100%;
+      max-width: none;
       background: var(--header-bg);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       padding: 16px;
       border-radius: 16px;
       border: 1px solid var(--border-color);
       margin-bottom: 20px;
     }
+
     .header-info h3 { margin: 0; font-size: 1.5rem; color: #ffffff; }
     .header-info p { margin: 6px 0 0; color: var(--text-dim); font-size: 0.9rem; }
-    .year-nav { display: flex; background: #16181a; padding: 4px; border-radius: 10px; border: 1px solid var(--border-color); gap: 4px; }
-    .year-chip { padding: 8px 16px; border-radius: 7px; color: var(--text-dim); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: var(--transition); }
-    .year-chip.active { background: var(--card-bg); color: var(--accent-bbb); border: 1px solid var(--border-color); }
-    .year-content { display: none; width: 100%; }
+
+    /* ===== YEAR SELECTOR ===== */
+    .year-selection-container {
+      width: 100%;
+      max-width: none;
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 30px;
+    }
+
+    .year-nav {
+      display: flex;
+      background: #16181a;
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      gap: 4px;
+    }
+
+    .year-chip {
+      padding: 8px 16px;
+      border-radius: 7px;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .year-chip.active {
+      background: var(--card-bg);
+      color: var(--accent-bbb);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    /* ===== CONTENT LAYOUT ===== */
+    .year-content { 
+      display: none; 
+      width: 100%; 
+      max-width: none; 
+    }
     .year-content.active { display: block; }
-    .category-title { font-size: 1.3rem; margin: 30px 0 20px 0; padding-left: 12px; border-left: 3px solid; }
+
+    .section-container {
+      width: 100%;
+      margin-bottom: 60px; /* INCREASED SPACE BETWEEN HDSF & BBB */
+    }
+
+    .category-title {
+      font-size: 1.3rem;
+      margin: 0 0 20px 0;
+      padding-left: 12px;
+      border-left: 3px solid;
+      display: flex;
+      align-items: center;
+    }
+
     .hdsf-theme { border-color: var(--accent-hdsf); color: var(--accent-hdsf); }
     .bbb-theme { border-color: var(--accent-bbb); color: var(--accent-bbb); }
-    .subject-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-    .subject-card { background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid var(--border-color); border-radius: 14px; padding: 13px; }
-    .card-header h1 { font-size: 1.1rem; margin: 0 0 18px 0; color: var(--text-main); }
-    .mcq-link { color: var(--text-dim); font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.03); cursor: pointer; text-decoration: none; }
-    .badge { font-size: 0.75rem; padding: 3px 10px; border-radius: 6px; background: rgba(38, 41, 43, 0.8); color: var(--accent-hdsf); }
+
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .subject-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 13px;
+      transition: var(--transition);
+    }
+
+    .subject-card:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(40, 42, 45, 0.8);
+      transform: translateY(-2px);
+    }
+
+    .card-header h1 {
+      font-size: 1.1rem;
+      margin: 0 0 18px 0;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .links-container { display: flex; flex-direction: column; gap: 4px; text-decoration:none; }
+
+    .mcq-link {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .mcq-link:last-child { border-bottom: none; }
+    .mcq-link:hover { color: var(--accent-bbb); }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(38, 41, 43, 0.8);
+      color: var(--accent-hdsf);
+      font-weight: 500;
+    }
+    
+    .year-footer-label {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin: 40px 0;
+      letter-spacing: 0.5px;
+    }
+    
+    .site-footer {
+      margin-top: auto;
+      padding: 30px 20px;
+      width: 100%;
+      max-width: none;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    .site-footer strong { color: #fff; }
   </style>
 </head>
 <body class="locked">
@@ -167,8 +259,8 @@
       <h2>Unlock Med-Q</h2>
       <p>Please enter your unique activation code to access the questions.</p>
       <input type="text" id="activation-code" placeholder="Enter Code Here">
-      <button id="activate-btn">Activate</button>
-      <p id="status-msg" style="margin-top:15px; color:#ff4444; min-height:1.2em;"></p>
+      <button id="activate-btn">Activate App</button>
+      <p id="status-msg" style="margin-top:15px; min-height:1.2em; font-weight:600;"></p>
     </div>
   </div>
 
@@ -179,40 +271,181 @@
     </div>
   </header>
 
-  <div class="year-nav">
-    <div class="year-chip active" id="chip-2022" onclick="showYear('2022', this)">2022-2025</div>
-    <div class="year-chip" id="chip-2026" onclick="showYear('2026', this)">2025-2026</div>
+  <div class="year-selection-container">
+    <div class="year-nav">
+      <div class="year-chip active" id="chip-2022" onclick="showYear('2022', this)">2022-2025</div>
+      <div class="year-chip" id="chip-2026" onclick="showYear('2026', this)">2025-2026</div>
+    </div>
   </div>
 
   <div id="content-2022" class="year-content active">
-    <h2 class="category-title hdsf-theme">HDSF</h2>
-    <div class="subject-grid"> 
-      <div class="subject-card">
-        <div class="card-header"><h1>Anatomy 🦴</h1></div>
-        <div class="links-container">
-           <span class="mcq-link" onclick="location.href='Anatomy.html'">Theory <span class="badge">129 MCQs</span></span>
-           <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
+    <main class="section-container">
+      <h2 class="category-title hdsf-theme">HDSF</h2>
+      <div class="subject-grid"> 
+        <div class="subject-card">
+          <div class="card-header"><h1>Anatomy 🦴</h1></div>
+          <div class="links-container">
+             <span class="mcq-link" onclick="location.href='Anatomy.html'">Theory <span class="badge">129 MCQs</span></span>
+            <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Microbiology 🦠</h1></div>
+          <div class="links-container">
+             <span class="mcq-link" onclick="location.href='Microbiology.html'">Theory <span class="badge">100 MCQs</span></span>
+             <span class="mcq-link" onclick="location.href='Microbiology labs.html'">Practical <span class="badge">22 Questions</span></span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Physiology 🫀</h1></div>
+          <div class="links-container">
+             <span class="mcq-link" onclick="location.href='Physiology.html'">Theory <span class="badge">147 MCQs</span></span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Genetics 🧬</h1></div>
+          <div class="links-container">
+             <span class="mcq-link" onclick="location.href='Genetics.html'">Theory <span class="badge">56 MCQs</span></span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Molecular biology 🧬</h1></div>
+          <div class="links-container">
+              <span class="mcq-link" onclick="location.href='Molecular biology.html'">Theory <span class="badge">63 MCQs</span></span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Cell biology 🔬</h1></div>
+          <div class="links-container">
+              <span class="mcq-link" onclick="location.href='Cell biology.html'">Theory <span class="badge">63 MCQs</span></span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Histology 🫁</h1></div>
+          <div class="links-container">
+              <span class="mcq-link" onclick="location.href='Histology.html'">Theory <span class="badge">38 MCQs</span></span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Embryology 👶</h1></div>
+          <div class="links-container">
+           <span class="mcq-link" onclick="location.href='Embryology.html'">Theory <span class="badge">25 MCQs</span></span>
+          </div>
+        </div>
+      </div> 
+    </main>
+
+    <main class="section-container">
+      <h2 class="category-title bbb-theme">BBB</h2>
+      <div class="subject-grid">
+        <div class="subject-card">
+          <div class="card-header"><h1>Biochemistry 🧪</h1></div>
+          <div class="links-container">
+            <a class="mcq-link" href="#">Theory <span class="badge">0 MCQs</span></a>
+            <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Biophysics ⚛️</h1></div>
+          <div class="links-container">
+            <a class="mcq-link" href="#">Theory <span class="badge">0 MCQs</span></a>
+            <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="card-header"><h1>Basic emergency care ⚕️</h1></div>
+          <div class="links-container">
+            <a class="mcq-link" href="#">Theory <span class="badge">0 MCQs</span></a>
+            <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
+          </div>
         </div>
       </div>
-      </div>
+    </main>
+    <div class="year-footer-label">2022-2025 Year Exams</div>
   </div>
 
-  <nav class="nav-bar">
-    <a href="#" class="nav-item active">
-      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-      <span>Home</span>
-    </a>
-    <a href="#" class="nav-item">
-      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-      <span>Account</span>
-    </a>
-  </nav>
+  <div id="content-2026" class="year-content">
+    <div class="section-container">
+      <h2 class="category-title hdsf-theme">HDSF</h2>
+      <div class="subject-grid">
+        <div class="subject-card">
+          <div class="card-header"><h1>End-Rotation 🔥</h1></div>
+          <div class="links-container">
+            <span class="mcq-link" onclick="location.href='End-Rotation_HDSF_2025-2026.html'">Theory <span class="badge">20 MCQs</span></span>
+            <span class="mcq-link" onclick="location.href='End-Rotation_HDSF-Practical_2025-2026.html'">Practical <span class="badge">10 Questions</span></span>
+          </div>
+        </div>
+        <div class="subject-card">
+          <div class="card-header"><h1>Final Exam</h1></div>
+          <div class="links-container">
+            <a class="mcq-link" href="#">Theory <span class="badge">0 MCQs</span></a>
+            <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-   <script type="module">
+    <div class="section-container">
+      <h2 class="category-title bbb-theme">BBB</h2>
+      <div class="subject-grid">
+        <div class="subject-card">
+          <div class="card-header"><h1>End-Rotation 🔥</h1></div>
+          <div class="links-container">
+             <span class="mcq-link" onclick="location.href='End-Rotation_BBB_2025-2026.html'">Theory <span class="badge">20 MCQs</span></span>
+             <span class="mcq-link" onclick="location.href='#'">Practical <span class="badge">0 Questions</span></span>
+          </div>
+        </div>
+        <div class="subject-card">
+          <div class="card-header"><h1>Final Exam</h1></div>
+          <div class="links-container">
+            <a class="mcq-link" href="#">Theory <span class="badge">0 MCQs</span></a>
+            <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="year-footer-label">2025-2026 Year Exams</div>
+  </div>
+
+  <footer class="site-footer" onclick="window.open('https://t.me/Shabaz_Rasheed', '_blank')">
+    <span>Developed by <strong>Shabaz Rasheed</strong></span>
+    <svg width="28px" height="28px" viewBox="-2.4 -2.4 28.80 28.80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(3.96,3.96), scale(0.67)"><rect x="-2.4" y="-2.4" width="28.80" height="28.80" rx="14.4" fill="#ffffff"></rect></g>
+      <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12.3583 9.38244C11.3857 9.787 9.44177 10.6243 6.52657 11.8944C6.05318 12.0827 5.8052 12.2669 5.78263 12.4469C5.74448 12.7513 6.12559 12.8711 6.64455 13.0343C8.41773 13.4717 8.74161 13.4787 9.50219 13.0711C12.226 11.2325 13.632 10.3032 13.7202 10.2831C13.7825 10.269 13.8688 10.2512 13.9273 10.3032C13.9858 10.3552 13.98 10.4536 13.9738 10.48C13.9361 10.641 12.4401 12.0318 11.6659 12.7515C11.4246 12.9759 11.2534 13.135 11.2184 13.1714C11.14 13.2528 11.0601 13.3298 10.9833 13.4038C10.509 13.8611 10.1532 14.204 11.003 14.764C12.0641 15.4776 13.2347 16.2631 14.8188 17.0155C15.5022 15.9903 16.6352 8.80081 16.0886 8.02C15.7125 8.0267 15.1354 8.22735 12.3583 9.38244Z" fill="#000000"></path>
+    </svg>
+  </footer>
+
+  <script>
+    function showYear(yearId, element) {
+      document.querySelectorAll('.year-content').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.year-chip').forEach(c => c.classList.remove('active'));
+      document.getElementById('content-' + yearId).classList.add('active');
+      element.classList.add('active');
+      localStorage.setItem('userSelectedYear', yearId);
+    }
+
+    window.onload = function() {
+      const savedYear = localStorage.getItem('userSelectedYear');
+      if (savedYear) {
+        const btn = document.getElementById('chip-' + savedYear);
+        if (btn) showYear(savedYear, btn);
+      }
+    };
+  </script>
+
+  <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // Your specific Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyDK8QW-UOElfgmNbFYslD3krgkpizTuaWg",
       authDomain: "med-test-8a03f.firebaseapp.com",
@@ -227,24 +460,20 @@
     const db = getFirestore(app);
 
     const overlay = document.getElementById('activation-overlay');
-    const input = document.getElementById('activation-code');
     const btn = document.getElementById('activate-btn');
     const status = document.getElementById('status-msg');
 
-    // Check if user is already activated
+    // CHECK IF ALREADY ACTIVATED
     if (localStorage.getItem('medq_active') === 'true') {
       overlay.style.display = 'none';
       document.body.classList.remove('locked');
     }
 
     btn.onclick = async () => {
-      const code = input.value.trim();
-      if (!code) {
-        status.innerText = "Please enter a code.";
-        return;
-      }
+      const code = document.getElementById('activation-code').value.trim();
+      if (!code) return;
 
-      status.innerText = "Verifying...";
+      status.innerText = "Verifying code...";
       status.style.color = "#38bdf8";
 
       try {
@@ -252,10 +481,12 @@
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists() && docSnap.data().isUsed === false) {
-          // Marking the code as used in the database
+          // Mark code as used in Firebase
           await updateDoc(docRef, { isUsed: true });
           
+          // Save to LocalStorage
           localStorage.setItem('medq_active', 'true');
+          
           status.innerText = "Success! Unlocking...";
           status.style.color = "#4ade80";
           
@@ -263,27 +494,15 @@
             overlay.style.display = 'none';
             document.body.classList.remove('locked');
           }, 1000);
-        } else if (docSnap.exists() && docSnap.data().isUsed === true) {
-          status.innerText = "Code already used by someone else.";
-          status.style.color = "#ff4444";
         } else {
-          status.innerText = "Invalid activation code.";
+          status.innerText = docSnap.exists() ? "Code already used." : "Invalid code.";
           status.style.color = "#ff4444";
         }
       } catch (e) {
-        status.innerText = "Error. Check Firebase Rules.";
+        status.innerText = "Error. Check internet or rules.";
         console.error(e);
       }
     };
-  </script>
-
-  <script>
-    function showYear(yearId, element) {
-      document.querySelectorAll('.year-content').forEach(c => c.classList.remove('active'));
-      document.querySelectorAll('.year-chip').forEach(c => c.classList.remove('active'));
-      document.getElementById('content-' + yearId).classList.add('active');
-      element.classList.add('active');
-    }
   </script>
 
 </body>
