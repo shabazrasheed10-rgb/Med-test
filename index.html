@@ -127,6 +127,30 @@
       border: 1px solid var(--border-color);
       gap: 4px;
     }
+    
+        /* Support Link Styles */
+    .contact-support {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    .tg-link {
+      display: block;
+      margin-top: 8px;
+      color: var(--accent-bbb);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .tg-link:hover {
+      text-decoration: underline;
+      filter: brightness(1.2);
+    }
+
 
     .year-chip {
       padding: 8px 16px;
@@ -243,7 +267,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      
       cursor: pointer;
       font-size: 0.8rem;
       color: var(--text-dim);
@@ -254,15 +277,21 @@
 </head>
 <body class="locked">
 
-  <div id="activation-overlay">
+    <div id="activation-overlay">
     <div class="activation-card">
       <h2>Unlock Med-Q</h2>
       <p>Please enter your unique activation code to access the questions.</p>
       <input type="text" id="activation-code" placeholder="Enter Code Here">
       <button id="activate-btn">Activate App</button>
       <p id="status-msg" style="margin-top:15px; min-height:1.2em; font-weight:600;"></p>
+      
+      <div class="contact-support">
+        <span>Don't have a code?</span>
+        <a href="https://t.me/Med_Q2" target="_blank" class="tg-link">Contact me to activate</a>
+      </div>
     </div>
   </div>
+
 
   <header class="main-header">
     <div class="header-info">
@@ -401,7 +430,7 @@
           <div class="card-header"><h1>End-Rotation 🔥</h1></div>
           <div class="links-container">
              <span class="mcq-link" onclick="location.href='End-Rotation_BBB_2025-2026.html'">Theory <span class="badge">20 MCQs</span></span>
-             <span class="mcq-link" onclick="location.href='End-rotation_Practical_BBB.html'">Practical <span class="badge">10 Questions</span></span>
+             <span class="mcq-link" onclick="location.href='#'">Practical <span class="badge">0 Questions</span></span>
           </div>
         </div>
         <div class="subject-card">
