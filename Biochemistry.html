@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All questions_Biochemistry_2021-2025</title>
+
+    <style>
+        :root {
+            /* Light Mode */
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #f1f8e9;
+            --ans-text: #2e7d32;
+            --filter-bg: #f8f9fa;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode */
+            --bg-body: #0c0d0e;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #334155;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --filter-bg: #161a1d;
+        }
+
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+      
+
+        .container {
+    width: 100%;
+    max-width: 1150px;
+    padding: 20px;
+    box-sizing: border-box;   /* 🔥 THIS fixes everything */
+}
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-container {
+    background-color: var(--filter-bg);
+    padding: 8px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
+
+    display: flex;
+    gap: 8px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+
+    max-width: 100%;
+    box-sizing: border-box;
+
+    -webkit-overflow-scrolling: touch;
+}
+      
+
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+    white-space: nowrap;
+        }
+        
+  
+
+        .filter-btn.active {
+            background-color: #729fcf;
+            color: white;
+            border-color: #729fcf;
+        }
+
+        .divider { border: none; border-top: 1px solid var(--border-color); margin-bottom: 25px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+        .ans-row { display: flex; justify-content: space-between; align-items: center; }
+        .ans-text { font-weight: 700; color: var(--ans-text); visibility: hidden; background-color: var(--ans-bg); padding: 6px 12px; border-radius: 4px; }
+        .q-block.revealed .ans-text { visibility: visible; }
+        .ans-btn { background-color: #729fcf; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+
+        mark { background-color: #f0cf6a; color: #000; }
+        a { color: inherit; text-decoration: none; }
+
+        @media (max-width: 600px) { .header { flex-direction: column; gap: 12px; } }
+    </style>
+</head>
+
+<body oncontextmenu="return false;"> 
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">Final & End-Rotation</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">BBB-Biochemistry 🧪 • 2021-2025</p>
+        </div>
+        
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+    </div>
+   
+
+    <div class="filter-container" id="filter-bar">
+        <button class="filter-btn active" onclick="filterBySubject('All', this)">All</button>
+        <button class="filter-btn" onclick="filterBySubject('21', this)">2020-2021</button>
+        <button class="filter-btn" onclick="filterBySubject('22', this)">2021-2022</button>
+        <button class="filter-btn" onclick="filterBySubject('22S', this)">2021-2022 Second Trial</button>
+        <button class="filter-btn" onclick="filterBySubject('23', this)">2022-2023</button>
+        <button class="filter-btn" onclick="filterBySubject('24', this)">2023-2024</button>
+        <button class="filter-btn" onclick="filterBySubject('25', this)">2024-2025 </button>
+        
+    
+    </div>
+   
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+
+
+
+<script>
+function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    const isDark = body.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+        body.removeAttribute('data-theme');
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    } else {
+        body.setAttribute('data-theme', 'dark');
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    }
+}
+
+const data = [
+      { n: 1, s: "21", q: "Dimeric amino acid:", o: ["A. Homocysteine", "B. Arginine", "C. Asparagine", "D. Cystine", "E. Citrulline"], a: "D" },
+  { n: 2, s: "21", q: "Which of the following is a start codon?", o: ["A. UAG", "B. AUG", "C. GUA", "D. UGA", "E. UAA"], a: "B" },
+  { n: 3, s: "21", q: "The end product of the lipid peroxidation is:", o: ["A. Isoprostane", "B. Hydrogen peroxide", "C. Formaldehyde", "D. Superoxide", "E. Malondialdehyde"], a: "E" },
+  { n: 4, s: "21", q: "Which of the following is a single polypeptide chain?", o: ["A. Hemoglobin", "B. Insulin", "C. Myoglobin", "D. Collagen", "E. Immunoglobulin G"], a: "C" },
+  
+   { n: 5, s: "21", q: "About cell transport, Which one is correct?", o: ["A. Isotonic, solute equal to outside", "B. Hypertonic, solute higher than solute inside the cell", "C. Hypotonic, solute higher than outside", "D. Passive, solute moves against gradient", "E. Diffusion, requires ATP energy"], a: "B" },
+   
+ 
+  { n: 6, s: "21", q: "Triterpene fatty acid and cholesterol precursor:", o: ["A. Lanosterol", "B. Mevalonate", "C. Isopentenyl pyrophosphate", "D. Squalene", "E. Farnesyl pyrophosphate"], a: "D" },
+  { n: 7, s: "21", q: "Melatonin is a hormone that is derivative of:", o: ["A. Tyrosine", "B. Phenylalanine", "C. Tryptophan", "D. Histidine", "E. Serine"], a: "C" },
+  { n: 8, s: "21", q: "Which one is monounsaturated fatty acid", o: ["A. Stearic acid", "B. Palmitoleic acid", "C. Linoleic acid", "D. Arachidonic acid", "E. Myristic acid"], a: "B" },
+  { n: 9, s: "21", q: "One of the following isn’t contributing the secretion", o: ["A. Goblet cells", "B. Plasma cells", "C. Fibroblasts", "D. Parietal cells", "E. Iron transporting cells"], a: "E" },
+  { n: 10, s: "21", q: "Linolenic acid?", o: ["A. [18:1 ∆9]", "B. [18:2 ∆9.12]", "C. [20:4 ∆5.8.11.14]", "D. [18:3 ∆9.12.15]", "E. [18:3 ∆6.9.12]"], a: "D" },
+  { n: 11, s: "21", q: "Which is responsible for osmotic pressure", o: ["A. Globulin", "B. Albumin", "C. Fibrinogen", "D. Transferrin", "E. Hemoglobin"], a: "B" },
+  { n: 12, s: "21", q: "Detoxification......=?", o: ["A. Magnesium", "B. Potassium", "C. Lithium", "D. Sodium", "E. Calcium"], a: "C" },
+  { n: 13, s: "21", q: "CAMP:", o: ["A. Phosphodiesterase from AMP", "B. Adenylate kinase from ADP", "C. Guanylyl cyclase from GTP", "D. Protein kinase A from ATP", "E. Adenylyl cyclase from ATP"], a: "E" },
+  { n: 14, s: "21", q: "Which of the following about cell transport is correct?", o: ["A. Cholesterol pumps outside the cell", "B. Peripheral proteins without channels", "C. Lipid-only transport through pores", "D. Protein channels embedded in the cell membrane", "E. Rigid carbohydrate tunnels"], a: "D" },
+   { n: 15, s: "21", q: "Non polar essential amino acid which contains (S) group.......", o: ["A. Methionine", "B. Homocysteine", "C. Threonine", "D. Cysteine", "E. Valine"], a: "A" },
+     { n: 16, s: "21", q: "Which type of collagen contribute in bleeding?", o: ["A. Type 1 collagen", "B. Type 2 collagen", "C. Type 4 collagen", "D. Type 10 collagen", "E. Type 3 collagen"], a: "E" },
+ 
+
+  { n: 17, s: "21", q: "Cell transport-Which one is correct?", o: ["A. Plasmolysis is the swelling of protoplasm", "B. Cytolysis is the shrinking of protoplasm", "C. Turgor is the bursting of the cell", "D. Hemolysis is the shrinking of plant cells", "E. Plasmolysis is the shrinking of protoplasm"], a: "E" },
+  { n: 18, s: "21", q: "Which of the following is correct about DNA?", o: ["A. B form is usually found in physiological conditions", "B. A form is the most common form in cells", "C. Z form is a right-handed double helix", "D. DNA strands are parallel in direction", "E. Uracil replaces thymine in B-DNA"], a: "A" },
+  { n: 19, s: "21", q: "Only one amino acid in human amino acids don’t have L and D forms, because its C group not in central, its:", o: ["A. Alanine", "B. Proline", "C. Leucine", "D. Glycine", "E. Valine"], a: "D" },
+  { n: 20, s: "21", q: "Carbohydrate –Which one is correct?", o: ["A. Fructose absorbs by active transport", "B. Glucose and galactose absorb by active transport", "C. Pentoses absorb by active transport", "D. All monosaccharides absorb by simple diffusion", "E. Disaccharides absorb directly into the blood"], a: "B" },
+  { n: 21, s: "21", q: "Almost all fats in the diet are absorbed into the:", o: ["A. Hepatic portal vein", "B. Renal circulation", "C. Intestinal lymph", "D. Splenic vein", "E. Pulmonary artery"], a: "C" },
+
+  
+    { n: 22, s: "21", q: "Cell transport –Which one is correct?", o: ["A. Simple diffusion is active transport", "B. Osmosis is active transport", "C. Endocytosis is active transport", "D. Facilitated diffusion is active transport", "E. Exocytosis is passive transport"], a: "C" },
+  { n: 23, s: "21", q: "Which one correct about mRNA?", o: ["A. The other end of mRNAs has attached a polymer of adenylate residues 20-250 nucleotides in length", "B. The 5' end has a poly-A tail", "C. Introns are the only parts translated", "D. MRNA contains deoxyribose sugar", "E. MRNA is a circular molecule in humans"], a: "A" },
+  
+      { n: 24, s: "22", q: "Which of the following statements correctly describes the process of reduction:", o: ["A. Gain of oxygen", "B. Loss in hydrogen", "C. Loss of electron", "D. Gain of hydrogen", "E. None of the answer"], a: "D" },
+  { n: 25, s: "22", q: "Which of the following statements regarding free radicals is false:", o: ["A. Any species capable of independent existent that contains unpaired electrons in an outer orbital", "B. Free radicals carry a single, unpaired electron", "C. A free radical can interact with a molecule to generate a new free radical species", "D. Free radicals do not occur naturally in the body", "E. Free radicals are produced as the result of homolytic cleavage of a covalent bond"], a: "D" },
+  { n: 26, s: "22", q: "Which of the following statements regarding Reactive Oxygen Species false:", o: ["A. Hydrogen peroxide (H2O2)( non radical species )", "B. Lipid peroxide radical (peroxyl) (ROO˙ )", "C. Singlet oxygen (O2) )( radical species )", "D. Nitric oxide (NO˙)", "E. Peroxy nitrite (NO3˙)"], a: "C" },
+  { n: 27, s: "22", q: "Following statement is correct:", o: ["A. Arterial oxygen partial pressure (PaO2) is 80 to 100 .", "B. Venous oxygen partial pressures (PaO2) is 40 to 50 .", "C. WBCs releases free radicals to destroy invading pathogenic microbes as part of the body’s defense mechanism", "D. Fee Radicals can be formed by The breakage of covalent bond homolysis", "E. All the answers are correct"], a: "E" },
+  { n: 28, s: "22", q: "Exogenous sources of free radicals are the following:", o: ["A. Mitochondrial respiratory chain", "B. Oxygen burst during phagocytosis", "C. Eicosanoid biosynthesis", "D. Xenobiotic metabolism", "E. None of the answers"], a: "E" },
+  { n: 29, s: "22", q: "Recommended daily (Se) intake (RDI) is:", o: ["A. 15 mcg/day", "B. 25 mcg/day", "C. 35 mcg/day", "D. 45 mcg/day", "E. 55 mcg/day"], a: "E" },
+  { n: 30, s: "22", q: "Most susceptible amino acid (s) for oxidation is:", o: ["A. Tyrosine", "B. Histidine", "C. Cysteine", "D. Methionine", "E. All of them are correct"], a: "E" },
+  { n: 31, s: "22", q: "Modified oxidized proteins are susceptible to many changes in their functions: This include:", o: ["A. Chemical fragmentation", "B. Inactivation and", "C. Increased proteolytic degradation", "D. Loss of activity", "E. All the answers are correct"], a: "E" },
+  { n: 32, s: "22", q: "The Following statement regarding free radicals is true:", o: ["A. They inhibit the conversion of nitrites to carcinogenic nitrosamines", "B. Remove free radicals from the epidermis of the skin and counteract their potentially damaging effect.", "C. They terminate free radical- induced cellular damage and functional degeneration (aging).", "D. They trap and neutralize free radicals and protect our body tissues from environmental pollutants", "E. All the answers are true"], a: "E" },
+  { n: 33, s: "22", q: "SOD:", o: ["A. May inhibits the initial production of free radicals", "B. Is Preventive antioxidant", "C. Can inhibit the propagation phase or correction mechanism of destroyed bio molecules by Preventing the initiation of chain reaction by removing free radicals substrate", "D. Scavenge free radicals generated in chain reactions", "E. None of the answers are correct"], a: "D" },
+  { 
+  n: 34, 
+  s: "22", 
+  q: "DNA building blocks are:", 
+  o: [
+    "A. ATP, GTP, CTP, and TTP",
+    "B. dAMP, dGMP, dCMP, and dTMP",
+    "C. dATP, dGTP, dCTP, and dTTP",
+    "D. dATP, dGTP, dCTP, and UTP",
+    "E. AMP, GMP, CMP, and TMP"
+  ], 
+  a: "C" 
+},
+  { n: 35, s: "22", q: "A recognition site for aminoacyl-tRNA synthetase is:", o: ["A. D -loop", "B. T- loop", "C. T -arm", "D. L- loop", "E. L -arm"], a: "A" },
+  { n: 36, s: "22", q: "RNA polymerase II::", o: ["A. Transcribes genes encoding messenger RNA and certain small nuclear RNAs and microRNA", "B. Transcribes genes encoding messenger RNA", "C. Transcribes genes encoding small nuclear RNA", "D. Transcribes genes encoding microRNA", "E. All the answers are true"], a: "E" },
+  { n: 37, s: "22", q: "During transcription process. RNA chain:", o: ["A. Is synthesised in a 5’ to 3’ direction", "B. New RNA sequence is complementary to the template strand", "C. Is identical to the coding strand", "D. But don’t forget: U instead of T", "E. All the answers are true"], a: "E" },
+  { n: 38, s: "22", q: "Spliceosomes consist of:", o: ["A. Proteins and tRNAs", "B. Proteins and rRNAs", "C. Proteins and spRNAs", "D. Proteins and mRNAs", "E. Proteins and small RNAs"], a: "E" },
+  { n: 39, s: "22", q: "A start codon is:", o: ["A. AUG", "B. ATU", "C. CGC", "D. AGG", "E. ACG"], a: "A" },
+  { n: 40, s: "22", q: "The mutation causing sickle cell anemia is a single nucleotide substitution:", o: ["A. A to T", "B. T to A", "C. A to G", "D. A to C", "E. T to C"], a: "A" },
+  { n: 41, s: "22", q: "A TATA box:", o: ["A. Is a DNA sequence that indicates where a genetic sequence can be read", "B. Is a DNA sequence that indicates where a genetic sequence can be decoded", "C. It is a type of promoter sequence, which specifies to other molecules where transcription begins", "D. Box is present about 25 nucleotides before the transcriptional start (-25)", "E. All the answers are right"], a: "E" },
+  { n: 42, s: "22", q: "Glutathione peroxidase:", o: ["A. Is chain breaking antioxidants", "B. Can inhibit the propagation phase or correction mechanism of destroyed bio molecules", "C. They may inhibit the initial production of free radicals", "D. Preventing the initiation of chain reaction by removing free radicals substrate", "E. Scavenge free radicals generated in oxidation reduction reactions"], a: "D" },
+  { n: 43, s: "22", q: "Glutathione peroxidase:", o: ["A. Is endogenous molecules", "B. Act at the source (where free radicals are created)", "C. Are enzymes which continuously eliminate the free radicals just formed:", "D. Catalyze the reduction of lipid hydroperoxides to their corresponding alcohols", "E. All the answers are correct"], a: "E" },
+  { n: 44, s: "22", q: "………………………. eliminates, in a continuous way, superoxide radicals, & converting to other less toxic free radical:", o: ["A. SOD", "B. VItamn C", "C. Vitamn E", "D. Glutathione peroxidase", "E. Glutathione oxidase"], a: "A" },
+  { n: 45, s: "22", q: "……………..Weak antioxidant:", o: ["A. Vitamin C", "B. Vitamin B", "C. Viatmin A", "D. Vitamin E", "E. Vitamin D"], a: "E" },
+  { n: 46, s: "22", q: "The Basic minerals Needed for Liver Detoxification:", o: ["A. Magnesium", "B. Zinc", "C. Selenium", "D. Manganese", "E. All the answers are correct"], a: "E" },
+  { n: 47, s: "22", q: "Monooxygenases:", o: ["A. Represents a family of isozymes responsible for biotransformation of many drugs via reduction", "B. Enzymes are heme-containing protein", "C. Are membrane proteins,", "D. Are enzymes that incorporate one OH group into substrates in many metabolic pathways", "E. Enzymes are non heme-containing membrane proteins, which are located in the smooth endoplasmic reticulum of several tissues"], a: "D" },
+  { n: 48, s: "22", q: "……………………. Is a neutralized form of an antibiotic used against serious infections such as typhoid fever:", o: ["A. Arylamin metabolites", "B. Chloramphenicol metabolites", "C. Phenobarbital", "D. Phenobarbitone", "E. Asprine"], a: "B" },
+  { n: 49, s: "22", q: "A xenobiotic like :", o: ["A. Bilirubin", "B. Ornithine", "C. Cholesterol", "D. Pesticides", "E. Cysteine"], a: "D" },
+  { n: 50, s: "22", q: "Is not foreign substances but have effects similar to exogenous xenobiotics :", o: ["A. Pesticides", "B. Bilirubin", "C. Estrogen", "D. Ornithine", "E. Cysteine"], a: "B" },
+  { n: 51, s: "22", q: "The basic nutrients needed for liver detoxification :", o: ["A. Magnesium", "B. Zinc", "C. Selenium", "D. Manganese", "E. Cysteine"], a: "E" },
+  { n: 52, s: "22", q: "Adds or subtracts electrons to put an electrical charge on toxins is know as :", o: ["A. Hydration", "B. Conjugation", "C. Biotransformation", "D. Hydroxylation", "E. Oxidation"], a: "C" },
+  { n: 53, s: "22", q: "The major pathway for cholesterol and endogenous estrogens detoxification :", o: ["A. Hydroxylation", "B. Hydration", "C. Methylation", "D. Acetylation", "E. Sulfation"], a: "A" },
+  { n: 54, s: "22", q: "Nitric oxide prevents platelet aggregation by increasing synthesis of :", o: ["A. C-AMP", "B. ATP", "C. GTP", "D. C-GMP", "E. ADP"], a: "D" },
+  { n: 55, s: "22", q: "Is a free radical scavenger and it is considered to be one of the most important AOs in extra cellular fluids :", o: ["A. Vitamin E", "B. Vitamin C", "C. Vitamin A", "D. Vitamin D", "E. Vitamin K"], a: "B" },
+  { n: 56, s: "22", q: "Recommended daily vitamin A is :", o: ["A. 15 mcg/day", "B. 35 mcg/day", "C. 55 mcg/day", "D. 75 mcg/day", "E. 95 mcg/day"], a: "C" },
+  { n: 57, s: "22", q: "Venous blood O2 partial pressure is :", o: ["A. 10-20", "B. 25-35", "C. 80-100", "D. 60-80", "E. 40-50"], a: "E" },
+  { n: 58, s: "22", q: "Its toxicity may results in vitamin B12 destruction :", o: ["A. Vitamin C", "B. Vitamin E", "C. Vitamin D", "D. Vitamin A", "E. Vitamin K"], a: "A" },
+  
+  { n: 59, s: "22", q: "Not found in prokaryotes:", o: ["A. tRNA", "B. snRNA", "C. Exons", "D. Introns", "E. Glutamine"], a: "B" },
+  { n: 60, s: "22", q: "Are Coding regions:", o: ["A. tRNA", "B. snRNA", "C. Glutamine", "D. Introns", "E. Exons"], a: "E" },
+  { n: 61, s: "22", q: "A stop codon is:", o: ["A. UAA", "B. UGG", "C. UUG", "D. UUA", "E. AAU"], a: "A" },
+  { n: 62, s: "22", q: "Point mutation in sickle cell hemoglobin is: ", o: ["A. Glutamine", "B. Methionine", "C. Valine", "D. Tyrosine", "E. Leucine"], a: "C" },
+  { n: 63, s: "22", q: "A correct match between a tRNA and an amino acid, done by the enzyme known as:", o: ["A. Aminoacyl-rRNA synthase", "B. Aminoacyl-mRNA synthetase", "C. Aminoacyl-tRNA synthase", "D. Aminoacyl-tRNA synthetase", "E. Aminoacyl-mRNA synthase"], a: "D" },
+  
+ 
+ { n: 64, s: "22", q: "Reducing agent:", o: ["A. Loss of Hydrogen", "B. Gain of Oxygen", "C. Loss of Electrons", "D. Gain of Hydrogen", "E. Increase in Oxidation State"], a: "A" },
+ { n: 65, s: "22", q: "Which of the following statements regarding free radicals is false?", o: ["A. Free radicals carry paired electrons in an outer orbital", "B. They are highly reactive chemical species", "C. They can be formed by homolytic cleavage of a bond", "D. They seek to reach a stable state by stealing electrons", "E. They can initiate chain reactions in lipid membranes"], a: "A" },
+ { n: 66, s: "22", q: "Which of the following statements regarding Reactive Oxygen Species is false?", o: ["A. Superoxide anion is a primary ROS", "B. ROS can cause damage to DNA and proteins", "C. Hydroxyl radical is the most reactive ROS", "D. ROS are only produced by exogenous sources", "E. Hydrogen peroxide (H2O2)(radical species )"], a: "E" },
+ { n: 67, s: "22", q: "A recognition site for aminoacyl-tRNA synthetase is:", o: ["A. T-loop", "B. D loop", "C. Variable loop", "D. Anticodon stem", "E. Acceptor arm base pairs"], a: "B" },
+ { n: 68, s: "22", q: "Which of the following regarding regarding Nucleic acids is true?", o: ["A. DNA contains uracil instead of thymine", "B. RNA is typically double-stranded in human cells", "C. Nucleosides contain a phosphate group", "D. The phosphate group joins the 3rd Carbon of one sugar to the 5th Carbon of the next in line", "E. Adenine pairs with Cytosine via three hydrogen bonds"], a: "D" },
+ { n: 69, s: "22", q: "A start codon is:", o: ["A. UAA", "B. UGA", "C. AUG", "D. UAG", "C. GUG"], a: "C" },
+ { n: 70, s: "22", q: "Spliceosomes consist of:", o: ["A. DNA and histone proteins", "B. Proteins and small RNAs", "C. Large ribosomal subunits only", "D. Messenger RNA and tRNA", "E. Introns and exonuclease enzymes"], a: "B" },
+ { n: 71, s: "22", q: "The non-Basic minerals Needed for Liver Detoxification:", o: ["A. Magnesium", "B. Calcium", "C. Zinc", "D. Copper", "E. Vanadium"], a: "E" },
+ { n: 72, s: "22", q: "Its Toxicity may results in vitamin B12 Destruction:", o: ["A. Vitamin A", "B. Vitamin E", "C. Vitamin K", "D. Vitamin C", "E. Vitamin D"], a: "D" },
+ { n: 73, s: "22", q: "One of The following statements is false:", o: ["A. The liver is the primary site of detoxification", "B. Cytochrome P450 enzymes are involved in Phase I", "C. We consume approximately 3.5 kg of O2 every week", "D. Phase II reactions involve conjugation", "E. Glutathione is a major cellular antioxidant"], a: "C" },
+ { n: 74, s: "22", q: "A useful biomarker of oxidative protein damage:", o: ["A. 3-Nitrotyrosine", "B. Malondialdehyde", "C. 8-Oxo-2'-deoxyguanosine", "D. Conjugated dienes", "E. Creatinine levels"], a: "A" },
+ { n: 75, s: "22", q: "Antioxidant is:", o: ["A. A Substances that are able to activate neutralize molecules", "B. Preventing the pro-reduction process", "C. Reactive oxygen species", "D. Not important for maintaining vital cellular and biological functions", "E. None"], a: "A" },
+ { n: 76, s: "22", q: "Preventive antioxidants:", o: ["A. Alpha-tocopherol", "B. Beta-carotene", "C. Uric acid", "D. Bilirubin", "E. Glutathione"], a: "E" },
+ { n: 77, s: "22", q: "Which of the following is wrong regarding DNA Nucleotide:", o: ["A. Contains a Deoxyribose sugar", "B. Contains a phosphate group", "C. Organic Nitrogen Base (A/G/U/T)", "D. Formed via phosphodiester bonds", "E. Nitrogenous bases are attached to C1 of the sugar"], a: "C" },
+ { n: 78, s: "22", q: "During termination, Factor independent requires:", o: ["A. Rho protein factor", "B. Sigma factor", "C. RNA polymerase I", "D. RNA polymerase ⅠⅠⅠ", "E. Poly-A polymerase"], a: "D" },
+ { n: 79, s: "22", q: "………… is considered to be one of the most important antioxidant in extra cellular fluids:", o: ["A. Superoxide dismutase", "B. Ascorbic acid", "C. Catalase", "D. Glutathione peroxidase", "E. Melatonin"], a: "B" },
+ { n: 80, s: "22", q: "Biotransformation reactions during detoxication process are catalysed by all of them except:", o: ["A. Monooxygenase", "B. Deaminases", "C. Esterases", "D. Epoxide hydrolases", "E. Terminase"], a: "E" },
+ { n: 81, s: "22", q: "………. is a medication recommended by the World Health Organization for the treatment of certain types of Epilepsy:", o: ["A. Diazepam", "B. Valproate", "C. Carbamazepine", "D. Ethosuximide", "E. Phenobarbital"], a: "E" },
+ { n: 82, s: "22", q: "Precursor of adrenaline:", o: ["A. Dopamine", "B. Serotonin", "C. Tryptophan", "D. Acetylcholine", "E. Glutamate"], a: "A" },
+ { n: 83, s: "22", q: "Symptoms of poor detox?", o: ["A. Moodiness", "B. Irritability", "C. Depression", "D. Anxiety", "E. All of them"], a: "E" },
+ 
+ 
+ { n: 84, s: "22", q: "An example of dimeric molecule:", o: ["A. Glycine", "B. Cystine", "C. Cysteine", "D. Methionine", "E. Proline"], a: "B" },
+ { n: 85, s: "22", q: "Arachidonic acid considered as essential or conditionally essential fatty acid because:", o: ["A. It is a saturated fatty acid", "B. It contains double bond at Δ9,12", "C. It contain double bond at Δ11,14", "D. It has 16 carbon atoms", "E. It is synthesized from cholesterol"], a: "C" },
+ { n: 86, s: "22", q: "An ether phospholipids present in heart tissue:", o: ["A. Phosphatidylcholine", "B. Sphingomyelin", "C. Phosphatidylserine", "D. Cardiolipin", "E. Plasmalogens"], a: "E" },
+ { n: 87, s: "22", q: "Glutathione is an example of:", o: ["A. Tripeptide molecule", "B. Dipeptide molecule", "C. Polypeptide hormone", "D. Monosaccharide derivative", "E. Nucleotide coenzyme"], a: "A" },
+ { n: 88, s: "22", q: "Squalene is an example of:", o: ["A. Monoterpene", "B. Diterpene", "C. Tetraterpene", "D. Triterpene", "E. Sesquiterpene"], a: "D" },
+ { n: 89, s: "22", q: "An example of non proteinic amino acid that contain benzene ring is:", o: ["A. Tyrosine", "B. Phenylalanine", "C. Dopa", "D. Tryptophan", "E. Histidine"], a: "C" },
+ { n: 90, s: "22", q: "Protein is denatured by:", o: ["A. Strong acids", "B. All above", "C. Strong bases", "D. Organic solvents", "E. Heat"], a: "B" },
+ { n: 91, s: "22", q: "Linoleic acid can be represented as:", o: ["A. [18:1Δ9]", "B. [18:3Δ9,12,15]", "C. [20:4Δ5,8,11,14]", "D. [16:0]", "E. [18:2Δ9,12]"], a: "E" },
+ { n: 92, s: "22", q: "Rancidity of fat that caused by oxidation of unsaturated fatty acyl residues produce:", o: ["A. Glycerol", "B. Saturated alkanes", "C. Polysaccharides", "D. Aldehyde", "E. Amino acids"], a: "D" },
+ { n: 93, s: "22", q: "Weak triple helix and fragile Blood vessels is bcus of deficiency in:", o: ["A. Vitamin A", "B. Vitamin D", "C. Vitamin C", "D. Vitamin K", "E. Vitamin E"], a: "C" },
+ { n: 94, s: "22", q: "O-Xylene is:", o: ["A. 1,2-dimethyl benzene", "B. 1,3-dimethyl benzene", "C. 1,4-dimethyl benzene", "D. Ethyl benzene", "E. Methyl benzene"], a: "A" },
+ { n: 95, s: "22", q: "Aspirin is:", o: ["A. Methyl salicylate", "B. Acetyl salicylic acid", "C. Sodium salicylate", "D. Phenyl salicylate", "E. Benzoic acid"], a: "B" },
+ { n: 96, s: "22", q: "Dehydration of alcohols produces corresponding:", o: ["A. Ethers", "B. Aldehydes", "C. Ketones", "D. Carboxylic acids", "E. Alkenes"], a: "E" },
+ { n: 97, s: "22", q: "Phenol regard as:", o: ["A. Strong base", "B. Weak base", "C. Weak acid", "D. Strong acid", "E. Neutral compound"], a: "C" },
+ { n: 98, s: "22", q: "Benzophenone is:", o: ["A. Aliphatic ketone", "B. Aromatic aldehyde", "C. Aliphatic aldehyde", "D. Aromatic ketone", "E. Cyclic ether"], a: "D" },
+ { n: 99, s: "22", q: "Which of the following is correct:", o: ["A. DNA is insoluble in water", "B. DNA absorbs UV light", "C. DNA is a single-stranded protein", "D. DNA contains ribose sugar", "E. DNA lacks a phosphate backbone"], a: "B" },
+ { n: 100, s: "22", q: "Preparation of primary amides by:", o: ["A. Alcohol + ammonia", "B. Ketone + ammonia", "C. Carboxylic acid + ammonia", "D. Ether + ammonia", "E. Alkane + ammonia"], a: "C" },
+ { n: 101, s: "22", q: "If the solution around cell is hypotonic, the cell become:", o: ["A. Shrinked", "B. Plasmolyzed", "C. Neutral", "D. Crenated", "E. Swelling"], a: "E" },
+ { n: 102, s: "22", q: "Acid buffers are solutions of:", o: ["A. Weak acid and its salt", "B. Strong acid and its salt", "C. Weak base and its salt", "D. Strong base and its salt", "E. Neutral salt and water"], a: "A" },
+ { n: 103, s: "22", q: "Cause of metabolic acidosis:", o: ["A. Hyperventilation", "B. Vomiting", "C. Hypokalemia", "D. Diabetes", "E. Excessive antacid intake"], a: "D" },
+ 
+ 
+ { n: 104, s: "22", q: "Cause of metabolic alkalosis:", o: ["A. Diarrhea", "B. Starvation", "C. Vomiting", "D. Renal failure", "E. Excessive exercise"], a: "C" },
+ { n: 105, s: "22", q: "Cause of respiratory acidosis:", o: ["A. Hyperventilation", "B. Emphysema", "C. High altitude", "D. Anxiety", "E. Salicylate overdose"], a: "B" },
+ { n: 106, s: "22", q: "What percent of ICF makes body weight:", o: ["A. 5%", "B. 15%", "C. 20%", "D. 60%", "E. 40%"], a: "E" },
+ { n: 107, s: "22", q: "What percent of ECF makes vbdy weight:", o: ["A. 40%", "B. 10%", "C. 50%", "D. 20%", "E. 5%"], a: "D" },
+ { n: 108, s: "22", q: "1M glucose:", o: ["A. 1 Omsole glucose", "B. 2 Omsole glucose", "C. 0.5 Omsole glucose", "D. 180 Omsole glucose", "E. 0.1 Omsole glucose"], a: "A" },
+ { n: 109, s: "22", q: "180mg/dl glucose is equal to:", o: ["A. 5 mmol/L", "B. 100 mmol/L", "C. 10 mmol/L", "D. 18 mmol/L", "E. 1 mmol/L"], a: "C" },
+ { n: 110, s: "22", q: "Hyponatremia is caused by:", o: ["A. Cushing's syndrome", "B. Addison’s disease", "C. Diabetes insipidus", "D. Excessive salt intake", "E. Dehydration"], a: "B" },
+ { n: 111, s: "22", q: "Starch and glycogen differ in:", o: ["A. Type of glycosidic bond", "B. Monosaccharide unit", "C. Solubility in water", "D. Molecular weight", "E. Source"], a: "E" },
+ { n: 112, s: "22", q: "Keep the fluidity of cell membrane:", o: ["A. Peripheral proteins", "B. Glycolipids", "C. Phosphate groups", "D. Cholesterol", "E. Integral proteins"], a: "D" },
+ { n: 113, s: "22", q: "Decrease blood sugar level:", o: ["A. Gluconeogenesis", "B. Glycogenolysis", "C. Glycolysis", "D. Lipolysis", "E. Ketogenesis"], a: "C" },
+ { n: 114, s: "22", q: "Carbohydrates with a low GI value (55 or less):", o: ["A. Rapidly digested", "B. Slowly metablized", "C. Cause insulin spikes", "D. Simple sugars", "E. Highly refined"], a: "B" },
+ { n: 115, s: "22", q: "Oligosacharide:", o: ["A. Is found in milk and legumes", "B. Contains only glucose", "C. Is highly branched like glycogen", "D. Is the main structural component of wood", "E. Consists of more than 100 monomers"], a: "A" },
+ { n: 116, s: "22", q: "Which one is true about phospholipids?", o: ["A. They are entirely hydrophobic", "B. They form a single layer in membranes", "C. The heads point towards the interior of the membrane", "D. They contain three fatty acids", "E. The tails point towards the interior of the cell membrane"], a: "E" },
+ 
+ { n: 117, s: "22", q: "True about cAMP?", o: ["A. It is a secondary protein structure", "B. It is synthesized by phosphodiesterase", "C. It acts as a primary messenger", "D. Is formed from ATP by the reaction catalyzed by adenylyl cyclase", "E. It is a storage form of energy"], a: "D" },
+ { n: 118, s: "22", q: "The final digestive processes includes the action of:", o: ["A. Salivary amylase", "B. Pepsin", "C. Disaccharidase", "D. Pancreatic lipase", "E. Trypsin"], a: "C" },
+ { n: 119, s: "22", q: "Glucose is transported into the mucosal cells by:", o: ["A. GLUT-4", "B. (SGLT-1)", "C. GLUT-2", "D. Simple diffusion", "E. Osmosis"], a: "B" },
+ { n: 120, s: "22", q: "In Type I Diabetes:", o: ["A. Insulin resistance is high", "B. Obesity is the primary cause", "C. Occurs mostly in elderly", "D. Oral hypoglycemics are the first choice", "E. Insulin is low or absent"], a: "E" },
+ { n: 121, s: "22", q: "Hexose ketose:", o: ["A. Glucose", "B. Galactose", "C. Ribose", "D. Fructose", "E. Mannose"], a: "D" },
+ { n: 122, s: "22", q: "Milk intolerance?", o: ["A. Lactase deficiency", "B. Sucrase deficiency", "C. Maltase deficiency", "D. Protease deficiency", "E. Amylase deficiency"], a: "A" },
+ { n: 123, s: "22", q: "Which of these molecules doesn´t need transport proteins:", o: ["A. Glucose", "B. Sodium ions", "C. CO2", "D. Amino acids", "E. Calcium ions"], a: "C" },
+ { n: 124, s: "22", q: "Main sugar of milk:", o: ["A. Sucrose", "B. Lactose", "C. Maltose", "D. Fructose", "E. Galactose"], a: "B" },
+ { n: 125, s: "22", q: "Carbohydrates are:", o: ["A. Polymers of amino acids", "B. Esters of fatty acids", "C. Inorganic molecules", "D. Hydrocarbons with nitrogen", "E. Aldehydes or ketones with multiple hydroxyl groups"], a: "E" },
+ { n: 126, s: "22", q: "Which of the following is wrong regarding antioxidants:", o: ["A. They neutralize free radicals", "B. They prevent oxidative stress", "C. They can be enzymatic or non-enzymatic", "D. Looking for electrons from other sources to stabilize themselves", "E. They protect cell membranes"], a: "D" },
+ { n: 127, s: "22", q: "What of the following is transported by lymph?", o: ["A. Red blood cells", "B. Carbon dioxide", "C. Oxygen", "D. Protein", "E. Platelets"], a: "D" },
+ { n: 128, s: "22S", q: "Uncommon amino acid which is a constituent of myosin contractile protein of muscle is:", o: ["A. 3-Methylhistidine", "B. 4-Hydroxyproline", "C. 5-Hydroxylysine", "D. 6-N-Methyllysine", "E. Desmosine"], a: "D" },
+ { n: 129, s: "22S", q: "One of the eicosanoids that its production is not inhibited by NSAID (Aspirin):", o: ["A. Prostaglandin E2", "B. Leukotriene", "C. Thromboxane A2", "D. Prostacyclin", "E. Prostaglandin F2α"], a: "B" },
+ { n: 130, s: "22S", q: "An example of diterpene is:", o: ["A. Squalene", "B. Menthol", "C. Geraniol", "D. Lanosterol", "E. Retinol"], a: "E" },
+ { n: 131, s: "22S", q: "The Lipoprotein that binds triacylglycerol synthesized in the liver and carries them to adipose tissue or other tissues for storage is:", o: ["A. Chylomicron", "B. High-density lipoprotein (HDL)", "C. Very low-density lipoprotein (VLDL)", "D. Low-density lipoprotein (LDL)", "E. Intermediate-density lipoprotein (IDL)"], a: "C" },
+ { n: 132, s: "22S", q: "Gama amino butyric acid (GABA) is a derivative of:", o: ["A. Glutamic acid", "B. Aspartic acid", "C. Glutamine", "D. Glycine", "E. Asparagine"], a: "A" },
+ { n: 133, s: "22S", q: "Artificial sweeteners Aspartame is composed of:", o: ["A. L-aspartyl-L-arginine", "B. L-glutamyl-L-phenylalanine", "C. L-aspartyl-L-tyrosine", "D. L-aspartyl-L-phenylalanine", "E. L-glycyl-L-phenylalanine"], a: "D" },
+ { n: 134, s: "22S", q: "The melting point of fatty acid will be decreased by:", o: ["A. Increasing chain length", "B. All above", "C. Trans double bond", "D. Saturated chain", "E. Triple bond"], a: "B" },
+ { n: 135, s: "22S", q: "An example of saturated fatty acid is:", o: ["A. Oleic acid", "B. Linoleic acid", "C. Stearic acid", "D. Arachidonic acid", "E. Palmitoleic acid"], a: "C" },
+ { n: 136, s: "22S", q: "Benzapyrene is a:", o: ["A. Teratogenic agent", "B. Mutagenic antibiotic", "C. Antioxidant agent", "D. Inflammatory agent", "E. Carcinogenic agent"], a: "E" },
+ { n: 137, s: "22S", q: "One of the following is a poisonous liquid:", o: ["A. Ethanol", "B. Isopropanol", "C. Glycerol", "D. Methanol", "E. Butanol"], a: "D" },
+ { n: 138, s: "22S", q: "In living cells malate is converted to oxalic acetate by:", o: ["A. Malate dehydrogenase", "B. Malate synthase", "C. Fumarase", "D. Citrate synthase", "E. Succinate dehydrogenase"], a: "A" },
+ { n: 139, s: "22S", q: "Preparation of methane thiol required reactants:", o: ["A. Methane + H2SO4", "B. Methanol + H2S", "C. Methanol + H2SO4", "D. Methane + S8", "E. Methanol + SO2"], a: "B" },
+ { n: 140, s: "22S", q: "Tetrahydrofuran is a:", o: ["A. Linear ether", "B. Aromatic alcohol", "C. Cyclic ether", "D. Polyhydric phenol", "E. Saturated ketone"], a: "C" },
+ { n: 141, s: "22S", q: "If plasma levels of biochemical compounds of an individual are as the following, plasma Na=135 Meq/L, K=5 Meq/L, BUN=14 mg/dL, and glucose=90 mg/dL, plasma osmolality equal:", o: ["A. 310 mosmol/Kg", "B. 275 mosmol/Kg", "C. 300 mosmol/Kg", "D. 280 mosmol/Kg", "E. 290 mosmol/Kg"], a: "E" },
+ { n: 142, s: "22S", q: "Acid buffers are solutions of:", o: ["A. Strong acid and its salt", "B. Weak base and its salt", "C. Strong base and its salt", "D. Weak acid and its salt (H2CO3 – NAHCO3 )", "E. Neutral salt and water"], a: "D" },
+ { n: 143, s: "22S", q: "One of the causes of respiratory alkalosis is:", o: ["A. Hypoventilation", "B. Fever", "C. Diarrhea", "D. Emphysema", "E. Morphine overdose"], a: "B" },
+ { n: 144, s: "22S", q: "Uncontrolled diabetes mellitus cause:", o: ["A. Metabolic alkalosis", "B. Respiratory acidosis", "C. Metabolic acidosis", "D. Respiratory alkalosis", "E. Mixed alkalosis"], a: "C" },
+ { n: 145, s: "22S", q: "Water in the human body is distributed between ICF and ECF as the following:", o: ["A. 1/4 in ICF and 3/4 in ECF", "B. 1/2 in ICF and 1/2 in ECF", "C. 3/4 in ICF and 1/4 in ECF", "D. 1/3 in ICF and 2/3 in ECF", "E. 2/3 in ICF and 1/3 in ECF"], a: "E" },
+ { n: 146, s: "22S", q: "In dehydration:", o: ["A. Increase packed cell volume (PCV)", "B. Decrease packed cell volume (PCV)", "C. Increase plasma volume", "D. Decrease hemoglobin concentration", "E. Decrease mean corpuscular volume"], a: "A" },
+ { n: 147, s: "22S", q: "0.9 M KCl solution is combined with an equal volume of 0.5 M glucose Solution, the osmolality of KCL is equal:", o: ["A. 0.9 osmole", "B. 1.8 osmole", "C. 0.45 osmole", "D. 0.3 osmole", "E. 0.6 osmole"], a: "D" },
+ { n: 148, s: "22S", q: "Hypokalemia causes:", o: ["A. Addison's disease", "B. Cushing syndrome", "C. Renal failure", "D. Metabolic acidosis", "E. Hypoaldosteronism"], a: "B" },
+ { n: 149, s: "22S", q: "Anion gap:", o: ["A. Is due to unmeasured cations", "B. Is decreased in ketoacidosis", "C. Calculated by (Na + K) - (Cl - HCO3)", "D. Normally equals 100 mEq/L", "E. Is due to unmeasured anions"], a: "E" },
+ { n: 150, s: "22S", q: "Following statement is correct:", o: ["A. Vitamin D is the primary AO in ECF", "B. Free radicals are formed by ionic bonding", "C. Vitamin C is a key AO in ICF and free radicals form by covalent bond hemolysis", "D. Glucose is the most important AO in cells", "E. Covalent bonds never produce free radicals"], a: "C" },
+ { n: 151, s: "22S", q: "Following statement regarding Nitric oxide (NO) is correct?", o: ["A. Increases platelet aggregation via cGMP path", "B. Promotes vasoconstriction in smooth muscle", "C. Prevents platelet aggregation by increasing synthesis of cGMP", "D. Inhibits the production of nitric oxide synthase", "E. Acts primarily as a structural protein in cells"], a: "C" },
+ { n: 152, s: "22S", q: "Oxidative Stress is:", o: ["A. Imbalance between free radicals and detox ability", "B. Damages caused by reactive oxygen species", "C. Reduction of antioxidants", "D. Cellular damages at membrane levels", "E. All the answers are correct"], a: "E" },
+ { n: 153, s: "22S", q: "A promoter:", o: ["A. Is always exactly 50 base pairs long", "B. Functions as a protein synthesis inhibitor", "C. Occurs only at the 3' end of a gene", "D. Promoters can be about 100–1000 base pairs long", "E. Is translated directly into a functional enzyme"], a: "D" },
+ { n: 154, s: "22S", q: "Transcription:", o: ["A. Occurs in the cytoplasm of eukaryotes", "B. Starts from 5’→ 3’ direction", "C. Uses DNA polymerase as the primary enzyme", "D. Is the final stage of protein maturation", "E. Involves the synthesis of lipids from RNA"], a: "B" },
+ { n: 155, s: "22S", q: "Is a neutralized form of a medication recommended by the World Health Organization for the treatment of certain types of Epilepsy or hydroxylation is:", o: ["A. Hydroxy Aspirin", "B. Methyl Phenobarbital", "C. Hydroxy Phenobarbital", "D. Acetyl Phenytoin", "E. Carboxy Ethosuximide"], a: "C" },
+ { n: 156, s: "22S", q: "Cause of metabolic acidosis:", o: ["A. Diabetic militates", "B. Excessive vomiting", "C. Hyperventilation", "D. Use of antacids", "E. High altitude exposure"], a: "A" },
+ { n: 157, s: "22S", q: "Antiseptic:", o: ["A. Formaldehyde", "B. Glutaraldehyde", "C. Sodium hypochlorite", "D. Ethylene oxide", "E. Isopropanol"], a: "E" },
+ { n: 158, s: "22S", q: "A monosaccharide that is absorbed by facilitated diffusion:", o: ["A. Glucose", "B. Galactose", "C. Mannose", "D. Fructose", "E. Ribose"], a: "D" },
+ { n: 159, s: "22S", q: "In Type II Diabetes:", o: ["A. Always requires immediate insulin", "B. Absolute insulin deficiency", "C. Overweight or obese", "D. Occurs only in childhood", "E. Characterized by ketoacidosis onset"], a: "C" },
+ { n: 160, s: "22S", q: "Cause of metabolic alkalosis or cause of respiratory acidosis:", o: ["A. Diarrhea and fever", "B. Vomiting and emphysema", "C. Renal failure and anxiety", "D. Starvation and asthma", "E. Exercise and pneumonia"], a: "B" },
+ { n: 161, s: "22S", q: "ONE OF THEM does not change in uncontrolled diabetes Mellitus:", o: ["A. Glycosuria", "B. Ketonuria", "C. Hyperglycemia", "D. Dehydration", "E. Alkalosis"], a: "E" },
+ { n: 162, s: "22S", q: "Glucose:", o: ["A. Alfa-D-pyranose", "B. Alfa-L-pyranose", "C. Beta-L-pyranose", "D. Beta-L-furanose", "E. Beta-D-furanose"], a: "D" },
+ { n: 163, s: "22S", q: "Which of the following about Disaccharides is true:", o: ["A. Are combination of 2 monosaccharides", "B. United by peptide bonds", "C. Formed by hydrolysis reaction", "D. Consist of long branched chains", "E. Cannot be broken down by heat"], a: "A" },
+ { n: 164, s: "22S", q: "Salivary α-amylase hydrolyzes:", o: ["A. β 1-4 bonds", "B. α 1-6 bonds", "C. α 1-4 bonds", "D. Peptide bonds", "E. Hydrogen bonds"], a: "C" },
+ { n: 165, s: "22S", q: "Sucrose hydrolyzed by:", o: ["A. Lactase", "B. Maltase", "C. Amylase", "D. Isomaltase", "E. Sucrase"], a: "E" },
+ { n: 166, s: "22S", q: "Final digestive prosses:", o: ["A. Stomach", "B. Large intestine", "C. Esophagus", "D. Small intestine", "E. Oral cavity"], a: "D" },
+ { n: 167, s: "22S", q: "Glucose is derived primarily from dietary carbohydrates:", o: ["A. Lipogenesis", "B. Glycogenolysis", "C. Proteolysis", "D. Ketogenesis", "E. Beta-oxidation"], a: "B" },
+ { n: 168, s: "22S", q: "Nucleotide:", o: ["A. Are only found in the nucleus", "B. Lack a phosphate group", "C. Some nucleotides are involved in signal transduction", "D. Consist only of a sugar and a base", "E. Are never used for energy transfer"], a: "C" },
+ { n: 169, s: "22S", q: "C AMP:", o: ["A. Like a second messenger, c AMP participates in numerous regulatory functions by activating Camp-dependent protein kinases", "B. Acts as a primary hormone", "C. Is a structural component of cell walls", "D. Functions only in bacterial cells", "E. Directly synthesizes glucose from CO2"], a: "A" },
+ { n: 170, s: "22S", q: "An example of non-proteinic amino acid that contains a benzene ring is:", o: ["A. Tyrosine", "B. Phenylalanine", "C. Tryptophan", "D. Dopa", "E. Histidine"], a: "D" },
+ { n: 171, s: "22S", q: "Final verification of non-proteinic amino acid with aromatic properties:", o: ["A. Proline", "B. Serine", "C. Valine", "D. Lysine", "E. Dopa"], a: "E" },
+ 
+ { n: 172, s: "23", q: "Which of the following is incorrect for Fomepizole:", o: ["A. Used as an antidote for methanol poisoning", "B. Inhibits alcohol dehydrogenase enzyme", "C. Prevents formation of toxic metabolites", "D. Hexocyclic compounds containing two nitrogen atoms", "E. Administered intravenously in clinical settings"], a: "D" },
+ { n: 173, s: "23", q: "For blood glucose 5 mmol/L (Molecular weight of glucose: 180 g/mol) is equal to:", o: ["A. 90 mg/dL", "B. 100 mg/dL", "C. 110 mg/dL", "D. 126 mg/dL", "E. 180 mg/dL"], a: "A" },
+ { n: 174, s: "23", q: "Is a coenzyme for carboxylase enzymes, involved in the synthesis of FA and in gluconeogenesis:", o: ["A. Vitamin A", "B. Vitamin C", "C. Vitamin D", "D. Vitamin E", "E. Vitamin B"], a: "E" },
+ { n: 175, s: "23", q: "Is a precursor of the coenzyme NAD (Nicotinamide adenine dinucleotide):", o: ["A. Vitamin A", "B. Vitamin C", "C. Vitamin B", "D. Vitamin D", "E. Vitamin E"], a: "C" },
+ { n: 176, s: "23", q: "Which of the following is the major type of collagen that helps wound healing:", o: ["A. Collagen type I", "B. Collagen type III", "C. Collagen type IV", "D. Collagen type X", "E. Collagen type II"], a: "B" },
+ { n: 177, s: "23", q: "Which of the following is correct for Transfer RNA:", o: ["A. Acts as the primary template for translation", "B. Forms the structural core of the ribosome", "C. Transcribes genetic code from DNA", "D. Carry amino acids from cytosol to the ribosomes", "E. Regulates the splicing of pre-mRNA"], a: "D" },
+ { n: 178, s: "23", q: "Gama amino butryic acid (GABA) is derived from:", o: ["A. Aspartic acid", "B. Tyrosine", "C. Tryptophan", "D. Histidine", "E. Glutamic acid"], a: "E" },
+ { n: 179, s: "23", q: "Which of the following is correct for Superoxide Dismutase (SOD):", o: ["A. Catalyze the dismutation of superoxide into oxygen and hydrogen peroxide", "B. Directly reduces water to hydroxyl radicals", "C. Synthesis of superoxide from molecular oxygen", "D. Acts only within the mitochondrial matrix", "E. Inhibits the activity of catalase and peroxidase"], a: "A" },
+ { n: 180, s: "23", q: "Which of the following causes hypernatremia:", o: ["A. Addison's disease", "B. Syndrome of inappropriate ADH", "C. Cushing syndrome", "D. Excessive diuretic therapy", "E. Severe vomiting and diarrhea"], a: "C" },
+ { n: 181, s: "23", q: "Is an inducer for Detoxification pathway by Sulphation:", o: ["A. Glucose", "B. Cholesterol", "C. Palmitic acid", "D. Cysteine", "E. Asparagine"], a: "D" },
+ { n: 182, s: "23", q: "Is a type of carbohydrate that can be digested by colonic bacteria:", o: ["A. Sucrose", "B. Stachyose", "C. Glucose", "D. Lactose", "E. Glycogen"], a: "B" },
+ { n: 183, s: "23", q: "The similarity between cellulose and collagen is according to their:", o: ["A. Chemical monomer", "B. Solubility in water", "C. Enzymatic function", "D. Genetic origin", "E. Classification"], a: "E" },
+ { n: 184, s: "23", q: "Isopropanol is ________:", o: ["A. Primary alcohol", "B. Tertiary alcohol", "C. Secondary alcohol", "D. Quaternary alcohol", "E. Polyhydric alcohol"], a: "C" },
+ { n: 185, s: "23", q: "Ethanol is toxic, extensive ingeston over along period of tme, which of the followings is not symptom of ethanol toxicity?", o: ["A. Liver cirrhosis", "B. Emphysema", "C. Wernicke-Korsakoff syndrome", "D. Fatty liver disease", "E. Gastritis"], a: "B" },
+ { n: 186, s: "23", q: "Denature of proteins occurs in which level:", o: ["A. Secondary", "B. Tertary", "C. Quaternary", "D. Primary", "E. All of them"], a: "E" },
+ { n: 187, s: "23", q: "Which of the followings is true about NO3?", o: ["A. It has a tetrahedral geometry", "B. It is a strong reducing agent", "C. It is a non-polar molecule", "D. It acts as a free radical", "E. It possesses unpaired electron"], a: "E" },
+ { n: 188, s: "23", q: "Which of the followings are not true about nitroglycerin?", o: ["A. It is dinitro", "B. It is trinitro", "C. It is used as a vasodilator", "D. It is an ester of glycerol", "E. It is explosive"], a: "A" },
+ { n: 189, s: "23", q: "________ is used for protecton of the body afer a vaccinaton:", o: ["A. Magnesium", "B. Fluorine", "C. Selenium", "D. Manganese", "E. Copper"], a: "C" },
+ { n: 190, s: "23", q: "Which of the followings are true about free radicals?", o: ["A. They are always stable", "B. Hydrogen peroxide (not radical species)", "C. Superoxide is not a radical", "D. They lack electrons in all shells", "E. Hydroxyl ion is a radical"], a: "B" },
+ { n: 191, s: "23", q: "__________ is a neutralized form of a medicaton recommended by the world health organizaton for the treatment of certain types of epilepsy:", o: ["A. Hydroxy phenytoin", "B. Sodium valproate", "C. Ethosuximide", "D. Hydroxy phenobarbital", "E. Carbamazepine"], a: "D" },
+ { n: 192, s: "23", q: "An example of saturated faty acid is:", o: ["A. Oleic acid", "B. Linoleic acid", "C. Stearic acid", "D. Arachidonic acid", "E. Palmitoleic acid"], a: "C" },
+ { n: 193, s: "23", q: "Which of the followings are incorrect?", o: ["A. Glucose is an aldohexose", "B. Galactose is an epimer of glucose", "C. Maltose is a reducing sugar", "D. Glycogen is a plant starch", "E. Glucuronic acid is a metabolite of fructose"], a: "E" },
+ { n: 194, s: "23", q: "Which of the followings is a supplementary detoxifcaton pathway?", o: ["A. Sulfation", "B. Glucuronidaton", "C. Acetylation", "D. Methylation", "E. Oxidation"], a: "B" },
+ { n: 195, s: "23", q: "Benzene reacts with CH3COCL in the presence of ALCL3 to give:", o: ["A. C6H5COCH3", "B. C6H5CH3", "C. C6H5Cl", "D. C6H5CHO", "E. C6H5CH2Cl"], a: "A" },
+ { n: 196, s: "23", q: "Ethanol difuses in saliva because of _________:", o: ["A. High lipid solubility", "B. Active transport", "C. Ionic bonding", "D. Low molecular weight", "E. High boiling point"], a: "D" },
+ { n: 197, s: "23", q: "Blood glucose increase by:", o: ["A. Glycolysis", "B. Glycogenesis", "C. Gluconeogenesis", "D. Lipogenesis", "E. Pentose phosphate pathway"], a: "C" },
+ { n: 198, s: "23", q: "Plasma membrane separates _________:", o: ["A. Nucleus and cytoplasm", "B. Mitochondria and cytosol", "C. Blood and lymph", "D. Cell wall and ECF", "E. ICF and surrounding intersttal fuid"], a: "E" },
+ { n: 199, s: "23", q: "Is knows us ant-aging factor:", o: ["A. Vit. A", "B. Vit. E", "C. Vit. K", "D. Vit. B12", "E. Vit. C"], a: "B" },
+ { n: 200, s: "23", q: "Which of the vitamens are precursor of hormones?", o: ["A. Vit. B1", "B. Vit. C", "C. Vit. A", "D. Vit. D", "E. Vit. E"], a: "D" },
+ { n: 201, s: "23", q: "Hypernatremia caused by:", o: ["A. Addison's disease", "B. Diabetes mellitus", "C. Cushion syndrome", "D. Hypoparathyroidism", "E. Renal failure"], a: "C" },
+ { n: 202, s: "23", q: "Is a microminerals:", o: ["A. Calcium", "B. Potassium", "C. Sodium", "D. Magnesium", "E. Iron"], a: "E" },
+ { n: 203, s: "23", q: "Pick out the non-asymmetric amino acid:", o: ["A. Glycine", "B. Alanine", "C. Valine", "D. Leucine", "E. Proline"], a: "A" },
+ { n: 204, s: "23", q: "Is a dimeric amino acid:", o: ["A. Cysteine", "B. Methionine", "C. Cystine", "D. Serine", "E. Threonine"], a: "C" },
+ { n: 205, s: "23", q: "Glutathione is an intracellular antoxidant which is consists of:", o: ["A. Glycine, glutamine, cysteine", "B. Glycine, aspartic acid, cysteine", "C. Glycine, glutamic acid, methionine", "D. Glycine, glutamic acid, cysteine", "E. Alanine, glutamic acid, cysteine"], a: "D" },
+ { n: 206, s: "23", q: "Glutathione is an example of:", o: ["A. Dipeptide", "B. Tetrapeptide", "C. Tripeptide", "D. Pentapeptide", "E. Polypeptide"], a: "C" },
+ { n: 207, s: "23", q: "Which of the followings is true about monooxygenase:", o: ["A. Incorporate one OH group into substrates in many metabolic pathways", "B. Incorporate two oxygen atoms into the substrate", "C. Removes oxygen from the substrate molecule", "D. Transfers electrons without adding oxygen", "E. Acts exclusively on carbohydrate substrates"], a: "A" },
+ { n: 208, s: "23", q: "Arachidonic acid considered as essental or conditonally essental faty acid because:", o: ["A. It has no double bonds", "B. It is a precursor to saturated fats", "C. It contains double bonds at Δ5,8", "D. It is synthesized from stearic acid", "E. It contain double bond at Δ11,14"], a: "E" },
+ { n: 209, s: "23", q: "Cerebroside will produced from ceramide by:", o: ["A. Ester linkage to a fatty acid", "B. Ether linkage to glucose or galactose", "C. Amide linkage to a phosphate group", "D. Glycosidic bond to a tripeptide", "E. Hydrogen bonding to a glycerol"], a: "B" },
+ { n: 210, s: "23", q: "Is in the methylaton:", o: ["A. Cysteine", "B. Arginine", "C. Lysine", "D. Methionine", "E. Histidine"], a: "D" },
+ { n: 211, s: "23", q: "Hemiketal produced by:", o: ["A. Reaction of alcohol and aldehydes", "B. Reaction of two carboxylic acids", "C. Reacton of alcohol and ketones", "D. Reaction of ketone and water", "E. Reaction of aldehyde and water"], a: "C" },
+ { n: 212, s: "23", q: "The source of energy in spermatozoa is:", o: ["A. Fructose", "B. Glucose", "C. Galactose", "D. Maltose", "E. Sucrose"], a: "A" },
+ { n: 213, s: "23", q: "Salivary α-amylase acts on:", o: ["A. β 1-4 bond", "B. α 1-6 bond", "C. β 1-6 bond", "D. α 1-4 bond", "E. α 1-2 bond"], a: "D" },
+ { n: 214, s: "23", q: "Which of the followings is not functon of lymph:", o: ["A. Transport of lipids", "B. Protein source", "C. Immune defense", "D. Removal of interstitial fluid", "E. Transport of white blood cells"], a: "B" },
+ 
+ { n: 215, s: "23", q: "Carbohydrate which index more than 55 will cause:", o: ["A. Slow absorption", "B. No absorption", "C. Malabsorption", "D. Sustained energy release", "E. Fast absorpton"], a: "E" },
+ { n: 216, s: "23", q: "Detol is:", o: ["A. Ortho-benzyl-para-chlorophenol", "B. Triclosan", "C. Chlorhexidine", "D. Para-chloro-meta-xylenol", "E. Isopropyl alcohol"], a: "D" },
+ { n: 217, s: "23", q: "Heterocyclic amines HCAs form when_____:", o: ["A. Amino acids and creatne", "B. Fats and glycerol", "C. Sugars and vitamins", "D. Nucleotides and lipids", "E. Proteins and minerals"], a: "A" },
+ { n: 218, s: "23", q: "Hydrocarbon composed of:", o: ["A. Carbon and oxygen", "B. Hydrogen and nitrogen", "C. Hydrogen and carbon", "D. Carbon and sulfur", "E. Hydrogen and oxygen"], a: "C" },
+ { n: 219, s: "23", q: "Second major caton of intra cellular fuid:", o: ["A. Na", "B. Mg", "C. K", "D. Ca", "E. Cl"], a: "B" },
+ { n: 220, s: "23", q: "Don’t come under additon reacton:", o: ["A. Hydrogenation", "B. Halogenation", "C. Hydration", "D. Hydrohalogenation", "E. Dehydraton"], a: "E" },
+ { n: 221, s: "23", q: "Which of the followings is correct:", o: ["A. In hypertonic solution water goes to the cell", "B. In isotonic solution water goes to the cell", "C. In hypotonic solution water leaves the cell", "D. In hypotonic soluton water goes to the cell", "E. In hypertonic solution water stays still"], a: "D" },
+ 
+ { n: 222, s: "23", q: "When water go to the cell symptoms are:", o: ["A. Shrinking", "B. Crenation", "C. Swelling", "D. Dehydration", "E. Plasmolysis"], a: "C" },
+ { n: 223, s: "23", q: "Hydraton caused by:", o: ["A. Excessive sweating", "B. Renal failure", "C. Severe diarrhea", "D. Diabetes insipidus", "E. High salt intake"], a: "B" },
+ { n: 224, s: "23", q: "The main diference between starch and glycogen is:", o: ["A. Their source", "B. Type of glycosidic bonds", "C. Presence of carbon", "D. Solubility in water", "E. Molecular weight"], a: "A" },
+ { n: 225, s: "23", q: "Is not a symptom of uncontrolled DM:", o: ["A. Glycosuria", "B. Polyuria", "C. Polydipsia", "D. Weight loss", "E. Alkalosis"], a: "E" },
+ { n: 226, s: "23", q: "Which of the followings are true about nucleic acid:", o: ["A. DNA strands are parallel and identical", "B. Sister DNA strands are complementary not identcally", "C. RNA contains thymine instead of uracil", "D. Nucleotides are joined by peptide bonds", "E. Purines always pair with other purines"], a: "B" },
+ { n: 227, s: "23", q: "Which of the followings are true:", o: ["A. tRNA carries the genetic code from the nucleus", "B. Introns are the coding regions of a gene", "C. Ribosome and mRNA binds which is called polysome", "D. Transcription occurs in the cytoplasm", "E. DNA polymerase synthesizes mRNA"], a: "C" },
+ { n: 228, s: "23", q: "Which of the followings are true about plasma membrane:", o: ["A. It is a rigid, solid structure", "B. It is composed entirely of proteins", "C. It is impermeable to all small molecules", "D. Phospholipids are fixed in a static position", "E. Plasma membrane are liquid because of movement of phospholipids and ……"], a: "E" },
+ { n: 229, s: "23", q: "Mononucleotdes:", o: ["A. High transfer potental", "B. Low energy storage", "C. Primarily hydrophobic molecules", "D. Linked by disulfide bridges", "E. Solely used for structural support"], a: "A" },
+ { n: 230, s: "23", q: "Shortness of breath cause by:", o: ["A. Pneumonia", "B. Pneumothorax", "C. Acute asthma", "D. All of them", "E. Hypertension alone"], a: "D" },
+ { n: 231, s: "23", q: "Starling law……..:", o: ["A. Describes the rate of enzyme catalysis", "B. Governs the diffusion of gases in the lungs", "C. He Starling equaton, is indeed involved in the balance between hydrostatc pressure and osmotc", "D. Relates the volume and pressure of a gas", "E. Explains the electrical conductivity of nerves"], a: "C" },
+ { n: 232, s: "23", q: "Most of the inorganic components are bind by:", o: ["A. Ionic bond", "B. Covalent bond", "C. Hydrogen bond", "D. Van der Waals forces", "E. Metallic bond"], a: "B" },
+ { n: 233, s: "23", q: "In osmosis water the proteins are:", o: ["A. Hemoglobins", "B. Albumins", "C. Globulins", "D. Integrins", "E. Aquaporins"], a: "E" },
+ { n: 234, s: "23", q: "Exocytosis is:", o: ["A. Passive transport", "B. Simple diffusion", "C. Osmosis", "D. Actve transport", "E. Facilitated diffusion"], a: "D" },
+ { n: 235, s: "23", q: "Facilitated difusion is:", o: ["A. Active transport", "B. Bulk transport", "C. Passive transport", "D. Endocytosis", "E. Group translocation"], a: "C" },
+ { n: 236, s: "23", q: "Vitamen _____ is precursor of hormones:", o: ["A. Vitamin D", "B. Vitamin C", "C. Vitamin B12", "D. Vitamin K", "E. Vitamin B6"], a: "A" },
+ { n: 237, s: "23", q: "_ is used to treatment of barberi:", o: ["A. Riboflavin", "B. Thiamine", "C. Niacin", "D. Pyridoxine", "E. Biotin"], a: "B" },
+ { n: 238, s: "23", q: "Which vitamen is ant-aging factor:", o: ["A. Vitamin B1", "B. Vitamin D", "C. Vitamin K", "D. Vitamin E", "E. Vitamin B2"], a: "D" },
+ { n: 239, s: "23", q: "Which of the vitamens is a Part of Coenzyme-A:", o: ["A. Folic acid", "B. Cobalamin", "C. Pantothenic acid (B5)", "D. Ascorbic acid", "E. Retinol"], a: "C" },
+ { n: 240, s: "23", q: "Which of the following are incorrect about ascorbic acid:", o: ["A. It is a water-soluble vitamin", "B. It acts as an antioxidant", "C. It is required for collagen synthesis", "D. It prevents scurvy", "E. Synthesized by human body"], a: "E" },
+ { n: 241, s: "23", q: "Which of the following is an extracellular antioxidant?", o: ["A. Vitamin A", "B. Vitamin C", "C. Vitamin D", "D. Vitamin E", "E. Vitamin K"], a: "B" },
+ { n: 242, s: "23", q: "The major protein in milk is:", o: ["A. Albumin", "B. Zein", "C. Casein", "D. Gluten", "E. Myosin"], a: "C" },
+ { n: 243, s: "23", q: "Glucose 5 M (mol/litre) Molar mass of glucose (180 g/mol):", o: ["A. 180", "B. 360", "C. 540", "D. 720", "E. 900"], a: "E" },
+ 
+ { n: 244, s: "24", q: "Deficiency in vitamin B1 causes which disease?", o: ["A. Scurvy", "B. Pellagra", "C. Beriberi", "D. Rickets", "E. Xerophthalmia"], a: "C" },
+ { n: 245, s: "24", q: "Which vitamin is essential for the synthesis of neurotransmitters like serotonin, dopamine, noradrenaline, and adrenaline?", o: ["A. Vitamin B6", "B. Vitamin B12", "C. Vitamin B1", "D. Vitamin B3", "E. Vitamin B5"], a: "A" },
+ { n: 246, s: "24", q: "............... is also called the beauty vitamin:", o: ["A. Vitamin A", "B. Vitamin E", "C. Vitamin K", "D. Vitamin B2", "E. Vitamin C"], a: "D" },
+ { n: 247, s: "24", q: "........... is used to preserve urine samples:", o: ["A. Formaldehyde", "B. Toluene", "C. Chloroform", "D. Hydrochloric acid", "E. Sodium azide"], a: "B" },
+ { n: 248, s: "24", q: "Scientific name of Aspirin is:", o: ["A. Methyl salicylate", "B. Salicylic acid", "C. Phenyl salicylate", "D. Sodium salicylate", "E. Acetyl salicylic acid"], a: "E" },
+ { n: 249, s: "24", q: "Which compounds are essential fatty acids?", o: ["A. Palmitic and stearic", "B. Oleic and myristic", "C. Linoleic and linolenic", "D. Butyric and capric", "E. Lauric and arachidic"], a: "C" },
+ { n: 250, s: "24", q: "Nutrient & Nutrition:", o: ["A. Nutrient is The study of how your body uses the food that you eat", "B. Cholesterol fat-like substance found in every cell in the body", "C. Malnutrition is the presence of the right proportions of nutrients over an extended period", "D. Saturated fat is found only in plant sources", "E. Fiber is a primary source of cellular energy"], a: "B" },
+ { n: 251, s: "24", q: "Which of the following is not a function of lymph?", o: ["A. Transport of fats", "B. Return of protein to blood", "C. Filtering of foreign particles", "D. Lipid metabolism", "E. Immune response"], a: "D" },
+ { n: 252, s: "24", q: "Fomepizole is:", o: ["A. A catalyst for ethanol production", "B. A competitive inhibitor of aldehyde dehydrogenase", "C. A substance that detoxifies methanol", "D. A stimulant for the central nervous system", "E. An enzyme that breaks down glucose"], a: "C" },
+ { n: 253, s: "24", q: "Which of the following is a micromineral?", o: ["A. Iron", "B. Calcium", "C. Phosphorus", "D. Magnesium", "E. Potassium"], a: "A" },
+ { n: 254, s: "24", q: "What is the recommended daily intake of vitamin C for adults (both men and women)?", o: ["A. 10-20 mg per day", "B. 500-1000 mg per day", "C. 200-300 mg per day", "D. 5-10 mg per day", "E. 70-90 mg per day"], a: "E" },
+ { n: 255, s: "24", q: "Which of the following compounds is detoxified through sulfation?", o: ["A. Ammonia", "B. Bilirubin", "C. Phenol", "D. Benzoic acid", "E. Cyanide"], a: "C" },
+ { n: 256, s: "24", q: "Which compound is detoxified by glycation?", o: ["A. Salicylate", "B. Benzoate", "C. Acetaminophen", "D. Sulfonamide", "E. Morphine"], a: "B" },
+ { n: 257, s: "24", q: "What percentage of the body weight is composed of intracellular fluid?", o: ["A. 10%", "B. 20%", "C. 60%", "D. 40%", "E. 5%"], a: "D" },
+ { n: 258, s: "24", q: "What is the most important carbohydrate found in milk?", o: ["A. Sucrose", "B. Maltose", "C. Fructose", "D. Galactose", "E. Lactose"], a: "E" },
+ { n: 259, s: "24", q: "Which eicosanoid produced by platelets?", o: ["A. Leukotrienes", "B. Prostacyclins", "C. Thromboxanes", "D. Lipoxins", "E. Prostaglandin E2"], a: "C" },
+ { n: 260, s: "24", q: "Which one of the following is correct about nutrients?", o: ["A. Magnesium is found mainly inside muscle cells, soft tissues, and bones", "B. Sodium is the primary intracellular cation", "C. Vitamin K is a water-soluble antioxidant", "D. Iron is stored in the body as albumin", "E. Calcium is not required for blood clotting"], a: "A" },
+ { n: 261, s: "24", q: "What form of vitamin D is synthesized in the skin upon exposure to UV radiation?", o: ["A. Ergocalciferol", "B. Cholecalciferol", "C. Calcitriol", "D. 25-hydroxyvitamin D", "E. Lumisterol"], a: "B" },
+ 
+ { n: 262, s: "24", q: "........... performs its functions as an antioxidant in the GP pathway:", o: ["A. Vitamin A", "B. Vitamin D", "C. Vitamin B12", "D. Vitamin E", "E. Vitamin K"], a: "D" },
+ { n: 263, s: "24", q: "............ is an example of tripeptide:", o: ["A. Insulin", "B. Oxytocin", "C. Glucagon", "D. Vasopressin", "E. Glutathione"], a: "E" },
+ { n: 264, s: "24", q: "Deficiency of which nutrient is primarily responsible for causing Wernicke-Korsakoff syndrome?", o: ["A. Riboflavin", "B. Thiamine", "C. Niacin", "D. Pyridoxine", "E. Cobalamin"], a: "B" },
+ { n: 265, s: "24", q: "What denatures proteins?", o: ["A. Distilled water", "B. Low temperature", "C. All of the above", "D. Neutral pH", "E. Isotonic saline"], a: "C" },
+ { n: 266, s: "24", q: "Respiratory acidosis is caused by:", o: ["A. Emphysema", "B. Hyperventilation", "C. High altitude", "D. Anxiety", "E. Excessive vomiting"], a: "A" },
+ { n: 267, s: "24", q: "Respiratory alkalosis is caused by:", o: ["A. Asthma attack", "B. Narcotic overdose", "C. Chronic bronchitis", "D. Fever", "E. Renal failure"], a: "D" },
+ { n: 268, s: "24", q: "Metabolic acidosis is caused by:", o: ["A. Overuse of antacids", "B. Hyperaldosteronism", "C. Hypokalemia", "D. Nasogastric suction", "E. Diabetes"], a: "E" },
+ { n: 269, s: "24", q: "......... Is an example of aliphatic aldehyde:", o: ["A. Benzaldehyde", "B. Cinnamaldehyde", "C. Acetaldehyde", "D. Acetone", "E. Acetophenone"], a: "C" },
+ { n: 270, s: "24", q: "........... is used as an astringent antiseptic, because it evaporates rapidly and cools the skin, reducing the size of blood vessels near the surface:", o: ["A. Ethylene glycol", "B. 2-propanol (isopropanol)", "C. Glycerol", "D. Methanol", "E. Butanol"], a: "B" },
+ { n: 271, s: "24", q: "One of eicosanoids that its production not inhibited by NSAID (Aspirin):", o: ["A. Lipoxin and Leukotriene", "B. Thromboxane A2", "C. Prostaglandin E2", "D. Prostaglandin F2 alpha", "E. Prostacyclin"], a: "A" },
+ 
+ { n: 272, s: "24", q: "What is the main source of energy in seminal fluid?", o: ["A. Glucose", "B. Galactose", "C. Maltose", "D. Fructose", "E. Sucrose"], a: "D" },
+ { n: 273, s: "24", q: "Hypokalemia causes:", o: ["A. Addison's disease", "B. Hypoaldosteronism", "C. Cushing’s syndrome", "D. Renal insufficiency", "E. Metabolic acidosis"], a: "C" },
+ { n: 274, s: "24", q: "Hyponatremia causes:", o: ["A. Diabetes insipidus", "B. Cushing's syndrome", "C. Dehydration", "D. High salt intake", "E. Addison's diseases"], a: "E" },
+ { n: 275, s: "24", q: "Glycosaminoglycans are:", o: ["A. Simple triglycerides", "B. Also known asmucopolysaccharides", "C. Purely branched glucose chains", "D. Solube vitamins", "E. Intracellular enzymes"], a: "B" },
+ { n: 276, s: "24", q: "............. is a neutralized form of a medication recommended by the world health organization for the treatment of certain types of epilepsy:", o: ["A. Diazepam", "B. Carbamazepine", "C. Phenobarbital", "D. Valproic acid", "E. Phenytoin"], a: "C" },
+ { n: 277, s: "24", q: "Carbohydrates with a low GI value (55 or less) are:", o: ["A. Rapidly converted to fat", "B. Immediately released into the blood", "C. Higher in simple glucose", "D. More slowly digested, absorbed and metabolised", "E. Indigestible fibers only"], a: "D" },
+ { n: 278, s: "24", q: "Which one of the following isn't involved in detoxification?", o: ["A. Citrulline", "B. Glucuronic acid", "C. Glycine", "D. Glutathione", "E. Active sulfate"], a: "A" },
+ { n: 279, s: "24", q: "Which one is an example of ether Ppospholipid?", o: ["A. Phosphatidylcholine", "B. Phosphatidylethanolamine", "C. Phosphatidylserine", "D. Sphingomyelin", "E. Platelet-activating factor"], a: "E" },
+ { n: 280, s: "24", q: "Last phase of digestion of carbohydrates involves activity of:", o: ["A. Salivary amylase", "B. Pancreatic amylase", "C. Disaccharidase", "D. Pepsin", "E. Gastric lipase"], a: "C" },
+ { n: 281, s: "24", q: "............. is a poisonous liquid:", o: ["A. Ethanol", "B. Methanol", "C. Propanol", "D. Butanol", "E. Water"], a: "B" },
+ { n: 282, s: "24", q: "Malate dehydogenase converts malate to:", o: ["A. Fumarate", "B. Citrate", "C. Isocitrate", "D. Oxalo acetate", "E. Succinate"], a: "D" },
+ { n: 283, s: "24", q: "Hypertnatremia causes:", o: ["A. Addison's disease", "B. Chronic diarrhea", "C. Excessive sweating", "D. Diuretic use", "E. Cushing’s syndrome"], a: "E" },
+ 
+ { n: 284, s: "24", q: "Glycosaminoglycans are:", o: ["A. Simple triglycerides", "B. Purely branched glucose chains", "C. Both A and B", "D. Soluble vitamins", "E. Intracellular enzymes"], a: "C" },
+ { n: 285, s: "24", q: "Sucrose is made of:", o: ["A. Glucose + Glucose", "B. Galactose + Glucose", "C. Fructose + Fructose", "D. Galactose + Fructose", "E. Glucose + fructose"], a: "E" },
+ 
+ { n: 286, s: "24", q: "What is the first organic compound prepared in laboratory?", o: ["A. Urea", "B. Methane", "C. Acetic acid", "D. Benzene", "E. Ethanol"], a: "A" },
+ { n: 287, s: "24", q: "Malondialdehyde:", o: ["A. Precursor to cholesterol", "B. Biomarker for lipid peroxidation", "C. Intermediate in glycolysis", "D. Product of protein denaturation", "E. Form of stored energy"], a: "B" },
+ { n: 288, s: "24", q: "Glutathione reductase (GR):", o: ["A. Oxidizes glucose-6-phosphate", "B. Produces hydrogen peroxide", "C. Breaks down peptide bonds", "D. Catalyzes the reduction of glutathione disulfide (GSSG) to the sulfhydryl form glutathione (GSH)", "E. Converts ATP to cAMP"], a: "D" },
+ 
+ { n: 289, s: "24", q: "Glutathione peroxidase (GPx):", o: ["A. Synthesis of fatty acids", "B. Transport of oxygen", "C. Decomposition of hydrogen peroxide", "D. Digestion of starch", "E. Phosphorylation of glucose"], a: "C" },
+ { n: 290, s: "24", q: ".............. Relaxes smooth muscle and blood vessels and acts as a neurotransmitter:", o: ["A. NO2", "B. NO", "C. NO3", "D. NOS", "E. N2O"], a: "B" },
+ { n: 291, s: "24", q: ".......... is non essential amino acid, polar uncharged, and has SH group:", o: ["A. Methionine", "B. Threonine", "C. Glycine", "D. Serine", "E. Cysteine"], a: "E" },
+ { n: 292, s: "24", q: "Squalene is an example of:", o: ["A. Triterpene", "B. Monoterpene", "C. Diterpene", "D. Sesquiterpene", "E. Tetraterpene"], a: "A" },
+ { n: 293, s: "24", q: "Ethanal oxidized to:", o: ["A. Ethanol", "B. Ethane", "C. Ethene", "D. Ethanoic acid", "E. Ethyl acetate"], a: "D" },
+ { n: 294, s: "24", q: "Which one of the following is correct about RNA?", o: ["A. It contains deoxyribose sugar", "B. It forms a double-stranded helix", "C. mRNA and ribosomes align in an arrangement called polysomes", "D. It uses thymine as a nitrogenous base", "E. It is primarily stored in the mitochondria"], a: "C" },
+ { n: 295, s: "24", q: "cAMP is broken down into AMP by:", o: ["A. Adenylate cyclase", "B. cAMP phosphodiesterase", "C. Protein kinase A", "D. Hexokinase", "E. Phosphofructokinase"], a: "B" },
+ { n: 296, s: "24", q: "Which one of the following is correct about DNA?", o: ["A. Uracil pairs with adenine", "B. Strands run in the same direction", "C. Hydrogen bonds join sugars", "D. It is found only in the cytoplasm", "E. The phosphate group joins the 3rd Carbon of one sugar to the 5th Carbon of the next in line"], a: "E" },
+ 
+ { n: 297, s: "24", q: "cAMP is broken down into AMP by:", o: ["A. cAMP phosphodiesterase", "B. ATP synthase", "C. Guanylate cyclase", "D. Lipase", "E. Peptidase"], a: "A" },
+ { n: 298, s: "24", q: "Which one of the following is correct about Ethanol?", o: ["A. It is an essential nutrient", "B. It is primarily absorbed in the large intestine", "C. It is converted directly into glucose", "D. Alcohol metabolism pathway starts by an enzyme called alcohol dehydrogenase", "E. It increases the rate of glycogen synthesis"], a: "D" },
+ { n: 299, s: "24", q: "Polyphagia:", o: ["A. Excessive thirst", "B. Excessive urination", "C. Excessive eating", "D. Excessive sweating", "E. Excessive sleeping"], a: "C" },
+ { n: 300, s: "24", q: "Aldehydes react with alcohols to form :", o: ["A. Hemiketal", "B. Hemiactal", "C. Ester", "D. Ether", "E. Anhydride"], a: "B" },
+ { n: 301, s: "24", q: "NOS prevents platelet aggregation by:", o: ["A. Decreasing cAMP levels", "B. Inhibiting thrombin", "C. Stimulating vitamin K", "D. Blocking calcium channels", "E. Increasing synthesis of c-GMP"], a: "E" },
+ { n: 302, s: "24", q: "Which one is correct?", o: ["A. Many coenzymes are nucleotide derivatives", "B. Enzymes are consumed in reactions", "C. All vitamins act as coenzymes", "D. Coenzymes are always proteins", "E. Metal ions cannot be cofactors"], a: "A" },
+ { n: 303, s: "24", q: "Which one is correct about sucrose?", o: ["A. It is a reducing sugar", "B. It is composed of galactose", "C. It is a polysaccharide", "D. It is digested by sucrase", "E. It is found primarily in muscle"], a: "D" },
+ { n: 304, s: "24", q: "What produces nitric oxide?", o: ["A. NADPH oxidase", "B. Cytochrome P450", "C. NOS", "D. Catalase", "E. Superoxide dismutase"], a: "C" },
+ { n: 305, s: "24", q: "Which one is right about fibers?", o: ["A. They are digested in the stomach", "B. Soluble fiber tends to slow the movement of food through the system", "C. Insoluble fiber increases blood glucose", "D. They provide 9 calories per gram", "E. They are composed of amino acids"], a: "B" },
+ { n: 306, s: "24", q: "A useful biomarker of lipid peroxidation:", o: ["A. Malondialdehyde", "B. Glutathione", "C. Cholesterol", "D. Bilirubin", "E. Creatinine"], a: "A" },
+ { n: 307, s: "24", q: "In living cells malate convert to oxalo acetate by:", o: ["A. Citrate synthase", "B. Isocitrate dehydrogenase", "C. Malate dehydrogenase", "D. Fumarase", "E. Succinate thiokinase"], a: "C" },
+ { n: 308, s: "24", q: "Pick out non denaturizing protein:", o: ["A. Strong acid", "B. Heavy metals", "C. High temperature", "D. Organic solvents", "E. Vitamin B2"], a: "E" },
+ { n: 309, s: "24", q: "…………… is considered to be one of the most important antioxidant in extra cellular fluids:", o: ["A. Vitamin E", "B. Vitamin C", "C. Vitamin A", "D. Vitamin D", "E. Vitamin K"], a: "B" },
+ { n: 310, s: "24", q: "L- Dopa is detoxified by:", o: ["A. Sulfation", "B. Glucuronidation", "C. Acetylation", "D. Methylation", "E. Hydrolysis"], a: "D" },
+ { n: 311, s: "24", q: "Tetra hydro furan is:", o: ["A. Aliphatic alcohol", "B. Aromatic ketone", "C. Cyclic ether", "D. Linear aldehyde", "E. Polycyclic hydrocarbon"], a: "C" },
+ { n: 312, s: "24", q: "Glycogen:", o: ["A. Is found in animals", "B. Is found in plants", "C. Is a simple sugar", "D. Contains nitrogen", "E. Is a structural protein"], a: "A" },
+ { n: 313, s: "24", q: "Salivary α-amylase hydrolyzes which type of glycosidic bond?", o: [ "A. β-1,4 glycosidic bond", "B. α-1,6 glycosidic bond", "C. β-1,6 glycosidic bond", "D. α-1,2 glycosidic bond", "E. α-1,4 glycosidic bond"], a: "E" },
+ { n: 314, s: "24", q: "Which of the following decreases in Cushing syndrome?", o: ["A. Sodium (Na⁺)", "B. Potassium (K⁺)", "C. Calcium (Ca²⁺)", "D. Magnesium (Mg²⁺)", "E. Chloride (Cl⁻)"], a: "B"},
+ { n: 315, s: "24", q: "An example of heterocyclic amino acid:", o: ["A. Glycine", "B. Alanine", "C. Valine", "D. Proline", "E. Leucine"], a: "D" },
+ { n: 316, s: "24", q: "Pick out the correct statement:", o: ["A. DNA is single stranded", "B. Translation occurs in nucleus", "C. Ribosomes are associate with mRNA is assembly called polysome", "D. Introns are never transcribed", "E. Codons consist of two bases"], a: "C" },
+ { n: 317, s: "24", q: "Removal of devitalized tissue:", o: ["A. Debridement", "B. Incision", "C. Suturing", "D. Palpation", "E. Grafting"], a: "A" },
+ { n: 318, s: "24", q: "Pick out the correct statement:", o: ["A. Cell membranes lack proteins", "B. Phospholipids are hydrophobic only", "C. Cholesterol is absent in membranes", "D. Membranes are rigid solids", "E. Lipids in the cell membrane are covalently bound to carbohydrate residues"], a: "E" },
+ 
+ 
+ { n: 319, s: "25", q: "What causes hyponatremia?", o: ["A. Cushing syndrome", "B. Addison disease", "C. Diabetes insipidus", "D. Excessive salt intake", "E. Hyperaldosteronism"], a: "B" },
+ { n: 320, s: "25", q: "Example for tripeptide?", o: ["A. Oxytocin", "B. Aspartame", "C. Glutathione", "D. Insulin", "E. Glucagon"], a: "C" },
+ { n: 321, s: "25", q: "Dipeptide example?", o: ["A. Alatame", "B. Glutathione", "C. Enkephalin", "D. Vasopressin", "E. Bradykinin"], a: "A" },
+ { n: 322, s: "25", q: "Structure of arachidonic acid?", o: ["A. {18:2Δ9,12}", "B. {18:3Δ9,12,15}", "C. {20:0}", "D. {20:4Δ5.8.11.14}", "E. {16:1Δ9}"], a: "D" },
+ 
+ { n: 323, s: "25", q: "Which one is considered as an essential-lipid when linoleic acid is depleted?", o: ["A. Oleic acid", "B. Arachidonic acid", "C. Stearic acid", "D. Palmitic acid", "E. Myristic acid"], a: "B" },
+ { n: 324, s: "25", q: "What factors decrease the melting point of lipids?", o: ["A. Increase branching", "B. Decreasing carbon number", "C. Trans double bonds", "D. Double bond increases", "E. All of them"], a: "E" },
+ { n: 325, s: "25", q: "Which eicosanoid's production is not inhibited by NSAIDs (aspirin)?", o: ["A. Thromboxanes", "B. Prostaglandins", "C. Leukotrienes and lipoxin", "D. Prostacyclins", "E. Cyclic endoperoxides"], a: "C" },
+ 
+ { n: 326, s: "25", q: "What is the product of an ester formation (esterification)?", o: ["A. Ester and H2O", "B. Ether and H2", "C. Aldehyde and O2", "D. Ketone and CO2", "E. Alcohol and acid"], a: "A" },
+ { n: 327, s: "25", q: "Complete combustion of Alkanes produces?", o: ["A. CO and H2", "B. C and O2", "C. CH4 and O2", "D. CO2", "E. C2H2 and H2O"], a: "D" },
+ { n: 328, s: "25", q: "Which of the following is a well know example of a reversible NSAID?", o: ["A. Aspirin", "B. Acetaminophen", "C. Ibuprofen", "D. Morphine", "E. Celecoxib"], a: "C" },
+ { n: 329, s: "25", q: "Which of the following is an acid found in ant and bee stings?", o: ["A. Acetic acid", "B. Propionic acid", "C. Butyric acid", "D. Citric acid", "E. Formic acid"], a: "E" },
+ { n: 330, s: "25", q: "Which one is false about aldol condensation?", o: ["A. Bases are used as a catalyst", "B. The carbon chain is increased", "C. The product has an Aldehyde and Alcohol group", "D. Acid is used as a catalyst", "E. It occurs only in tertiary alcohols"], a: "E" },
+ { n: 331, s: "25", q: "What’s the main source of energy in seminal fluid?", o: ["A. Glucose", "B. Fructose", "C. Galactose", "D. Sucrose", "E. Maltose"], a: "B" },
+ { n: 332, s: "25", q: "Estimate the plasma osmolality for the following data: sodium 135 mEq/L; potassium 5mEq/L; blood urea nitrogen 14 mEq/dL; and glucose 90 mg/dL.?", o: ["A. 275 mosm/kg", "B. 280 mosm/kg", "C. 290 mosm/kg", "D. 300 mosm/kg", "E. 310 mosm/kg"], a: "C" },
+ { n: 333, s: "25", q: "Which one is correct about RNA?", o: ["A. It is always a double helix", "B. It uses deoxyribose sugar", "C. It contains thymine base", "D. There is at least one tRNA, often several corresponding to each of the 20 amino acids", "E. It is primarily found in the nucleus only"], a: "D" },
+ { n: 334, s: "25", q: "All amino acids have an asymmetric central carbon, except?", o: ["A. Glycine", "B. Alanine", "C. Leucine", "D. Valine", "E. Isoleucine"], a: "A" },
+ { n: 335, s: "25", q: "Which one is correct about oligosaccharides?", o: ["A. They are simple sugars", "B. They consist of thousands of units", "C. They are insoluble in water", "D. They provide immediate energy only", "E. Acts as prebiotic"], a: "E" },
+ { n: 336, s: "25", q: "Which one is true about carbs?", o: ["A. Glucose is a complex carb", "B. Starch is a monosaccharide", "C. Cellulose is a disaccharide", "D. Oligosaccharide is complex carb", "E. Glycogen is found in plants"], a: "D" },
+ { n: 337, s: "25", q: "Which one is correct about starch and cellulose?", o: ["A. Both are linear chains of glucose", "B. Cellulose has linear structure while starch branched and linear", "C. Both are easily digested by humans", "D. Starch has beta-linkages", "E. Cellulose is the main energy store in animals"], a: "B" },
+ 
+ { n: 338, s: "25", q: "Non-essential, polar uncharged containing (SH) group?", o: ["A. Methionine", "B. Serine", "C. Cysteine", "D. Threonine", "E. Glutamine"], a: "C" },
+ { n: 339, s: "25", q: "Copper containing protein?", o: ["A. Hemoglobin", "B. Oxidase enzyme", "C. Ferritin", "D. Myoglobin", "E. Calmodulin"], a: "B" },
+ { n: 340, s: "25", q: "Methanol poisoning is treated by?", o: ["A. Acetylcysteine", "B. Naloxone", "C. Atropine", "D. Fomepizole", "E. Penicillamine"], a: "D" },
+ { n: 341, s: "25", q: "Uncommon amino acid found in blood clotting protein prothrombin?", o: ["A. Hydroxyproline", "B. Desmosine", "C. Gamma-carboxyglutamate", "D. Selenocysteine", "E. Ornithine"], a: "C" },
+ { n: 342, s: "25", q: "What increases the boiling point in carboxylic acids?", o: ["A. Hydrogen bonds", "B. Van der Waals forces", "C. Ionic interactions", "D. Covalent branching", "E. London dispersion forces"], a: "A" },
+ { n: 343, s: "25", q: "What percentage of total body fluid is intracellular fluid (ICF)?", o: ["A. 20%", "B. 33.3%", "C. 50%", "D. 10%", "E. 66.7%"], a: "E" },
+ { n: 344, s: "25", q: "Which of the following is a plant growth hormone?", o: ["A. Ethane", "B. Propane", "C. Ethene", "D. Butane", "E. Methane"], a: "C" },
+ { n: 345, s: "25", q: "Which of the following causes hydration?", o: ["A. Diabetes mellitus", "B. Renal failure", "C. Severe diarrhea", "D. Excessive sweating", "E. High protein diet"], a: "B" },
+ { n: 346, s: "25", q: "Which one is true about disaccharide?", o: ["A. It consists of one sugar unit", "B. It cannot be broken down", "C. It is a long polymer chain", "D. It yields 2 monosaccharide Upon hydrolysis", "E. It is only found in muscle tissue"], a: "D" },
+ { n: 347, s: "25", q: "Which is true about lactose?", o: ["A. It is found in honey", "B. It is a monosaccharide", "C. Lactase enzyme deficiency causes lactose intolerance", "D. It is sweeter than fructose", "E. It is composed of two glucose units"], a: "C" },
+ { n: 348, s: "25", q: "Which of the following is incorrect about sugar alcohols?", o: ["A. They are used as sweeteners", "B. They have lower caloric value", "C. They do not cause tooth decay", "D. They are absorbed slowly", "E. High digestible carbs"], a: "E" },
+ { n: 349, s: "25", q: "Which one is correct about absorption of carbohydrates?", o: ["A. All three monosaccharides are transported from the intestinal mucosal cell into the portal circulation by (GLUT-2)", "B. Glucose requires ATP for exit into blood", "C. Fructose is absorbed via active transport only", "D. Galactose bypasses the portal vein", "E. Insulin is required for intestinal absorption"], a: "A" },
+ 
+ { n: 350, s: "25", q: "Which of the following statements about starch digestion is correct?", o: ["A. It begins in the stomach", "B. It is completed by pepsin", "C. Starch turns into dextrin, isomaltose, maltose", "D. It results in pure fructose", "E. Fiber enzymes assist the process"], a: "C" },
+ { n: 351, s: "25", q: "Heterocyclic amines are carcinogens that are?", o: ["A. Produced by boiling water", "B. Forming when an amino acid and creatine react at high cooking temperature", "C. Found naturally in raw fruits", "D. Created during fermentation of milk", "E. Destroyed by high heat"], a: "B" },
+ { n: 352, s: "25", q: "Which vitamin is not found in milk?", o: ["A. Vitamin A", "B. Vitamin B12", "C. Vitamin D", "D. Vitamin C", "E. Vitamin B2"], a: "D" },
+ { n: 353, s: "25", q: "Which one is false about B7 (biotin)?", o: ["A. It is a water-soluble vitamin", "B. It is involved in fatty acid synthesis", "C. It can be synthesized by intestinal bacteria", "D. Avidin in raw egg whites inhibits it", "E. Coenzyme for hydroxylase"], a: "E" },
+ { n: 354, s: "25", q: "Which of the following is true about vitamin E?", o: ["A. It is a water-soluble antioxidant", "B. It is essential for blood clotting", "C. It’s also called anti-aging factor", "D. Deficiency causes rickets", "E. It is a precursor to steroid hormones"], a: "C" },
+ { n: 355, s: "25", q: "Retinol, retinal, retinoic acid collectively known as retinoids which one is correct?", o: ["A. Retinal is combined with protein opsin to produce rhodopsin which is essential for color vision", "B. Retinoic acid is the storage form", "C. Retinol is exclusively for bone growth", "D. All retinoids are water-soluble", "E. Retinoids are found only in plants"], a: "A" },
+ { n: 356, s: "25", q: "Characteristic features of cytochrome P450 which one is false?", o: ["A. It is a heme-containing protein", "B. PLP is necessary for cytochrome P450", "C. It is involved in drug metabolism", "D. It is located in the endoplasmic reticulum", "E. It requires NADPH as a cofactor"], a: "B" },
+ 
+ { n: 357, s: "25", q: "Which one is true about pyranose?", o: ["A. It is a five-membered ring", "B. It is the structure of fructose", "C. It is an open-chain aldehyde", "D. Glucose has a pyranose structure", "E. It is only found in lipids"], a: "D" },
+ { n: 358, s: "25", q: "Beri-Beri disease?", o: ["A. Caused by Vitamin C deficiency", "B. Primarily affects protein digestion", "C. Common in high-fat diets", "D. Results from lack of Vitamin A", "E. Found in areas where polished rice is the major component of the diet"], a: "E" },
+ { n: 359, s: "25", q: "Anion gap?", o: ["A. [(NA)+(K)]—[(CL)+(HCO3)]", "B. [(CL)+(HCO3)]—[(NA)+(K)]", "C. [(NA)+(CL)]—[(K)+(HCO3)]", "D. [(NA)+(HCO3)]—[(K)+(CL)]", "E. [(K)+(CL)]—[(NA)+(HCO3)]"], a: "A" },
+ { n: 360, s: "25", q: "Which one is not liver function?", o: ["A. Synthesis of albumin", "B. Heat production", "C. Detoxification of drugs", "D. Storage of glycogen", "E. Production of bile"], a: "B" },
+ { n: 361, s: "25", q: "Which one is not phase 1 detoxification reaction?", o: ["A. Oxidation", "B. Reduction", "C. Amination", "D. Hydrolysis", "E. Dealkylation"], a: "C" },
+ { n: 362, s: "25", q: "Which of the following symptoms is not associated with metabolic acidosis?", o: ["A. Kussmaul respiration", "B. Confusion", "C. Headache", "D. Hypokalaemia", "E. Nausea"], a: "D" },
+ { n: 363, s: "25", q: "What’s the different between ECF and ICF?", o: ["A. ICF has higher chloride levels", "B. ECF contains more potassium", "C. Theres more Na ion in ECF than ICF", "D. ICF lacks magnesium", "E. Protein concentration is higher in ECF"], a: "C" },
+
+ 
+ { n: 364, s: "25", q: "Which one is true about RNA?", o: ["A. It is predominantly double-stranded", "B. mRNA serve as a template for protein synthesis", "C. It contains deoxyribose sugar", "D. Thymine is a major component", "E. It is only found in the nucleus"], a: "B" },
+ { n: 365, s: "25", q: "Protien is denatured by?", o: ["A. Distilled water", "B. Isotonic solution", "C. Physiological pH", "D. Cryopreservation", "E. All of them"], a: "E" },
+ { n: 366, s: "25", q: "…………. are different forms of enzymes:", o: ["A. Isoenzyme", "B. Isozyme", "C. They differ in chemical and physical properties", "D. Catalyse the same reaction ", "E. All of them"], a: "E" },
+ { n: 367, s: "25", q: "Which eicosanoid is known to induce platelet aggregation?", o: ["A. Prostacyclin", "B. Leukotriene", "C. Lipoxin", "D. Thromboxane", "E. Prostaglandin E1"], a: "D" },
+ 
+ { n: 368, s: "25", q: "Vitamin C is used?", o: ["A. In blood clotting", "B. For calcium absorption", "C. To prevent night blindness", "D. In gene regulation", "E. A and B are correct"], a: "E" },
+ { n: 369, s: "25", q: "A polar, uncharged, essential amino acid containing (-OH) group?", o: ["A. Threonine", "B. Serine", "C. Tyrosine", "D. Asparagine", "E. Glutamine"], a: "A" },
+ { n: 370, s: "25", q: "Example of Mg containing protein?", o: ["A. Hexokinase", "B. Pyruvate kinase", "C. Enolase", "D. DNA polymerase", "E. Phosphatases"], a: "E" },
+ { n: 371, s: "25", q: "Glucosaminoglycans are:", o: ["A. Known as glycoproteins", "B. Known as mucopolysaccharides", "C. Known as proteoglycans", "D. Known as lipopolysaccharides", "E. Known as oligosaccharides"], a: "B" },
+ { n: 372, s: "25", q: "Resorcinol is a:", o: ["A. Ortho (1,2) hydroxy phenol", "B. Para (1,4) hydroxy phenol", "C. Meta (1,3) methyl phenol", "D. Meta (1,3) hydroxy phenol", "E. Ortho (1,2) methyl phenol"], a: "D" },
+ 
+ { n: 373, s: "25", q: "All of the followings are correct about fomepizole (4-methylpyrazole) except:", o: ["A. It inhibits alcohol dehydrogenase", "B. It is used in methanol poisoning", "C. It’s an analgesic", "D. It is used in ethylene glycol poisoning", "E. It prevents formation of toxic metabolites"], a: "C" },
+ { n: 374, s: "25", q: "Vitamin B3 (Niacin):", o: ["A. It’s a precursor for FAD", "B. It’s essential for oxida-reduction reactions", "C. It’s synthesized from glycine", "D. It’s primarily involved in carboxylation", "E. It’s a fat soluble vitamin"], a: "B" },
+ { n: 375, s: "25", q: "Benzoic acid is a poisonous substance, it is detoxied by conjugation with:", o: ["A. Glucuronic acid", "B. Glutathione", "C. Sulfate", "D. Acetate", "E. Glycine"], a: "E" },
+ { n: 376, s: "25", q: "The nal digestive processes occur in the mucosal lining of the upper jejunum, which include the following:", o: ["A. Salivary amylase begins starch breakdown", "B. Pepsinogen is converted to pepsin", "C. Some enzymes of this part are maltase, sucrase, and lactase", "D. Bile salts emulsify large fat globules", "E. Trypsinogen is activated by enterokinase"], a: "C" },
+ 
+ { n: 377, s: "25", q: "Vitamin K:", o: ["A. Vitamin K2 (menaquinone) is found in green leaves", "B. It is a water soluble vitamin", "C. It is required for the synthesis of Vitamin C", "D. Vitamin K1 (phylloquinone) is present in plant", "E. It functions as a powerful antioxidant in membranes"], a: "D" },
+ { n: 378, s: "25", q: "An essential fatty acid that contains three double bonds?", o: ["A. Linolenic acid (omega 3)", "B. Linoleic acid (omega 6)", "C. Arachidonic acid (omega 6)", "D. Oleic acid (omega 9)", "E. Palmitoleic acid (omega 7)"], a: "A" },
+ { n: 379, s: "25", q: "A free radical is an atom that contains one or more unpaired electr in its outer orbital and:", o: ["A. Superoxide dismutase converts water to oxygen", "B. H2O2 is broken down (oxidized) into less harmful substances by catalase and glutathione peroxides", "C. Free radicals are always beneficial for cell signaling", "D. Vitamin E acts as a pro-oxidant in high concentrations", "E. Carbon dioxide is a common reactive oxygen species"], a: "B" },
+ 
+ { n: 380, s: "25", q: "The normal range of blood PH is between:", o: ["A. 7.00 - 7.10", "B. 7.25 - 7.35", "C. 7.35 - 7.45", "D. 7.45 - 7.55", "E. 7.55 - 7.65"], a: "C" },
+ { n: 381, s: "25", q: "An ether phospholipid that is present in heart tissue is:", o: ["A. Sphingomyelin", "B. Phosphatidylcholine", "C. Phosphatidylserine", "D. Cardiolipin", "E. Plasmalogens"], a: "E" },
+ { n: 382, s: "25", q: "0.1 mole of magnesium chloride is equal to:", o: ["A. 0.1 osmolar", "B. 0.2 osmolar", "C. 0.4 osmolar", "D. 0.3 osmolar", "E. 0.5 osmolar"], a: "D" },
+ { n: 383, s: "25", q: "Polysaccharides are complex carbohydrates, which:", o: ["A. Are always soluble in cold water", "B. Consist of only two monosaccharide units", "C. They have nutritional functions such as starch", "D. Are only found in animal tissues", "E. Cannot be branched in their structure"], a: "C" }
+
+
+
+
+
+ 
+
+
+
+
+  
+];
+
+
+const container = document.getElementById('quiz-content');
+
+function renderQuiz() {
+    container.innerHTML = '';
+    data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.subject = item.s;
+        div.dataset.searchText = (item.s + " " + item.q + " " + item.o.join(" ")).toLowerCase();
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <span class="ans-text">Answer: ${item.a}</span>
+                <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function filterBySubject(subject, btn) {
+    currentSubject = subject;   // 🔥 remember selection
+    document.getElementById('search-input').value = '';
+
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+
+        if (subject === 'All' || block.dataset.subject === subject) {
+            block.style.display = "block";
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+
+function handleSearch() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+
+    blocks.forEach(block => {
+        resetBlock(block);
+
+        const matchesSubject =
+            currentSubject === "All" ||
+            block.dataset.subject === currentSubject;
+
+        const matchesSearch =
+            searchTerm === "" ||
+            block.dataset.searchText.includes(searchTerm);
+
+        if (matchesSubject && matchesSearch) {
+            block.style.display = "block";
+
+            if (searchTerm !== "") {
+                highlight(block, searchTerm);
+            }
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+
+    qText.innerHTML = qText.innerHTML.replace(regex, '<mark>$1</mark>');
+    opts.forEach(li => {
+        li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>');
+    });
+}
+
+renderQuiz();
+
+/* 🔥 INITIALIZE FILTER PROPERLY */
+const firstFilterBtn = document.querySelector('.filter-btn');
+filterBySubject("All", firstFilterBtn);
+</script>
+</body>
+</html>
