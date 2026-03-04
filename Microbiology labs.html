@@ -17,6 +17,7 @@
             --ans-text: #2e7d32;
             --ans-border: #2e7d32;
             --input-border: #cccccc;
+          
         }
 
         [data-theme="dark"] {
@@ -30,6 +31,7 @@
             --ans-text: #f0cf6a;
             --ans-border: #2e7d32;
             --input-border: #334155;
+            
         }
 
         body {
@@ -162,7 +164,7 @@
             color: white;
             border: none;
             padding: 8px 15px;
-            border-radius: 6px;
+            border-radius: 3px;
             cursor: pointer;
             font-weight: 600;
             margin-top: 10px;
@@ -171,8 +173,18 @@
             display: inline-block;
             white-space: pre-line;
     
-    
         }
+        
+        .repeat{
+          font-size:10px;
+          color:red;
+          border:1px solid red;
+          border-radius:2px;
+          padding:3px;
+          
+          
+        }
+    
 
         .lab-title {
             text-align: center;
@@ -229,7 +241,7 @@
             
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q1.</h3>
+                    <h3 class="question-number">1.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> What is the name of the method?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1a', this)">Show Answer</button>
@@ -246,7 +258,7 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q2.</h3>
+                    <h3 class="question-number">2.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> What’s this technique called?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans2a', this)">Show Answer</button>
@@ -263,7 +275,7 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q3.</h3>
+                    <h3 class="question-number">3.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> What’s the technique used for?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans3a', this)">Show Answer</button>
@@ -279,7 +291,30 @@
                 </div>
                 <div class="image-section"><img src="filteration.jpg" alt="Exam Image"></div>
             </div>
+            <div class="quiz-card">
+                <div class="question-section">
+                    
+                    <div class="question-item">
+                        <span><strong>4.</strong> Which of the following is not an important factor that influences efficacy of disinfection/sterilization?
+                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+            <div>A. Contact time</div>
+            <div>B. Physio-chemical environment</div>
+            <div>C. Presence of organic material</div>
+            <div>D. Number of microorganisms</div>
+            <div>E. Colour of the material</div>
+            </ul>
+                        </span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans4', this)">Show Answer</button>
+                        <div id="ans4" class="answer-box">E. Colour of the material</div>
+                    </div>
+                </div>
+            </div>
         </div>
+              
+                    
+                        
+                        
+                        
 
 
         <div class="lab-wrapper" data-subject="Lab2">
@@ -287,9 +322,9 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q4.</h3>
+                    <h3 class="question-number"> <span class="repeat">Two times</span></h3>
                     <div class="question-item">
-                        <span><strong>Q4.</strong> Which of the following is used for detection of haemolysis?
+                        <span><strong>5.</strong> Which of the following is used for detection of haemolysis?
                         
                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
             <div>A. Mac Conkey agar</div>
@@ -313,7 +348,7 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q5.</h3>
+                    <h3 class="question-number">6.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> What is this called?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans5a', this)">Show Answer</button>
@@ -330,9 +365,9 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q6.</h3>
+                    
                     <div class="question-item">
-                        <span><strong>Q6.</strong> Which of the following is both selective and differential media?
+                        <span><strong>7.</strong> Which of the following is both selective and differential media?
                         
                         <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
 <div>A. Nutrient agar</div>
@@ -354,7 +389,7 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q7.</h3>
+                    <h3 class="question-number">8.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> Identify the media.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans7a', this)">Show Answer</button>
@@ -376,7 +411,7 @@
             
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q8.</h3>
+                    <h3 class="question-number">9.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> Identify the action.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans8a', this)">Show Answer</button>
@@ -390,6 +425,18 @@
                 </div>
                 <div class="image-section"><img src="Inoculation.jpg" alt="Exam Image"></div>
             </div>
+            <div class="quiz-card">
+                <div class="question-section">
+                
+                    <div class="question-item">
+                        <span><strong>10.</strong>  Which sampling method is used for obtaining Oro-pharyngeal samples, burn, pus and ulcers? </span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans9', this)">Show Answer</button>
+                        <div id="ans9" class="answer-box">Swab</div>
+                    </div>
+                   
+                </div>
+          
+            </div>
         </div>
 
 
@@ -398,9 +445,9 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q9.</h3>
+                    
                     <div class="question-item">
-                        <span><strong>A.</strong> This capsulate stain is?
+                        <span><strong>11.</strong>  This capsulate stain is?
                         
                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
         <div>A. Malachite green</div>
@@ -421,9 +468,9 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q10.</h3>
+                    
                     <div class="question-item">
-                        <span><strong>A.</strong> All of the following are used in gram staining except:
+                        <span><strong>12.</strong>  All of the following are used in gram staining except:
                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
         <div>A. Crystal violet</div>
         <div>B. Acetone</div>
@@ -442,9 +489,9 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q11.</h3>
+                    
                     <div class="question-item">
-                        <span><strong>A.</strong>Which of the following is acid-fast bacteria?
+                        <span><strong>13.</strong>  Which of the following is acid-fast bacteria?
                           <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
         <div>A. Staphylococcus aureus</div>
         <div>B. Escherichia coli</div>
@@ -464,7 +511,7 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q12.</h3>
+                    <h3 class="question-number">14.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> Identify the stain.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans12a', this)">Show Answer</button>
@@ -481,14 +528,36 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q13.</h3>
+                    <h3 class="question-number"><span class="repeat">Two times</span></h3>
                     <div class="question-item">
-                        <span><strong>Q13.</strong> Which stain is used for spores?</span><br>
+                        <span><strong>15.</strong> What special stain is used to identify endospores in bacterial cells?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans13a', this)">Show Answer</button>
                         <div id="ans13a" class="answer-box">Malachite green</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="Malachete stain.jpg" alt="Exam Image"></div>
+            </div>
+             <div class="quiz-card">
+                <div class="question-section">
+                    
+                    <div class="question-item">
+                        <span><strong>16.</strong>  Which of the following is the most accurate reason for the appearance of gram-negative bacteria after the decolorization step of Gram-staining?
+
+                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+        <div>A. The 50S ribosomal unit</div>
+        <div>B. The 70S ribosomal unit</div>
+        <div>C. The cytoplasmic membrane</div>
+        <div>D. The lipid in the cell wall</div>
+        <div>E. The branching of the polysaccharides in the capsule</div>
+    </ul>
+                        
+                        
+                        </span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans14', this)">Show Answer</button>
+                        <div id="ans14" class="answer-box">D. The lipid in the cell wall</div>
+                    </div>
+                </div>
+               
             </div>
         </div>
 
@@ -498,7 +567,7 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q14.</h3>
+                    <h3 class="question-number">17.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> What is the test called?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans14a', this)">Show Answer</button>
@@ -515,7 +584,7 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q15.</h3>
+                    <h3 class="question-number">18.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> What is the name of the test?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans15a', this)">Show Answer</button>
@@ -533,7 +602,7 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q16.</h3>
+                    <h3 class="question-number">19.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> What is the name of the test?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans16a', this)">Show Answer</button>
@@ -551,6 +620,43 @@
                 </div>
                 <div class="image-section"><img src="latex.jpg" alt="Exam Image"></div>
             </div>
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">20.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> What is the name of the test?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans27a', this)">Show Answer</button>
+                        <div id="ans27a" class="answer-box">Immunochromatographic test.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> What does the red line indicate?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans27b', this)">Show Answer</button>
+                        <div id="ans27b" class="answer-box"> IgG is present.</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>C.</strong> What is the stage of infection?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans27c', this)">Show Answer</button>
+                        <div id="ans27c" class="answer-box"> Secondary stage infection.</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Immunochromatographic.jpg" alt="Exam Image"style="height:300px;"></div>
+            </div>
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">21.</h3>
+                    <div class="question-item">
+                        <span><strong>A.</strong> What is the name of the test?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans28a', this)">Show Answer</button>
+                        <div id="ans28a" class="answer-box">Immunochromatographic test</div>
+                    </div>
+                    <div class="question-item">
+                        <span><strong>B.</strong> This test shows negative result but it should shows _______ to be positive.</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans28b', this)">Show Answer</button>
+                        <div id="ans28b" class="answer-box">Two lines (T line).</div>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Immunochromatographic1.jpg" alt="Exam Image" style="height:220px;"></div>
+            </div>
         </div>
 
 
@@ -559,9 +665,9 @@
             
             <div class="quiz-card">
                 <div class="question-section" style="flex: 1;">
-                    <h3 class="question-number">Q17.</h3>
+                  
                     <div class="question-item">
-                        <span><strong>Q17.</strong> Which laboratory test is needed for a patient who presents with diarrhea, abdominal pain, anemia, poor growth or low weight, or abnormal stool color?</span><br>
+                        <span><strong>22.</strong> Which laboratory test is needed for a patient who presents with diarrhea, abdominal pain, anemia, poor growth or low weight, or abnormal stool color?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans17a', this)">Show Answer</button>
                         <div id="ans17a" class="answer-box">Stool examination (analysis)</div>
                     </div>
@@ -570,9 +676,9 @@
 
             <div class="quiz-card">
                 <div class="question-section" style="flex: 1;">
-                    <h3 class="question-number">Q18.</h3>
+                    
                     <div class="question-item">
-                        <span><strong>Q18.</strong> Which one of the following specimen is used for detection of entamoeba histolytica?
+                        <span><strong>23.</strong> Which one of the following specimen is used for detection of entamoeba histolytica?
                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
         <div>A. Stool</div>
         <div>B. Blood</div>
@@ -591,22 +697,14 @@
         </div>
                         
                         
-                        
-                        
-
-
-        
-
-
-
         <div class="lab-wrapper" data-subject="Lab7">
             <div class="lab-center"><div class="lab-title">Lab 7</div></div>
             
             <div class="quiz-card">
                 <div class="question-section" style="flex: 1;">
-                    <h3 class="question-number">Q19.</h3>
+                    
                     <div class="question-item">
-                        <span><strong>Q19.</strong> Name five abnormal compositions of urine.</span><br>
+                        <span><strong>24.</strong> Name five abnormal compositions of urine.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans19a', this)">Show Answer</button>
                         <div id="ans19a" class="answer-box">Carbohydrates, Proteins, Fats, Ketone bodies, Blood, Bile salts, Bile pigments.</div>
                     </div>
@@ -620,7 +718,7 @@
 
            <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q20.</h3>
+                    <h3 class="question-number">25.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> Name is this?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans20a', this)">Show Answer</button>
@@ -637,7 +735,7 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q21.</h3>
+                    <h3 class="question-number">26.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> Identify.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans21a', this)">Show Answer</button>
@@ -654,7 +752,7 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q22.</h3>
+                    <h3 class="question-number">27.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> Name of the species?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans22a', this)">Show Answer</button>
@@ -667,6 +765,18 @@
                     </div>
                 </div>
                 <div class="image-section"><img src="yeastlikefungi.jpg" alt="Exam Image"></div>
+            </div>
+            <div class="quiz-card">
+                <div class="question-section">
+                  
+                    <div class="question-item">
+                        <span><strong>28.</strong> A sample was taken from a patient by skin scraping to detect mycosis, what is the name of the test used?</span><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans23', this)">Show Answer</button>
+                        <div id="ans23" class="answer-box">KOH test</div>
+                    </div>
+                  
+                </div>
+                <div class="image-section"><img src="KOHtest.jpg" alt="Exam Image"></div>
             </div>
         </div>
 
