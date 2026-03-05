@@ -21,12 +21,14 @@
     }
 
     * { box-sizing: border-box; }
-
     body {
       font-family: 'Segoe UI', Roboto, sans-serif;
-      background-color: var(--bg-color);
-      /* Subtle gradient background to make the blur look better */
-      background-image: radial-gradient(circle at 50% 0%, #16181a 0%, #0c0d0e 100%);
+      background-color: #0c0d0e; /* Solid black/dark grey */
+      background-image: none;
+      
+      background-attachment: fixed;
+      
+      
       color: var(--text-main);
       margin: 0;
       padding: 15px;
@@ -202,7 +204,7 @@
     }
 
     .subject-card {
-      background: var(--card-bg);
+      
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--border-color);
@@ -261,7 +263,7 @@
     .site-footer {
       margin-top: auto;
       padding: 30px 20px;
-      width: 100%;
+      width: 300px;
       max-width: none;
       border-top: 1px solid var(--border-color);
       display: flex;
@@ -272,10 +274,59 @@
       color: var(--text-dim);
     }
 
-    .site-footer strong { color: #fff; }
+    .glow-yellow {
+  position: fixed;
+  /* Positioned at the very bottom center */
+  bottom: -200px; 
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* Very wide to create a soft "horizon" light effect */
+  width: 160vw;   
+  height: 500px;
+  
+  /* The core color: using your HDSF yellow with high-end softness */
+  background: radial-gradient(
+    circle at center,
+    rgba(240, 207, 106, 0.25) 0%,   /* Bright center */
+    rgba(240, 207, 106, 0.1) 40%,    /* Fading out */
+    rgba(240, 207, 106, 0.02) 60%,   /* Subtle outer bleed */
+    transparent 80%
+  );
+
+  /* Crucial for the "dreamy" look */
+  filter: blur(100px); 
+  
+  /* Layering: stays behind cards but above the black background */
+  z-index: -1;        
+  pointer-events: none;
+  
+  /* Continuous rising and falling movement */
+  animation: ferkarRise 10s ease-in-out infinite alternate;
+}
+
+@keyframes ferkarRise {
+  0% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    /* Moves the light upward by 80px to create the "rising" effect */
+    transform: translateX(-50%) translateY(-80px); 
+    opacity: 0.7;
+  }
+}
+
+    
+    
+    
   </style>
 </head>
 <body class="locked">
+    <div class="glow-yellow"></div>
 
     <div id="activation-overlay">
     <div class="activation-card">
@@ -323,7 +374,15 @@
           <div class="card-header"><h1>Microbiology 🦠</h1></div>
           <div class="links-container">
              <span class="mcq-link" onclick="location.href='Microbiology.html'">Theory <span class="badge">100 MCQs</span></span>
-             <span class="mcq-link" onclick="location.href='Microbiology labs.html'">Practical <span class="badge">22 Questions</span></span>
+             <span class="mcq-link" onclick="location.href='Microbiology labs.html'">Practical <span class="badge">28 Questions</span></span>
+          </div>
+        </div>
+        
+          <div class="subject-card">
+          <div class="card-header"><h1>Molecular biology 🧬</h1></div>
+          <div class="links-container">
+              <span class="mcq-link" onclick="location.href='Molecular biology.html'">Theory <span class="badge">63 MCQs</span></span>
+                <span class="mcq-link" onclick="location.href='M.biology-practical.html'">Practical <span class="badge">3 Questions</span></span>
           </div>
         </div>
 
@@ -341,17 +400,12 @@
           </div>
         </div>
 
-        <div class="subject-card">
-          <div class="card-header"><h1>Molecular biology 🧬</h1></div>
-          <div class="links-container">
-              <span class="mcq-link" onclick="location.href='Molecular biology.html'">Theory <span class="badge">63 MCQs</span></span>
-          </div>
-        </div>
+      
 
         <div class="subject-card">
           <div class="card-header"><h1>Cell biology 🔬</h1></div>
           <div class="links-container">
-              <span class="mcq-link" onclick="location.href='Cell biology.html'">Theory <span class="badge">63 MCQs</span></span>
+              <span class="mcq-link" onclick="location.href='Cell biology.html'">Theory <span class="badge">64 MCQs</span></span>
           </div>
         </div>
 
@@ -377,7 +431,7 @@
         <div class="subject-card">
           <div class="card-header"><h1>Biochemistry 🧪</h1></div>
           <div class="links-container">
-            <a class="mcq-link" href="#">Theory <span class="badge">0 MCQs</span></a>
+              <span class="mcq-link" onclick="location.href='Biochemistry.html'">Theory <span class="badge">383 MCQs</span></span>
             <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
           </div>
         </div>
@@ -429,8 +483,8 @@
         <div class="subject-card">
           <div class="card-header"><h1>End-Rotation 🔥</h1></div>
           <div class="links-container">
-             <span class="mcq-link" onclick="location.href='End-Rotation_BBB_2025-2026.html'">Theory <span class="badge">20 MCQs</span></span>
-             <span class="mcq-link" onclick="location.href='#'">Practical <span class="badge">0 Questions</span></span>
+              <span class="mcq-link" onclick="location.href='End-Rotation_HDSF_2025-2026.html'">Theory <span class="badge">20 MCQs</span></span>
+            <span class="mcq-link" onclick="location.href='End-Rotation_HDSF-Practical_2025-2026.html'">Practical <span class="badge">10 Questions</span></span>
           </div>
         </div>
         <div class="subject-card">
