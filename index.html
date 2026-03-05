@@ -23,12 +23,9 @@
     * { box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Roboto, sans-serif;
-      background-color: #0c0d0e; /* Solid black/dark grey */
-      background-image: none;
-      
-      background-attachment: fixed;
-      
-      
+      background-color: var(--bg-color);
+      /* Subtle gradient background to make the blur look better */
+      background-image: radial-gradient(circle at 50% 0%, #16181a 0%, #0c0d0e 100%);
       color: var(--text-main);
       margin: 0;
       padding: 15px;
@@ -204,7 +201,7 @@
     }
 
     .subject-card {
-      
+      background: var(--card-bg);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--border-color);
@@ -212,6 +209,7 @@
       padding: 13px;
       transition: var(--transition);
     }
+      
 
     .subject-card:hover {
       border-color: rgba(255,255,255,0.2);
@@ -270,63 +268,17 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       color: var(--text-dim);
     }
 
-    .glow-yellow {
-  position: fixed;
-  /* Positioned at the very bottom center */
-  bottom: -200px; 
-  left: 50%;
-  transform: translateX(-50%);
   
-  /* Very wide to create a soft "horizon" light effect */
-  width: 160vw;   
-  height: 500px;
-  
-  /* The core color: using your HDSF yellow with high-end softness */
-  background: radial-gradient(
-    circle at center,
-    rgba(240, 207, 106, 0.25) 0%,   /* Bright center */
-    rgba(240, 207, 106, 0.1) 40%,    /* Fading out */
-    rgba(240, 207, 106, 0.02) 60%,   /* Subtle outer bleed */
-    transparent 80%
-  );
-
-  /* Crucial for the "dreamy" look */
-  filter: blur(100px); 
-  
-  /* Layering: stays behind cards but above the black background */
-  z-index: -1;        
-  pointer-events: none;
-  
-  /* Continuous rising and falling movement */
-  animation: ferkarRise 10s ease-in-out infinite alternate;
-}
-
-@keyframes ferkarRise {
-  0% {
-    transform: translateX(-50%) translateY(0);
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 0.9;
-  }
-  100% {
-    /* Moves the light upward by 80px to create the "rising" effect */
-    transform: translateX(-50%) translateY(-80px); 
-    opacity: 0.7;
-  }
-}
-
-    
     
     
   </style>
 </head>
 <body class="locked">
-    <div class="glow-yellow"></div>
+    
 
     <div id="activation-overlay">
     <div class="activation-card">
