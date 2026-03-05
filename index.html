@@ -7,6 +7,7 @@
   <meta name="theme-color" content="#0c0d0e">
   <title>Block 2 | Med-Q</title>
   <style>
+  
     :root {
       --bg-color: #0c0d0e; 
       /* Updated for Glassmorphism: slightly transparent */
@@ -24,9 +25,12 @@
 
     body {
       font-family: 'Segoe UI', Roboto, sans-serif;
-      background-color: var(--bg-color);
-      /* Subtle gradient background to make the blur look better */
-      background-image: radial-gradient(circle at 50% 0%, #16181a 0%, #0c0d0e 100%);
+      background-color: #0c0d0e; /* Solid black/dark grey */
+      background-image: none;
+      
+      background-attachment: fixed;
+      
+      
       color: var(--text-main);
       margin: 0;
       padding: 15px;
@@ -127,30 +131,6 @@
       border: 1px solid var(--border-color);
       gap: 4px;
     }
-    
-        /* Support Link Styles */
-    .contact-support {
-      margin-top: 25px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border-color);
-      font-size: 0.85rem;
-      color: var(--text-dim);
-    }
-
-    .tg-link {
-      display: block;
-      margin-top: 8px;
-      color: var(--accent-bbb);
-      text-decoration: none;
-      font-weight: 600;
-      transition: var(--transition);
-    }
-
-    .tg-link:hover {
-      text-decoration: underline;
-      filter: brightness(1.2);
-    }
-
 
     .year-chip {
       padding: 8px 16px;
@@ -202,7 +182,7 @@
     }
 
     .subject-card {
-      background: var(--card-bg);
+      
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--border-color);
@@ -261,7 +241,7 @@
     .site-footer {
       margin-top: auto;
       padding: 30px 20px;
-      width: 100%;
+      width: 300px;
       max-width: none;
       border-top: 1px solid var(--border-color);
       display: flex;
@@ -272,26 +252,69 @@
       color: var(--text-dim);
     }
 
-    .site-footer strong { color: #fff; }
+/* ===== FERKAR-STYLE AMBIENT GLOW ===== */
+.glow-yellow {
+  position: fixed;
+  /* Positioned at the very bottom center */
+  bottom: -200px; 
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* Very wide to create a soft "horizon" light effect */
+  width: 160vw;   
+  height: 500px;
+  
+  /* The core color: using your HDSF yellow with high-end softness */
+  background: radial-gradient(
+    circle at center,
+    rgba(240, 207, 106, 0.25) 0%,   /* Bright center */
+    rgba(240, 207, 106, 0.1) 40%,    /* Fading out */
+    rgba(240, 207, 106, 0.02) 60%,   /* Subtle outer bleed */
+    transparent 80%
+  );
+
+  /* Crucial for the "dreamy" look */
+  filter: blur(100px); 
+  
+  /* Layering: stays behind cards but above the black background */
+  z-index: -1;        
+  pointer-events: none;
+  
+  /* Continuous rising and falling movement */
+  animation: ferkarRise 10s ease-in-out infinite alternate;
+}
+
+@keyframes ferkarRise {
+  0% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    /* Moves the light upward by 80px to create the "rising" effect */
+    transform: translateX(-50%) translateY(-80px); 
+    opacity: 0.7;
+  }
+}
+
+    
+
   </style>
 </head>
 <body class="locked">
+    <div class="glow-yellow"></div>
 
-    <div id="activation-overlay">
+  <div id="activation-overlay">
     <div class="activation-card">
       <h2>Unlock Med-Q</h2>
       <p>Please enter your unique activation code to access the questions.</p>
       <input type="text" id="activation-code" placeholder="Enter Code Here">
       <button id="activate-btn">Activate App</button>
       <p id="status-msg" style="margin-top:15px; min-height:1.2em; font-weight:600;"></p>
-      
-      <div class="contact-support">
-        <span>Don't have a code?</span>
-        <a href="https://t.me/Med_Q2" target="_blank" class="tg-link">Contact me to activate</a>
-      </div>
     </div>
   </div>
-
 
   <header class="main-header">
     <div class="header-info">
@@ -326,11 +349,12 @@
              <span class="mcq-link" onclick="location.href='Microbiology labs.html'">Practical <span class="badge">28 Questions</span></span>
           </div>
         </div>
-        <div class="subject-card">
+        
+         <div class="subject-card">
           <div class="card-header"><h1>Molecular biology 🧬</h1></div>
           <div class="links-container">
               <span class="mcq-link" onclick="location.href='Molecular biology.html'">Theory <span class="badge">63 MCQs</span></span>
-            <span class="mcq-link" onclick="location.href='M.biology-practical.html'">Practical <span class="badge">3 Questions</span></span>
+                <span class="mcq-link" onclick="location.href='M.biology-practical.html'">Practical <span class="badge">3 Questions</span></span>
           </div>
         </div>
 
@@ -348,12 +372,12 @@
           </div>
         </div>
 
-        
+       
 
         <div class="subject-card">
           <div class="card-header"><h1>Cell biology 🔬</h1></div>
           <div class="links-container">
-              <span class="mcq-link" onclick="location.href='Cell biology.html'">Theory <span class="badge">63 MCQs</span></span>
+              <span class="mcq-link" onclick="location.href='Cell biology.html'">Theory <span class="badge">64 MCQs</span></span>
           </div>
         </div>
 
@@ -379,8 +403,8 @@
         <div class="subject-card">
           <div class="card-header"><h1>Biochemistry 🧪</h1></div>
           <div class="links-container">
-            <span class="mcq-link" onclick="location.href='Biochemistry.html'">Theory <span class="badge">383 MCQs</span></span>
-            <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
+                <span class="mcq-link" onclick="location.href='Biochemistry.html'">Theory <span class="badge">383 MCQs</span></span>
+             <span class="mcq-link" onclick="location.href='Microbiology labs.html'">Practical <span class="badge">0 Questions</span></span>
           </div>
         </div>
 
@@ -401,7 +425,7 @@
         </div>
       </div>
     </main>
-    <div class="year-footer-label">2022-2025 Year Exams</div>
+    
   </div>
 
   <div id="content-2026" class="year-content">
@@ -444,7 +468,7 @@
         </div>
       </div>
     </div>
-    <div class="year-footer-label">2025-2026 Year Exams</div>
+  
   </div>
 
   <footer class="site-footer">
