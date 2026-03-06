@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical_Biochemsitry_End-Rotation_HDSF</title>
+    
+    <style>
+        :root {
+            --bg-body: #f4f4f9;
+            --text-main: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --card-bg: #ffffff;
+            --card-border: #cccccc;
+            --ans-bg: #e8f5e9;
+            --ans-text: #2e7d32;
+            --ans-border: #2e7d32;
+            --input-border: #cccccc;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0c0d0e;
+            --text-main: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --card-bg: #1a1c1e;
+            --card-border: #26292b;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --ans-border: #2e7d32;
+            --input-border: #334155;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .container { width: 100%; max-width: none; }
+
+        .header { 
+            text-align: center; 
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .controls-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            align-items: center;
+        }
+
+        .filter-container {
+            display: flex;
+            flex: 1;
+            gap: 8px;
+            background-color: var(--card-bg);
+            padding: 6px;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            overflow-x: auto;
+        }
+
+        .filter-btn {
+            background-color: transparent;
+            border: 1px solid transparent;
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background-color: #729fcf;
+            color: white;
+        }
+
+        .theme-toggle {
+            flex-shrink: 0;
+            background-color: var(--card-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+       
+     .site-footer {
+    margin: 40px auto;      
+    padding: 10px 30px;   
+    width: fit-content;     
+    display: block;     
+    border-top: 1px solid var(--card-border);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-align: center;
+}
+
+
+      
+        
+        
+        .question-number{
+          margin-top: 0;  
+          margin-bottom: 20px;
+        }
+
+        .quiz-card {
+            display: flex;
+            flex-direction: row; 
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            margin-bottom: 30px; 
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .question-section { flex: 1.2; padding: 25px; justify-content: flex-start;}
+        
+        .image-section {
+            flex: 1;
+            padding: 15px;
+            background-color: var(--card-bg); 
+            border-left: 1px solid var(--card-border);
+            text-align: center;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .image-section img { max-width: 100%; height: auto; border-radius: 6px; }
+        .question-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--card-border); }
+        .question-item:last-child { border-bottom: none; }
+        
+        .answer-box { display: none !important;
+          
+        }
+        
+        .repeat{
+          font-size:12px;
+          border:1px solid red;
+          padding:3px;
+          border-radius:3px;
+          color:red;
+          margin-left:15px;
+        }
+        .Q-number{
+          font-size:12px;
+          border:1px solid green;
+          padding:3px;
+          border-radius:3px;
+          color:green;
+          margin-left:auto;
+          
+        }
+
+        button.ans-btn {
+            background-color: #729fcf;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            text-align: left;
+            width: auto;    
+            display: inline-block;
+            white-space: pre-line;
+    
+    
+        }
+
+        .lab-title {
+            text-align: left;
+            margin: 40px 0 20px 0;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #729fcf;
+            padding-bottom: 5px;
+            display: flex;        /* Added */
+            align-items: center;  /* Added */
+            width: 100%; 
+            
+            
+        }
+        .lab-center { text-align: left; width: 100%; }
+
+        @media (max-width: 700px) {
+            .quiz-card { flex-direction: column-reverse; }
+            .image-section { border-left: none; border-bottom: 1px solid var(--card-border); }
+            .header { flex-direction: column; gap: 12px; }
+            .filter-btn { padding: 8px 8px; font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">End-Rotation & Final</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Biochemistry Labs 🧪 • 2022-2025</p>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterLabs('All', this)">All Labs</button>
+            <button class="filter-btn" onclick="filterLabs('22', this)">2021-2022</button>
+            <button class="filter-btn" onclick="filterLabs('U', this)">Unkown years</button>
+            <button class="filter-btn" onclick="filterLabs('23', this)">2022-2023</button>
+            <button class="filter-btn" onclick="filterLabs('24', this)">2023-2024</button>
+            <button class="filter-btn" onclick="filterLabs('25', this)">2024-2025</button>
+            
+          
+        </div>
+        
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+    </div>
+
+    <div id="quiz-content">
+        
+        <div class="lab-wrapper" data-subject="22">
+            <div class="lab-center"><div class="lab-title">2021-2022<span class="Q-number">5 questions</span></div></div>
+            
+            <div class="quiz-card">
+                <div class="question-section">
+                  
+                    <div class="question-item">
+                        <span><strong>1.</strong> Write the aim and the principle of benedicts test.</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans1a', this)">Show Answer</button>
+                        <div id="ans1a" class="answer-box"><div>Aim: distinguish between reducing and nonreducing sugar for example distinguish between Sucrose and Glucose.</div>
+                          
+                          <div>Principle: Carbohydrates with free carbonyl group have the ability to reduce solution of various metallic ions like (Cu+2) in alkaline medium to form insoluble red copperous oxide (Cu2O).</div>
+                        </div>
+                          
+                    </div>
+                </div>
+            </div>
+      
+               <div class="quiz-card">
+                <div class="question-section">
+                  
+                    <div class="question-item">
+                        <span><strong>2.</strong> Write the aim and the principle of biuret test.</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans2', this)">Show Answer</button>
+                        <div id="ans2" class="answer-box"><div>Aim: distinguish between Proteins and Amino acids, for example distinguish between Albumin and Alanine.</div>
+                          
+                          <div>Principle: This test is positive with molecules contain two peptide bonds. The end reaction of the biuret test is dependent upon the formation of copper potassium biuret compound.</div>
+                        </div>
+                          
+                    </div>
+                </div>
+            </div>
+               <div class="quiz-card">
+                <div class="question-section">
+                  
+                    <div class="question-item">
+                        <span><strong>3.</strong> Enumerate the types of Titration.</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans3', this)">Show Answer</button>
+                        <div id="ans3" class="answer-box"><div>1. Acid-base titration</div>
+                          <div>2. Oxidation-reduction titration of redox titration</div>
+                          <div>3. Precipitation titration</div>
+                          <div>4. Redoxometric titration</div>
+                        </div>
+                          
+                          
+                          
+                    </div>
+                </div>
+            </div>
+               <div class="quiz-card">
+                <div class="question-section">
+                  
+                    <div class="question-item">
+                        <span><strong>4.</strong> List the major non-protein excretory substances found in urine.</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans4', this)">Show Answer</button>
+                        <div id="ans4" class="answer-box">Urea – Creatinine – Uric acid – Chloride – Sulfate – Phosphate </div>
+                    </div>
+                </div>
+            </div>
+               <div class="quiz-card">
+                <div class="question-section">
+                    <div class="question-item">
+                        <span><strong>5.</strong> Calculate the weight (in grams) of Sodium Hydroxide (NaOH) required to prepare 1 Liter of a 0.1 Molar (M) solution. (Molecular Weight of NaOH = 40 g/mol)".</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans5', this)">Show Answer</button>
+                        <div id="ans5" class="answer-box">4 grams</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                  
+            
+            
+
+          <div class="lab-wrapper" data-subject="U">
+    <div class="lab-center"><div class="lab-title">Unkown years <span class="Q-number">21 questions</span></div></div>
+    
+      <div class="quiz-card">
+                <div class="question-section">
+                    <div class="question-item">
+                        <span><strong>6.</strong> Is sugar normally found in the urine of healthy individuals?</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans6', this)">Show Answer</button>
+                        <div id="ans6" class="answer-box">No.</div>
+                    </div>
+                </div>
+            </div>
+      <div class="quiz-card">
+                <div class="question-section">
+                    <div class="question-item">
+                        <span><strong>7.</strong> What type of chemical reaction involves the gain and loss of electrons?</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans7', this)">Show Answer</button>
+                        <div id="ans7" class="answer-box">Gain and loss of electrons.</div>
+                    </div>
+                </div>
+            </div>
+      <div class="quiz-card">
+                <div class="question-section">
+                    <div class="question-item">
+                        <span><strong>8.</strong> What laboratory test is used to detect reducing sugars?</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans8', this)">Show Answer</button>
+                        <div id="ans8" class="answer-box">Bails Test.</div>
+                    </div>
+                </div>
+            </div>
+      <div class="quiz-card">
+                <div class="question-section">
+                    <div class="question-item">
+                        <span><strong>9.</strong> What laboratory method can be used to measure surface tension?</span><br><br>
+                        <button class="ans-btn" onclick="toggleAnswer('ans9', this)">Show Answer</button>
+                        <div id="ans9" class="answer-box">Mollins Test.</div>
+                    </div>
+                </div>
+            </div>
+            
+    <div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>10.</strong> Which test is used to distinguish between glucose and maltose?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Benedicts test</div>
+                <div>B. Fehlings test</div>
+                <div>C. Barfoeds test</div>
+                <div>D. Tollens test</div>
+                <div>E. Molisch test</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans10', this)">Show Answer</button>
+            <div id="ans10" class="answer-box">C. Barfoeds test</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>11.</strong> Which of the following substances is normally absent in urine?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Albumin</div>
+                <div>B. Urea</div>
+                <div>C. Creatinine</div>
+                <div>D. Uric acid</div>
+                <div>E. Ammonia</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans11', this)">Show Answer</button>
+            <div id="ans11" class="answer-box">A. Albumin</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>12.</strong> Which of the following is not a titrimetric reaction?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Acid base titration</div>
+                <div>B. Redox titration</div>
+                <div>C. Iodometric titration</div>
+                <div>D. Complexometric titration</div>
+                <div>E. Dioxygenase titration</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans12', this)">Show Answer</button>
+            <div id="ans12" class="answer-box">E. Dioxygenase titration</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>13.</strong> Millons test is used to distinguish between which of the following amino acids?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Glycine and alanine</div>
+                <div>B. Glucose and fructose</div>
+                <div>C. Lysine and arginine</div>
+                <div>D. Phenylalanine and tyrosine</div>
+                <div>E. Histidine and proline</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans13', this)">Show Answer</button>
+            <div id="ans13" class="answer-box">D. Phenylalanine and tyrosine</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>14.</strong> What is normal urine composed of?</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans14', this)">Show Answer</button>
+            <div id="ans14" class="answer-box">Normal urine is composed of (urea, sodium chloride, uric acid, phospt.ate).</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>15.</strong> ......... used to distinguish between mono-saccharide and poly-saccharide?</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans15', this)">Show Answer</button>
+            <div id="ans15" class="answer-box">Iodine test.</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>16.</strong> which test is used to distinguish cysteine and cystine?</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans16', this)">Show Answer</button>
+            <div id="ans16" class="answer-box">Lead sulphide test.</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>17.</strong> In complexometric titrations which of the following is the indicator?</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans17', this)">Show Answer</button>
+            <div id="ans17" class="answer-box">Black T indicator.</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>18.</strong> Solution of strong acids like hydrochloric acid and sulphuric acid which are used widely for preparation of standard solution, they are ........ when prepared.</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans18', this)">Show Answer</button>
+            <div id="ans18" class="answer-box">Volatile.</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>19.</strong> Xanthoprotic test is used to distinguish between:</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans19', this)">Show Answer</button>
+            <div id="ans19" class="answer-box">Phenylalanine and alanine.</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>20.</strong> What is the range of albuminuria?</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans20', this)">Show Answer</button>
+            <div id="ans20" class="answer-box">30–299 mg/24 hours.</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>21.</strong> Which test is used to distinguish between sucrose and maltose?</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans21', this)">Show Answer</button>
+            <div id="ans21" class="answer-box">Benedicts test.</div>
+        </div>
+    </div>
+   
+</div>
+
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>22.</strong> Which of the following substances is not normally excreted in urine?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Urea</div>
+                <div>B. Uric acid</div>
+                <div>C. Creatinine</div>
+                <div>D. Albumin</div>
+                <div>E. Sodium chloride</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans22', this)">Show Answer</button>
+            <div id="ans22" class="answer-box">D. Albumin</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>23.</strong> A standard solution must include the following characteristics except:
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Volatile</div>
+                <div>B. Dry</div>
+                <div>C. Pure</div>
+                <div>D. High equivalent weight</div>
+                <div>E. Stable</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans23', this)">Show Answer</button>
+            <div id="ans23" class="answer-box">A. Volatile</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>24.</strong> Which test is used to distinguish between monosaccharides and polysaccharides?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Barfoed</div>
+                <div>B. Iodine</div>
+                <div>C. Molisch</div>
+                <div>D. Selivanof</div>
+                <div>E. None</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans24', this)">Show Answer</button>
+            <div id="ans24" class="answer-box">B. Iodine</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>25.</strong> Which test is specific for aromatic proteins?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Selivanof</div>
+                <div>B. Ninhydrine</div>
+                <div>C. Biuret</div>
+                <div>D. Xanthoprotic</div>
+                <div>E. Millon</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans25', this)">Show Answer</button>
+            <div id="ans25" class="answer-box">D. Xanthoprotic</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>26.</strong> Which indicator is used for titration of a strong acid against a strong or weak base?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Millon</div>
+                <div>B. Phenolphthalein</div>
+                <div>C. Methyl orange</div>
+                <div>D. Alpha naphthol</div>
+                <div>E. None</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans26', this)">Show Answer</button>
+            <div id="ans26" class="answer-box">C. Methyl orange</div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+  <div class="lab-wrapper" data-subject="23">
+    <div class="lab-center"><div class="lab-title">2022-2023<span class="Q-number">4 questions</span></div></div>
+    
+    <div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>27.</strong> Is used for preparation of accurate concentration. 
+</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans27', this)">Show Answer</button>
+            <div id="ans27" class="answer-box">Volumetric flask.</div>
+        </div>
+    </div>
+      <div class="image-section"><img src="https://i.imgur.com/s0SrTm1.jpeg" alt="Exam Image"></div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>28.</strong> Proteins are formed by joining the carboxyl group of an amino acid to the α-amino group of another amino acid. This bond is called:</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans28', this)">Show Answer</button>
+            <div id="ans28" class="answer-box">Peptide bond.</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>29.</strong> What causes hematuria?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Calculi</div>
+                <div>B. Tumor</div>
+                <div>C. Kidney infection</div>
+                <div>D. Trauma</div>
+                <div>E. All of them</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans29', this)">Show Answer</button>
+            <div id="ans29" class="answer-box">E. All of them</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>30.</strong> Which of the following is not normally present in urine?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Urea</div>
+                <div>B. Creatinine</div>
+                <div>C. Uric acid</div>
+                <div>D. Sodium chloride</div>
+                <div>E. Bilirubin</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans30', this)">Show Answer</button>
+            <div id="ans30" class="answer-box">E. Bilirubin</div>
+        </div>
+    </div>
+</div>
+</div>
+          
+     <div class="lab-wrapper" data-subject="24">
+    <div class="lab-center"><div class="lab-title">2023-2024<span class="Q-number">5 questions</span></div></div>
+            
+           <div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>31.</strong> What is normal urine composed of?</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans31', this)">Show Answer</button>
+            <div id="ans31" class="answer-box">Normal urine is composed of urea, sodium chloride, uric acid, and phosphate.</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>32.</strong> Which test is used to distinguish between monosaccharides and polysaccharides?</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans32', this)">Show Answer</button>
+            <div id="ans32" class="answer-box">Iodine test.</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>33.</strong> Which test is used to distinguish cysteine and cystine?</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans33', this)">Show Answer</button>
+            <div id="ans33" class="answer-box">Lead sulphide test.</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>34.</strong> Solutions of strong acids like hydrochloric acid and sulphuric acid used for preparing standard solutions are ______ when prepared.</span><br><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans34', this)">Show Answer</button>
+            <div id="ans34" class="answer-box">Volatile.</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>35.</strong> In complexometric titrations which of the following is the indicator?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Phenolphthalein</div>
+                <div>B. Methyl orange</div>
+                <div>C. Black T indicator</div>
+                <div>D. Starch indicator</div>
+                <div>E. Methyl red</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans35', this)">Show Answer</button>
+            <div id="ans35" class="answer-box">C. Black T indicator</div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+ <div class="lab-wrapper" data-subject="25">
+    <div class="lab-center"><div class="lab-title">2024-2025<span class="Q-number">8 questions</span></div></div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>36.</strong> Which of the following is not a condition typically associated with glucose metabolism?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Glycogen storage disease</div>
+                <div>B. Diabetes mellitus</div>
+                <div>C. Galactosemia</div>
+                <div>D. Xanthomatosis</div>
+                <div>E. Fructosuria</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans36', this)">Show Answer</button>
+            <div id="ans36" class="answer-box">D. Xanthomatosis</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>37.</strong> Which of the following is not a reaction used for titrations?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Complexometric</div>
+                <div>B. Oxygenase</div>
+                <div>C. Acid-Base</div>
+                <div>D. Redox</div>
+                <div>E. Precipitation</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans37', this)">Show Answer</button>
+            <div id="ans37" class="answer-box">B. Oxygenase</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>38.</strong> Which of the following tests is used to distinguish between mono-saccharides and poly-saccharides?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Molisch</div>
+                <div>B. Bial’s</div>
+                <div>C. Benedict</div>
+                <div>D. Barfoed</div>
+                <div>E. Iodine</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans38', this)">Show Answer</button>
+            <div id="ans38" class="answer-box">E. Iodine</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>39.</strong> Which of the following is detected in a Sakaguchi test?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Arginine</div>
+                <div>B. Proline</div>
+                <div>C. Tyrosine</div>
+                <div>D. Tryptophan</div>
+                <div>E. Cysteine</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans39', this)">Show Answer</button>
+            <div id="ans39" class="answer-box">A. Arginine</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>40.</strong> What colour does urine present in liver disease?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Green</div>
+                <div>B. Yellow</div>
+                <div>C. Deep yellow to brown</div>
+                <div>D. Red</div>
+                <div>E. Dark brown</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans40', this)">Show Answer</button>
+            <div id="ans40" class="answer-box">C. Deep yellow to brown</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>41.</strong> Which of the following is a normal constituent of urine?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Glucose</div>
+                <div>B. Protein</div>
+                <div>C. Electrolytes</div>
+                <div>D. Ketone bodies</div>
+                <div>E. Red Blood Cells (RBCs)</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans41', this)">Show Answer</button>
+            <div id="ans41" class="answer-box">C. Electrolytes</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>42.</strong> In the preparation of standard solution, the substance should have the following properties except:
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Dry</div>
+                <div>B. Pure</div>
+                <div>C. Cheap</div>
+                <div>D. Volatile</div>
+                <div>E. High equivalent weight</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans42', this)">Show Answer</button>
+            <div id="ans42" class="answer-box">D. Volatile</div>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-card">
+    <div class="question-section">
+        <div class="question-item">
+            <span><strong>43.</strong> Which of the following causes the presence of protein in urine?
+
+            <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                <div>A. Tuberculosis</div>
+                <div>B. Renal disease</div>
+                <div>C. Diabetes mellitus</div>
+                <div>D. Hypertension</div>
+                <div>E. Liver disease</div>
+            </ul>
+
+            </span><br>
+            <button class="ans-btn" onclick="toggleAnswer('ans43', this)">Show Answer</button>
+            <div id="ans43" class="answer-box">B. Renal disease</div>
+        </div>
+    </div>
+</div>
+       
+          
+<footer class="site-footer">Developed by <strong>Shabaz Rasheed</strong></footer>
+
+<script>
+    function toggleTheme() {
+        const body = document.body;
+        const icon = document.getElementById('theme-icon');
+        const isDark = body.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+            body.removeAttribute('data-theme');
+            icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        } else {
+            body.setAttribute('data-theme', 'dark');
+            icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+        }
+    }
+
+    function filterLabs(subject, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const wrappers = document.querySelectorAll('.lab-wrapper');
+        wrappers.forEach(wrap => {
+            wrap.style.display = (subject === 'All' || wrap.dataset.subject === subject) ? "block" : "none";
+        });
+    }
+
+    function toggleAnswer(id, btn) {
+        const answerDiv = document.getElementById(id);
+        const answerText = answerDiv.innerText;
+        if (btn.innerText === "Show Answer") {
+            btn.innerText = answerText;
+            btn.style.backgroundColor = "var(--ans-border)";
+        } else {
+            btn.innerText = "Show Answer";
+            btn.style.backgroundColor = "#729fcf";
+        }
+    }
+</script>
+</body>
+</html>
