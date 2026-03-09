@@ -204,7 +204,8 @@
         <button class="filter-btn" onclick="filterBySubject('22', this)">2021-2022</button>
         <button class="filter-btn" onclick="filterBySubject('23', this)">2022-2023</button>
         <button class="filter-btn" onclick="filterBySubject('24', this)">2023-2024</button>
-        <button class="filter-btn" onclick="filterBySubject('25', this)">2024-2025 </button>
+        <button class="filter-btn" onclick="filterBySubject('25', this)">2024-2025</button>
+        <button class="filter-btn" onclick="filterBySubject('U', this)">Unkown year</button>
     </div>
       
         
@@ -411,7 +412,33 @@ const data = [
   { n: 163, s: "25", q: "In clinical practice, what is the primary indication for using a defibrillator:", o: ["A. Atrial fibrillation with pulse", "B. Ventricular fibrillation", "C. Normal sinus rhythm", "D. First-degree heart block", "E. Sinus bradycardia"], a: "B" },
   { n: 164, s: "25", q: "Which technical factor affects the quality of X-ray image contrast the most:", o: ["A. Peak kilovoltage (KvP)", "B. Milliampere-seconds (mAs)", "C. Focal spot size", "D. Patient-to-film distance", "E. Exposure time in seconds"], a: "A" },
   { n: 165, s: "25", q: "What physiological factors increase the conduction velocity for action potentials in a neuron:", o: ["A. Decreased diameter and lack of myelin", "B. Increased temperature and shorter axon", "C. Higher resistance and lower capacitance", "D. Myelination and increased fiber diameter", "E. Increased number of synaptic vesicles"], a: "D" },
-  { n: 166, s: "25", q: " A woman is scheduled for imaging, and her doctor decides to use a CT scan, Why is CT preferred over normal Radiography?", o: ["A. Lower cost and accessibility", "B. Complete absence of radiation", "C. Use of acoustic sound waves", "D. Shorter time for preparation", "E. Better spatial resolution"], a: "E" }
+  { n: 166, s: "25", q: " A woman is scheduled for imaging, and her doctor decides to use a CT scan, Why is CT preferred over normal Radiography?", o: ["A. Lower cost and accessibility", "B. Complete absence of radiation", "C. Use of acoustic sound waves", "D. Shorter time for preparation", "E. Better spatial resolution"], a: "E" },
+  { n: 167, s: "U", q: "In MRI, what effect do radiofrequency (RF) pulses have on protons?", o: ["A. Align protons with magnetic field", "B. Increase energy level of protons", "C. Excite protons inside tissue", "D. Convert proton motion to signal", "E. Decrease magnetic strength"], a: "C" },
+ 
+
+{ n: 168, s: "U", q: "In radiation protection, what does ALARA stand for?", o: ["A. As low as reasonably achievable", "B. As limited as radiation allows", "C. As long as radiation applies", "D. Absolute level against radiation accumulation", "E. Applied limit for acceptable radiation amount"], a: "A" },
+
+{ n: 169, s: "U", q: "What device is abbreviated as AED and used in cardiac emergencies?", o: ["A. Automatic electrocardiogram detector", "B. Automated external defibrillator", "C. Advanced emergency defibrillation device", "D. Assisted electrical defibrillation apparatus", "E. Automatic energy delivery system"], a: "B" },
+{ n: 170, s: "U", q: "During fluoroscopy, what must technologists wear to prevent lead exposure?", o: ["A. Wear radiation safety aprons", "B. Wear protective shielding aprons", "C. Wear diagnostic shielding aprons", "D. Wear lead aprons", "E. Wear radiology protective aprons"], a: "D" },
+
+{ n: 171, s: "U", q: "What technology is based on the principle of photocoagulation?", o: ["A. Light", "B. Heat", "C. Plasma", "D. Photon", "E. Laser"], a: "E" },
+
+{ n: 172, s: "U", q: "Which muscle vibrates at high frequency to produce voice sounds?", o: ["A. Masseter", "B. Diaphragm", "C. Trapezius", "D. Deltoid", "E. Serratus"], a: "B" },
+
+{ n: 173, s: "U", q: "How does a Nd:YAG laser stop hemorrhaging?", o: ["A. By producing ionizing radiation that destroys blood cells", "B. By generating ultrasonic vibrations that seal blood vessels", "C. By heating and contraction of soft tissue", "D. Freezing tissue and causing immediate vasoconstriction", "E. Inducing chemical coagulation in blood proteins"], a: "C" },
+
+{ n: 174, s: "U", q: "What radioactive isotope is associated with the thyroid gland?", o: ["A. 99m-technetium", "B. 60-cobalt", "C. 137-cesium", "D. 32-phosphorus", "E. 131-iodine"], a: "E" },
+
+{ n: 175, s: "U", q: "What particles do MRI and CT imaging techniques use?", o: ["A. MRI uses neutrons, CT uses gamma rays", "B. MRI uses electrons, CT uses positrons", "C. MRI uses protons, CT uses high atomic number atoms", "D. MRI uses alpha particles, CT uses beta particles", "E. MRI uses magnetic photons, CT uses thermal electrons"], a: "C" },
+
+{ n: 176, s: "U", q: "Where should electrodes be placed when using a defibrillator?", o: ["A. Posterior thoracic region", "B. Both sides of the abdomen", "C. Upper and lower back regions", "D. Anterior-lateral chest", "E. Directly over the sternum only"], a: "D" },
+
+{ n: 177, s: "U", q: "What does the doppler effect show when a signal moves away from the ultrasound transducer?", o: ["A. Red color as signal moves away from transducer", "B. Blue color as signal moves away from transducer", "C. Green color indicating stationary blood flow", "D. Yellow color showing increased velocity toward transducer", "E. No color change because frequency remains constant"], a: "A" },
+{ n: 178, s: "U", q: "What part of the heart acts as the natural pacemaker?", o: ["A. AV node", "B. LV wall", "C. RV node", "D. RA wall", "E. SA node"], a: "E" },
+
+{ n: 179, s: "U", q: "Which imaging technique is commonly used to detect vessel failure or blockage?", o: ["A. Computed tomography scan", "B. Doppler ultrasound", "C. Magnetic resonance imaging", "D. Standard X-ray imaging", "E. Nuclear medicine scan"], a: "B" },
+
+{ n: 180, s: "U", q: "Which complex appears on an ECG when the ventricles are depolarized?", o: ["A. P wave complex", "B. ST segment complex", "C. PR interval complex", "D. T wave complex", "E. QRS complex"], a: "E" },
 
 ];
 
@@ -512,3 +539,4 @@ filterBySubject("All", firstFilterBtn);
 </script>
 </body>
 </html>
+
