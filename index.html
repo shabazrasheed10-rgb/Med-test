@@ -9,7 +9,6 @@
   <style>
     :root {
       --bg-color: #0c0d0e; 
-      /* Updated for Glassmorphism: slightly transparent */
       --card-bg: rgba(26, 28, 30, 0.7); 
       --header-bg: rgba(22, 24, 26, 0.85);
       --accent-hdsf: #f0cf6a;
@@ -24,7 +23,6 @@
     body {
       font-family: 'Segoe UI', Roboto, sans-serif;
       background-color: var(--bg-color);
-      /* Subtle gradient background to make the blur look better */
       background-image: radial-gradient(circle at 50% 0%, #16181a 0%, #0c0d0e 100%);
       color: var(--text-main);
       margin: 0;
@@ -35,62 +33,6 @@
       min-height: 100vh;
       user-select: none;
       -webkit-user-select: none;
-    }
-
-    /* ===== ACTIVATION SYSTEM STYLES ===== */
-    body.locked { overflow: hidden; }
-    body.locked .mcq-link { pointer-events: none; opacity: 0.5; }
-
-    #activation-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(12, 13, 14, 0.98);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .activation-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 40px 30px;
-      border-radius: 28px;
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-    }
-
-    .activation-card h2 { margin: 0 0 10px; color: #fff; font-size: 1.8rem; }
-    .activation-card p { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; }
-
-    .activation-card input {
-      width: 100%;
-      padding: 16px;
-      background: #000;
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      color: #fff;
-      font-size: 1.1rem;
-      text-align: center;
-      margin-bottom: 20px;
-      outline: none;
-    }
-
-    .activation-card button {
-      width: 100%;
-      padding: 16px;
-      background: var(--accent-bbb);
-      color: #000;
-      border: none;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: 0.3s;
     }
 
     /* ===== HEADER ===== */
@@ -126,30 +68,6 @@
       border: 1px solid var(--border-color);
       gap: 4px;
     }
-    
-        /* Support Link Styles */
-    .contact-support {
-      margin-top: 25px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border-color);
-      font-size: 0.85rem;
-      color: var(--text-dim);
-    }
-
-    .tg-link {
-      display: block;
-      margin-top: 8px;
-      color: var(--accent-bbb);
-      text-decoration: none;
-      font-weight: 600;
-      transition: var(--transition);
-    }
-
-    .tg-link:hover {
-      text-decoration: underline;
-      filter: brightness(1.2);
-    }
-
 
     .year-chip {
       padding: 8px 16px;
@@ -179,7 +97,7 @@
 
     .section-container {
       width: 100%;
-      margin-bottom: 60px; /* INCREASED SPACE BETWEEN HDSF & BBB */
+      margin-bottom: 60px;
     }
 
     .category-title {
@@ -209,7 +127,6 @@
       padding: 13px;
       transition: var(--transition);
     }
-      
 
     .subject-card:hover {
       border-color: rgba(255,255,255,0.2);
@@ -224,7 +141,7 @@
       font-weight: 700;
     }
 
-    .links-container { display: flex; flex-direction: column; gap: 4px; text-decoration:none; }
+    .links-container { display: flex; flex-direction: column; gap: 4px; }
 
     .mcq-link {
       color: var(--text-dim);
@@ -250,15 +167,7 @@
       font-weight: 500;
     }
     
-    .year-footer-label {
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      margin: 40px 0;
-      letter-spacing: 0.5px;
-    }
-    
-     .site-footer {
+    .site-footer {
             margin-top: auto;
             padding: 15px;
             text-align: center;
@@ -266,29 +175,9 @@
             opacity: 0.6;
             border-top: 1px solid var(--border-color);
         }
-  
-    
-    
   </style>
 </head>
-<body class="locked">
-    
-
-    <div id="activation-overlay">
-    <div class="activation-card">
-      <h2>Unlock Med-Q</h2>
-      <p>Please enter your unique activation code to access the questions.</p>
-      <input type="text" id="activation-code" placeholder="Enter Code Here">
-      <button id="activate-btn">Activate App</button>
-      <p id="status-msg" style="margin-top:15px; min-height:1.2em; font-weight:600;"></p>
-      
-      <div class="contact-support">
-        <span>Don't have a code?</span>
-        <a href="https://t.me/Med_Q2" target="_blank" class="tg-link">Contact me to activate</a>
-      </div>
-    </div>
-  </div>
-
+<body>
 
   <header class="main-header">
     <div class="header-info">
@@ -324,7 +213,7 @@
           </div>
         </div>
         
-          <div class="subject-card">
+        <div class="subject-card">
           <div class="card-header"><h1>Molecular biology 🧬</h1></div>
           <div class="links-container">
               <span class="mcq-link" onclick="location.href='Molecular biology.html'">Theory <span class="badge">71 MCQs</span></span>
@@ -345,8 +234,6 @@
              <span class="mcq-link" onclick="location.href='Genetics.html'">Theory <span class="badge">61 MCQs</span></span>
           </div>
         </div>
-
-      
 
         <div class="subject-card">
           <div class="card-header"><h1>Cell biology 🔬</h1></div>
@@ -386,20 +273,19 @@
           <div class="card-header"><h1>Biophysics ⚛️</h1></div>
           <div class="links-container">
             <span class="mcq-link" onclick="location.href='Biophysics.html'">Theory <span class="badge">180 MCQs</span></span>
-            <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
+             <span class="mcq-link" onclick="location.href='#'">Practical <span class="badge">0 Questions</span></span>
           </div>
         </div>
 
         <div class="subject-card">
           <div class="card-header"><h1>Basic emergency care ⚕️</h1></div>
           <div class="links-container">
-            <a class="mcq-link" href="#">Theory <span class="badge">0 MCQs</span></a>
-            <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
+             <span class="mcq-link" onclick="location.href='#'">Theory <span class="badge">0 MCQs</span></span>
+             <span class="mcq-link" onclick="location.href='#'">Practical <span class="badge">0 Questions</span></span>
           </div>
         </div>
       </div>
     </main>
-    
   </div>
 
   <div id="content-2026" class="year-content">
@@ -416,8 +302,9 @@
         <div class="subject-card">
           <div class="card-header"><h1>Final Exam</h1></div>
           <div class="links-container">
-            <a class="mcq-link" href="#">Theory <span class="badge">0 MCQs</span></a>
-            <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
+              <span class="mcq-link" onclick="location.href='#'">Theory <span class="badge">0 MCQs</span></span>
+             <span class="mcq-link" onclick="location.href='#'">Practical <span class="badge">0 Questions</span></span>
+             
           </div>
         </div>
       </div>
@@ -436,18 +323,15 @@
         <div class="subject-card">
           <div class="card-header"><h1>Final Exam</h1></div>
           <div class="links-container">
-            <a class="mcq-link" href="#">Theory <span class="badge">0 MCQs</span></a>
-            <a class="mcq-link" href="#">Practical <span class="badge">0 MCQs</span></a>
+              <span class="mcq-link" onclick="location.href='#'">Theory <span class="badge">0 MCQs</span></span>
+             <span class="mcq-link" onclick="location.href='#'">Practical <span class="badge">0 Questions</span></span>
           </div>
         </div>
       </div>
     </div>
-    
   </div>
 
-  <footer class="site-footer">Developed by<strong> Shabaz Rasheed</strong></footer>
-    
-  
+  <footer class="site-footer">Developed by <strong>Shabaz Rasheed</strong></footer>
 
   <script>
     function showYear(yearId, element) {
@@ -463,69 +347,6 @@
       if (savedYear) {
         const btn = document.getElementById('chip-' + savedYear);
         if (btn) showYear(savedYear, btn);
-      }
-    };
-  </script>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDK8QW-UOElfgmNbFYslD3krgkpizTuaWg",
-      authDomain: "med-test-8a03f.firebaseapp.com",
-      projectId: "med-test-8a03f",
-      storageBucket: "med-test-8a03f.firebasestorage.app",
-      messagingSenderId: "667021400985",
-      appId: "1:667021400985:web:53b688f554e78adddd5108",
-      measurementId: "G-QMFYTZX5TP"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    const overlay = document.getElementById('activation-overlay');
-    const btn = document.getElementById('activate-btn');
-    const status = document.getElementById('status-msg');
-
-    // CHECK IF ALREADY ACTIVATED
-    if (localStorage.getItem('medq_active') === 'true') {
-      overlay.style.display = 'none';
-      document.body.classList.remove('locked');
-    }
-
-    btn.onclick = async () => {
-      const code = document.getElementById('activation-code').value.trim();
-      if (!code) return;
-
-      status.innerText = "Verifying code...";
-      status.style.color = "#38bdf8";
-
-      try {
-        const docRef = doc(db, "activationCodes", code);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists() && docSnap.data().isUsed === false) {
-          // Mark code as used in Firebase
-          await updateDoc(docRef, { isUsed: true });
-          
-          // Save to LocalStorage
-          localStorage.setItem('medq_active', 'true');
-          
-          status.innerText = "Success! Unlocking...";
-          status.style.color = "#4ade80";
-          
-          setTimeout(() => {
-            overlay.style.display = 'none';
-            document.body.classList.remove('locked');
-          }, 1000);
-        } else {
-          status.innerText = docSnap.exists() ? "Code already used." : "Invalid code.";
-          status.style.color = "#ff4444";
-        }
-      } catch (e) {
-        status.innerText = "Error. Check internet or rules.";
-        console.error(e);
       }
     };
   </script>
