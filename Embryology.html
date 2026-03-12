@@ -6,33 +6,35 @@
     <title>End-Rotation_Embryology_2022-2025</title>
 
     <style>
-        :root {
-            /* Light Mode */
-            --bg-body: #ffffff;
-            --text-main: #000000;
-            --text-opts: #333333;
-            --header-bg: #2D2D2D;
-            --header-text: #ffffff;
-            --border-color: #e0e0e0;
-            --input-bg: #ffffff;
-            --input-border: #cccccc;
-            --ans-bg: #f1f8e9;
-            --ans-text: #2e7d32;
-        }
+       /* Update this section in your <style> tag */
+:root {
+    /* Dark Mode (Now Default) */
+    --bg-body: #0c0d0e;
+    --text-main: #f1f5f9;
+    --text-opts: #f1f5f9;
+    --header-bg: #1e293b;
+    --header-text: #38bdf8;
+    --border-color: #26292b;
+    --input-bg: #1a1c1e;
+    --input-border: #334155;
+    --ans-bg: #1e293b;
+    --ans-text: #f0cf6a;
+}
 
-        [data-theme="dark"] {
-            /* Dark Mode */
-            --bg-body: #0c0d0e;
-            --text-main: #f1f5f9;
-            --text-opts: #f1f5f9;
-            --header-bg: #1e293b;
-            --header-text: #38bdf8;
-            --border-color: #26292b;
-            --input-bg: #1a1c1e;
-            --input-border: #334155;
-            --ans-bg: #1e293b;
-            --ans-text: #f0cf6a;
-        }
+[data-theme="light"] {
+    /* Light Mode */
+    --bg-body: #ffffff;
+    --text-main: #000000;
+    --text-opts: #333333;
+    --header-bg: #2D2D2D;
+    --header-text: #ffffff;
+    --border-color: #e0e0e0;
+    --input-bg: #ffffff;
+    --input-border: #cccccc;
+    --ans-bg: #f1f8e9;
+    --ans-text: #2e7d32;
+}
+
 
         body {
             -webkit-user-select: none;
@@ -45,6 +47,17 @@
             justify-content: center;
             transition: background-color 0.3s ease;
         }
+        body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
 
         .container {
             width: 100%;
@@ -142,8 +155,15 @@
             <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
         </div>
         <button class="theme-toggle" onclick="toggleTheme()">
-            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-        </button>
+    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+</button>
+
+        
+</button>
+
+        
     </div>
    
     <hr class="divider">
@@ -154,15 +174,26 @@
 function toggleTheme() {
     const body = document.body;
     const icon = document.getElementById('theme-icon');
-    const isDark = body.getAttribute('data-theme') === 'dark';
-    if (isDark) {
+    
+    // Check if we are currently in light mode
+    const isLight = body.getAttribute('data-theme') === 'light';
+
+    if (isLight) {
+        // Switch to DARK (The Default)
         body.removeAttribute('data-theme');
-        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-    } else {
-        body.setAttribute('data-theme', 'dark');
+        // Change icon to SUN (so user can switch back to Light)
         icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        // Switch to LIGHT
+        body.setAttribute('data-theme', 'light');
+        // Change icon to MOON (so user can switch back to Dark)
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
 }
+
+
+
+
 
 const data = [
 
@@ -467,13 +498,15 @@ const data = [
     ],
     a: "B"
   },
-       { n: 26, s: "present", q: "Which hormone is specifically detected in standard pregnancy tests?", o: ["A. Progesterone", "B. Human Chorionic Gonadotropin (hCG)", "C. Luteinizing hormone (LH)", "D. Follicle-stimulating hormone (FSH)", "E. Estriol"], a: "B" },
+  
+   { n: 26, s: "present", q: "Which hormone is specifically detected in standard pregnancy tests?", o: ["A. Progesterone", "B. Human Chorionic Gonadotropin (hCG)", "C. Luteinizing hormone (LH)", "D. Follicle-stimulating hormone (FSH)", "E. Estriol"], a: "B" },
  { n: 27, s: "present", q: "Which phase of the uterine (menstrual) cycle is primarily influenced by estrogen?", o: ["A. Secretory phase", "B. Menstrual phase", "C. Proliferative phase", "D. Ischemic phase", "E. Luteal phase"], a: "C" },
  
  { n: 28, s: "present", q: "In which specific part of the female reproductive system does fertilization typically occur?", o: ["A. Ampulla of the Fallopian tube", "B. Isthmus of the uterine tube", "C. Uterine cavity", "D. Cervical canal", "E. Infundibulum"], a: "A" },
  
  { n: 29, s: "present", q: "Which structures constitute the inner cell mass (bilaminar embryonic disc) during the second week of embryonic development?", o: ["A. Syncytiotrophoblast and Cytotrophoblast", "B. Ectoderm and Endoderm", "C. Mesoderm and Trophoblast", "D. Neural plate and Somites", "E. Epiblast and Hypoblast"], a: "E" },
  
+
 
 ];
 
@@ -528,3 +561,4 @@ renderQuiz();
 </script>
 </body>
 </html>
+
