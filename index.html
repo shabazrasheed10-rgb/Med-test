@@ -36,17 +36,6 @@
       user-select: none;
       -webkit-user-select: none;
     }
-    body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
-  z-index: 0;
-    }
 
     /* ===== ACTIVATION SYSTEM STYLES ===== */
     body.locked { overflow: hidden; }
@@ -120,7 +109,7 @@
     .header-info h3 { margin: 0; font-size: 1.5rem; color: #ffffff; }
     .header-info p { margin: 6px 0 0; color: var(--text-dim); font-size: 0.9rem; }
 
-      /* ===== YEAR SELECTOR ===== */
+    /* ===== YEAR SELECTOR ===== */
     .year-selection-container {
       width: 100%;
       max-width: none;
@@ -131,28 +120,11 @@
 
     .year-nav {
       display: flex;
-      gap: 10px;
-    }
-    
-
-    .year-chip {
-      padding: 8px 16px;
-      border-radius: 6px;
-      color: var(--text-dim);
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      background: #16181a; 
+      background: #16181a;
+      padding: 4px;
+      border-radius: 10px;
       border: 1px solid var(--border-color);
-    }
-
-    .year-chip.active {
-      background: var(--card-bg);
-      color: var(--accent-bbb);
-      /* Keeps the border on the active chip */
-      border: 1px solid var(--accent-bbb); 
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      gap: 4px;
     }
     
         /* Support Link Styles */
@@ -179,8 +151,31 @@
     }
 
 
+    .year-chip {
+      padding: 8px 16px;
+      border-radius: 7px;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
 
- 
+    .year-chip.active {
+      background: var(--card-bg);
+      color: var(--accent-bbb);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    /* ===== CONTENT LAYOUT ===== */
+    .year-content { 
+      display: none; 
+      width: 100%; 
+      max-width: none; 
+    }
+    .year-content.active { display: block; }
 
     .section-container {
       width: 100%;
