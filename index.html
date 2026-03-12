@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#0c0d0e">
   <title>Block 2 | Med-Q</title>
   <style>
+
     :root {
       --bg-color: #0c0d0e; 
-      /* Updated for Glassmorphism: slightly transparent */
       --card-bg: rgba(26, 28, 30, 0.7); 
       --header-bg: rgba(22, 24, 26, 0.85);
       --accent-hdsf: #f0cf6a;
@@ -21,11 +21,10 @@
     }
 
     * { box-sizing: border-box; }
-    body {
+
+        body {
       font-family: 'Segoe UI', Roboto, sans-serif;
-      background-color: var(--bg-color);
-      /* Subtle gradient background to make the blur look better */
-      background-image: radial-gradient(circle at 50% 0%, #16181a 0%, #0c0d0e 100%);
+      background-color: #0c0d0e;
       color: var(--text-main);
       margin: 0;
       padding: 15px;
@@ -33,14 +32,42 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      user-select: none;
-      -webkit-user-select: none;
+      overflow-x: hidden;
+      position: relative;
     }
 
-    /* ===== ACTIVATION SYSTEM STYLES ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* Layer 1: The Grid Lines | Layer 2 & 3: The Glows */
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(240, 207, 106, 0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 110%, rgba(56, 189, 248, 0.08) 0%, transparent 60%);
+      background-size: 40px 40px, 40px 40px, 100% 100%, 100% 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* IMPORTANT: Ensure content is visible above the background */
+    .main-header, 
+    .year-selection-container, 
+    .year-content, 
+    .site-footer, 
+    #activation-overlay {
+      position: relative;
+      z-index: 1;
+    }
+
+
+    /* ===== ACTIVATION SYSTEM ===== */
     body.locked { overflow: hidden; }
     body.locked .mcq-link { pointer-events: none; opacity: 0.5; }
-
     #activation-overlay {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -52,7 +79,6 @@
       align-items: center;
       justify-content: center;
     }
-
     .activation-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -61,58 +87,27 @@
       text-align: center;
       width: 90%;
       max-width: 400px;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
     }
-
-    .activation-card h2 { margin: 0 0 10px; color: #fff; font-size: 1.8rem; }
-    .activation-card p { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; }
-
     .activation-card input {
-      width: 100%;
-      padding: 16px;
-      background: #000;
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      color: #fff;
-      font-size: 1.1rem;
-      text-align: center;
-      margin-bottom: 20px;
-      outline: none;
+      width: 100%; padding: 16px; background: #000; border: 1px solid var(--border-color);
+      border-radius: 14px; color: #fff; text-align: center; margin-bottom: 20px;
     }
-
     .activation-card button {
-      width: 100%;
-      padding: 16px;
-      background: var(--accent-bbb);
-      color: #000;
-      border: none;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: 0.3s;
+      width: 100%; padding: 16px; background: var(--accent-bbb); color: #000;
+      border: none; border-radius: 14px; font-weight: 700; cursor: pointer;
     }
 
     /* ===== HEADER ===== */
     .main-header {
-      width: 100%;
-      max-width: none;
-      background: var(--header-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: 16px;
-      border-radius: 16px;
-      border: 1px solid var(--border-color);
-      margin-bottom: 20px;
+      width: 100%; background: var(--header-bg); backdrop-filter: blur(12px);
+      padding: 16px; border-radius: 16px; border: 1px solid var(--border-color); margin-bottom: 20px;
     }
-
     .header-info h3 { margin: 0; font-size: 1.5rem; color: #ffffff; }
     .header-info p { margin: 6px 0 0; color: var(--text-dim); font-size: 0.9rem; }
 
-    /* ===== YEAR SELECTOR ===== */
+    /* ===== YEAR SELECTOR (FIXED) ===== */
     .year-selection-container {
       width: 100%;
-      max-width: none;
       display: flex;
       justify-content: flex-start;
       margin-bottom: 30px;
@@ -120,84 +115,62 @@
 
     .year-nav {
       display: flex;
-      background: #16181a;
-      padding: 4px;
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
-      gap: 4px;
+      gap: 12px; /* Space between the two year buttons */
     }
-    
-        /* Support Link Styles */
-    .contact-support {
-      margin-top: 25px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border-color);
-      font-size: 0.85rem;
-      color: var(--text-dim);
-    }
-
-    .tg-link {
-      display: block;
-      margin-top: 8px;
-      color: var(--accent-bbb);
-      text-decoration: none;
-      font-weight: 600;
-      transition: var(--transition);
-    }
-
-    .tg-link:hover {
-      text-decoration: underline;
-      filter: brightness(1.2);
-    }
-
 
     .year-chip {
-      padding: 8px 16px;
-      border-radius: 7px;
+      padding: 10px 18px;
+      border-radius: 6px;
       color: var(--text-dim);
       font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
       transition: var(--transition);
-      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.03); 
+      border: 1px solid var(--border-color);   /* Border around each button */
     }
 
     .year-chip.active {
-      background: var(--card-bg);
+      background: rgba(56, 189, 248, 0.05);
       color: var(--accent-bbb);
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--accent-bbb); /* Blue border for active one */
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
-    /* ===== CONTENT LAYOUT ===== */
-    .year-content { 
-      display: none; 
-      width: 100%; 
-      max-width: none; 
-    }
+    /* ===== SUBJECT CARDS & GRID ===== */
+    .year-content { display: none; width: 100%; }
     .year-content.active { display: block; }
 
-    .section-container {
-      width: 100%;
-      margin-bottom: 60px; /* INCREASED SPACE BETWEEN HDSF & BBB */
-    }
+    .section-container { width: 100%; margin-bottom: 60px; }
 
-    .category-title {
-      font-size: 1.3rem;
-      margin: 0 0 20px 0;
-      padding-left: 12px;
-      border-left: 3px solid;
-      display: flex;
+      .category-title {
+      font-size: 1.2rem;
+      margin: 25px 0 20px 0;
+      padding: 5px 18px; 
+      border: 1px solid;   
+      border-radius: 6px; 
+      display: inline-flex;
       align-items: center;
     }
 
-    .hdsf-theme { border-color: var(--accent-hdsf); color: var(--accent-hdsf); }
-    .bbb-theme { border-color: var(--accent-bbb); color: var(--accent-bbb); }
+    .hdsf-theme { 
+      border-color: var(--accent-hdsf); 
+      color: var(--accent-hdsf); 
+      background: rgba(240, 207, 106, 0.05); 
+    }
+
+    .bbb-theme { 
+      border-color: var(--accent-bbb); 
+      color: var(--accent-bbb); 
+      background: rgba(56, 189, 248, 0.05);
+    }
+
 
     .subject-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 16px;
+      width: 100%;
     }
 
     .subject-card {
@@ -206,10 +179,9 @@
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--border-color);
       border-radius: 14px;
-      padding: 13px;
+      padding: 16px; /* Restored padding */
       transition: var(--transition);
     }
-      
 
     .subject-card:hover {
       border-color: rgba(255,255,255,0.2);
@@ -217,14 +189,9 @@
       transform: translateY(-2px);
     }
 
-    .card-header h1 {
-      font-size: 1.1rem;
-      margin: 0 0 18px 0;
-      color: var(--text-main);
-      font-weight: 700;
-    }
+    .card-header h1 { font-size: 1.1rem; margin: 0 0 15px 0; color: #fff; }
 
-    .links-container { display: flex; flex-direction: column; gap: 4px; text-decoration:none; }
+    .links-container { display: flex; flex-direction: column; gap: 4px; }
 
     .mcq-link {
       color: var(--text-dim);
@@ -237,39 +204,22 @@
       cursor: pointer;
       text-decoration: none;
     }
-
     .mcq-link:last-child { border-bottom: none; }
     .mcq-link:hover { color: var(--accent-bbb); }
 
     .badge {
-      font-size: 0.75rem;
-      padding: 3px 10px;
-      border-radius: 6px;
-      background: rgba(38, 41, 43, 0.8);
-      color: var(--accent-hdsf);
-      font-weight: 500;
+      font-size: 0.75rem; padding: 3px 10px; border-radius: 6px;
+      background: rgba(38, 41, 43, 0.8); color: var(--accent-hdsf); font-weight: 500;
     }
-    
-    .year-footer-label {
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-dim);
-      margin: 40px 0;
-      letter-spacing: 0.5px;
+
+    .site-footer {
+      width: 100%; margin-top: auto; padding: 20px; text-align: center;
+      font-size: 0.75rem; opacity: 0.6; border-top: 1px solid var(--border-color);
     }
-    
-     .site-footer {
-            margin-top: auto;
-            padding: 15px;
-            text-align: center;
-            font-size: 0.75rem;
-            opacity: 0.6;
-            border-top: 1px solid var(--border-color);
-        }
-  
-    
-    
   </style>
+
+    
+  
 </head>
 <body class="locked">
     
@@ -299,8 +249,8 @@
 
   <div class="year-selection-container">
     <div class="year-nav">
-      <div class="year-chip active" id="chip-2022" onclick="showYear('2022', this)">2022-2025</div>
-      <div class="year-chip" id="chip-2026" onclick="showYear('2026', this)">2025-2026</div>
+      <div class="year-chip active" id="chip-2022" onclick="showYear('2022', this)">2022 - 2025</div>
+      <div class="year-chip" id="chip-2026" onclick="showYear('2026', this)">2025 - 2026</div>
     </div>
   </div>
 
