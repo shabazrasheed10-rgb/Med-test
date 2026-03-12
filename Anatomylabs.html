@@ -7,19 +7,6 @@
     
     <style>
         :root {
-            --bg-body: #f4f4f9;
-            --text-main: #333333;
-            --header-bg: #2D2D2D;
-            --header-text: #ffffff;
-            --card-bg: #ffffff;
-            --card-border: #cccccc;
-            --ans-bg: #e8f5e9;
-            --ans-text: #2e7d32;
-            --ans-border: #2e7d32;
-            --input-border: #cccccc;
-        }
-
-        [data-theme="dark"] {
             --bg-body: #0c0d0e;
             --text-main: #f1f5f9;
             --header-bg: #1e293b;
@@ -30,6 +17,21 @@
             --ans-text: #f0cf6a;
             --ans-border: #2e7d32;
             --input-border: #334155;
+        
+        }
+
+        [data-theme="light"] {
+          
+            --bg-body: #f4f4f9;
+            --text-main: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --card-bg: #ffffff;
+            --card-border: #cccccc;
+            --ans-bg: #e8f5e9;
+            --ans-text: #2e7d32;
+            --ans-border: #2e7d32;
+            --input-border: #cccccc;
         }
 
         body {
@@ -247,10 +249,13 @@
             <button class="filter-btn" onclick="filterLabs('L10', this)">Genitourinary system 🫘</button>
           
         </div>
+            <button class="theme-toggle" onclick="toggleTheme()">
+    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+</button>
         
-        <button class="theme-toggle" onclick="toggleTheme()">
-            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-        </button>
+        
     </div>
 
     <div id="quiz-content">
@@ -1450,17 +1455,24 @@ B. Spinous process
 
 <script>
     function toggleTheme() {
-        const body = document.body;
-        const icon = document.getElementById('theme-icon');
-        const isDark = body.getAttribute('data-theme') === 'dark';
-        if (isDark) {
-            body.removeAttribute('data-theme');
-            icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-        } else {
-            body.setAttribute('data-theme', 'dark');
-            icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-        }
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    
+    // Check if we are currently in light mode
+    const isLight = body.getAttribute('data-theme') === 'light';
+
+    if (isLight) {
+        // Switch to DARK (The Default)
+        body.removeAttribute('data-theme');
+        // Change icon to SUN (so user can switch back to Light)
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        // Switch to LIGHT
+        body.setAttribute('data-theme', 'light');
+        // Change icon to MOON (so user can switch back to Dark)
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
+}
 
     function filterLabs(subject, btn) {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1484,4 +1496,4 @@ B. Spinous process
     }
 </script>
 </body>
-</html>
+                                            </html>
