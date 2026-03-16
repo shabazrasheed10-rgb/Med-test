@@ -3,23 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practical_Microbiology_End-Rotation_HDSF</title>
+    <title>Practical_BBB_End-Rotation_2022-2026</title>
     
     <style>
-        :root {
-            --bg-body: #f4f4f9;
-            --text-main: #333333;
-            --header-bg: #2D2D2D;
-            --header-text: #ffffff;
-            --card-bg: #ffffff;
-            --card-border: #cccccc;
-            --ans-bg: #e8f5e9;
-            --ans-text: #2e7d32;
-            --ans-border: #2e7d32;
-            --input-border: #cccccc;
-        }
-
-        [data-theme="dark"] {
+      :root {
             --bg-body: #0c0d0e;
             --text-main: #f1f5f9;
             --header-bg: #1e293b;
@@ -30,6 +17,21 @@
             --ans-text: #f0cf6a;
             --ans-border: #2e7d32;
             --input-border: #334155;
+        
+        }
+
+        [data-theme="light"] {
+          
+            --bg-body: #f4f4f9;
+            --text-main: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --card-bg: #ffffff;
+            --card-border: #cccccc;
+            --ans-bg: #e8f5e9;
+            --ans-text: #2e7d32;
+            --ans-border: #2e7d32;
+            --input-border: #cccccc;
         }
 
         body {
@@ -162,7 +164,7 @@
             color: white;
             border: none;
             padding: 8px 15px;
-            border-radius: 6px;
+            border-radius: 3px;
             cursor: pointer;
             font-weight: 600;
             margin-top: 10px;
@@ -175,16 +177,28 @@
         }
 
         .lab-title {
-            text-align: center;
-            margin: 40px 0 20px 0;
+            text-align: left;
+            margin: 80px 0 20px 0;
             font-size: 1.4rem;
             font-weight: bold;
             color: #729fcf;
-            
             padding-bottom: 5px;
-            display: inline-block;
+            display: flex;
+            align-items:center;
+            justify-content: space-between;
+            width: 100%;      
+            border-bottom: 1px solid var(--card-border);
         }
+            
         .lab-center { text-align: left; width: 100%; }
+        
+        .Q-number{
+          font-size:12px;
+          border:1px solid green;
+          padding:3px;
+          border-radius:3px;
+          color:green;
+}
 
         @media (max-width: 700px) {
             .quiz-card { flex-direction: column-reverse; }
@@ -214,22 +228,24 @@
         </div>
         
         <button class="theme-toggle" onclick="toggleTheme()">
-            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-        </button>
+    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+</button>
     </div>
 
     <div id="quiz-content">
         
         <div class="lab-wrapper" data-subject="bec">
-            <div class="lab-center"><div class="lab-title">Basic emergency care ⚕️</div></div>
+            <div class="lab-center"><div class="lab-title">Basic emergency care ⚕️<span class="Q-number">2 questions</span></div></div>
             
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q1.</h3>
+                    <h3 class="question-number">1.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> Which vessel is cut?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1a', this)">Show Answer</button>
-                        <div id="ans1a" class="answer-box">Artery</div>
+                        <div id="ans1a" class="answer-box">Artery.</div>
                     </div>
                     <div class="question-item">
                         <span><strong>B.</strong> What is its charactersics? </span><br>
@@ -242,11 +258,11 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q2.</h3>
+                    <h3 class="question-number">2.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> What degree is the type of the burn?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans2a', this)">Show Answer</button>
-                        <div id="ans2a" class="answer-box">Second degree</div>
+                        <div id="ans2a" class="answer-box">Second degree.</div>
                     </div>
                     <div class="question-item">
                         <span><strong>B.</strong> What is its charactersics?</span><br>
@@ -263,13 +279,13 @@
 
 
         <div class="lab-wrapper" data-subject="bioch">
-            <div class="lab-center"><div class="lab-title">Biochemistry 🧪</div></div>
+            <div class="lab-center"><div class="lab-title">Biochemistry 🧪<span class="Q-number">4 questions</span></div></div>
 
             <div class="quiz-card">
                 <div class="question-section">
                 
                     <div class="question-item">
-                        <span><strong>Q3.</strong> Starch is used as an indicator in which reaction?
+                        <span><strong>3.</strong> Starch is used as an indicator in which reaction?
                         
                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. Acid–base neutralization reaction</div>
@@ -295,7 +311,7 @@
                 <div class="question-section">
                   
                     <div class="question-item">
-                        <span><strong>Q4.</strong> In case of liver disease, the color of urine becomes:
+                        <span><strong>4.</strong> In case of liver disease, the color of urine becomes:
                         
                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. Pale yellow</div>
@@ -315,7 +331,7 @@
                 <div class="question-section">
                 
                     <div class="question-item">
-                        <span><strong>Q5.</strong> In Bial’s test, the furfural formed reacts (condenses) with which compound?
+                        <span><strong>5.</strong> In Bial’s test, the furfural formed reacts (condenses) with which compound?
                         
                         <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. Resorcinol</div>
@@ -339,7 +355,7 @@
                 <div class="question-section">
               
                     <div class="question-item">
-                        <span><strong>Q6.</strong> NaOH can't be used as standard solution because?
+                        <span><strong>6.</strong> NaOH can't be used as standard solution because?
                         
                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. It reacts rapidly with most acids during titration</div>
@@ -360,13 +376,13 @@
 
 
         <div class="lab-wrapper" data-subject="bioph">
-            <div class="lab-center"><div class="lab-title">Biophysics ⚛️</div></div>
+            <div class="lab-center"><div class="lab-title">Biophysics ⚛️<span class="Q-number">4 questions</span></div></div>
 
             <div class="quiz-card">
                 <div class="question-section">
                     
                     <div class="question-item">
-                        <span><strong>Q7.</strong> In which heat therapy is the part of the body to be treated placed between two electrodes?
+                        <span><strong>7.</strong> In which heat therapy is the part of the body to be treated placed between two electrodes?
                         
    <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. Short-wave diathermy</div>
@@ -388,7 +404,7 @@
                 <div class="question-section">
                   
                     <div class="question-item">
-                        <span><strong>Q8.</strong> During a portable chest X-ray in the ICU, what is the safest position for the radiographer?
+                        <span><strong>8.</strong> During a portable chest X-ray in the ICU, what is the safest position for the radiographer?
                          <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. Standing near the patient’s head</div>
     <div>B. Standing by the patient’s feet</div>
@@ -408,7 +424,7 @@
                 <div class="question-section">
                 
                     <div class="question-item">
-                        <span><strong>Q9.</strong> Low energy X-ray causes?
+                        <span><strong>9.</strong> Low energy X-ray causes?
 <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. Deep tissue necrosis</div>
     <div>B. Bone marrow suppression</div>
@@ -430,7 +446,7 @@
                 <div class="question-section">
               
                     <div class="question-item">
-                        <span><strong>Q10.</strong> Why Gel is used in ultrasound?
+                        <span><strong>10.</strong> Why Gel is used in ultrasound?
                           <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
     <div>A. To cool the transducer during operation</div>
     <div>B. To act as a lubricant for patient comfort</div>
@@ -457,17 +473,24 @@
 
 <script>
     function toggleTheme() {
-        const body = document.body;
-        const icon = document.getElementById('theme-icon');
-        const isDark = body.getAttribute('data-theme') === 'dark';
-        if (isDark) {
-            body.removeAttribute('data-theme');
-            icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-        } else {
-            body.setAttribute('data-theme', 'dark');
-            icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-        }
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    
+    // Check if we are currently in light mode
+    const isLight = body.getAttribute('data-theme') === 'light';
+
+    if (isLight) {
+        // Switch to DARK (The Default)
+        body.removeAttribute('data-theme');
+        // Change icon to SUN (so user can switch back to Light)
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        // Switch to LIGHT
+        body.setAttribute('data-theme', 'light');
+        // Change icon to MOON (so user can switch back to Dark)
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
+}
 
     function filterLabs(subject, btn) {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -491,4 +514,4 @@
     }
 </script>
 </body>
-</html>
+        </html>
