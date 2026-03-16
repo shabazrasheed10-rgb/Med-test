@@ -7,19 +7,6 @@
     
     <style>
         :root {
-            --bg-body: #f4f4f9;
-            --text-main: #333333;
-            --header-bg: #2D2D2D;
-            --header-text: #ffffff;
-            --card-bg: #ffffff;
-            --card-border: #cccccc;
-            --ans-bg: #e8f5e9;
-            --ans-text: #2e7d32;
-            --ans-border: #209b30;
-            --input-border: #cccccc;
-        }
-
-        [data-theme="dark"] {
             --bg-body: #0c0d0e;
             --text-main: #f1f5f9;
             --header-bg: #1e293b;
@@ -28,8 +15,23 @@
             --card-border: #26292b;
             --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
-            --ans-border: #209b30;
+            --ans-border: #2e7d32;
             --input-border: #334155;
+        
+        }
+
+        [data-theme="light"] {
+          
+            --bg-body: #f4f4f9;
+            --text-main: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --card-bg: #ffffff;
+            --card-border: #cccccc;
+            --ans-bg: #e8f5e9;
+            --ans-text: #2e7d32;
+            --ans-border: #2e7d32;
+            --input-border: #cccccc;
         }
 
         body {
@@ -170,23 +172,37 @@
             color: white;
             border: none;
             padding: 8px 15px;
-            border-radius: 6px;
+            border-radius: 3px;
             cursor: pointer;
             font-weight: 600;
             margin-top: 10px;
         }
 
         .lab-title {
-            text-align: center;
+            text-align: left;
             margin: 40px 0 20px 0;
             font-size: 1.4rem;
             font-weight: bold;
             color: #729fcf;
-            border-bottom: 2px solid #729fcf;
             padding-bottom: 5px;
-            display: inline-block;
+            display: flex;
+            align-items:center;
+            justify-content: space-between;
+            width: 100%;      
+            border-bottom: 1px solid var(--card-border);
         }
-        .lab-center { text-align: center; width: 100%; }
+            
+        .lab-center { text-align: left; width: 100%; }
+        
+        .Q-number{
+          font-size:12px;
+          border:1px solid green;
+          padding:3px;
+          border-radius:3px;
+          color:green;
+          
+          
+        }
 
         @media (max-width: 700px) {
             .quiz-card { flex-direction: column-reverse; }
@@ -218,27 +234,30 @@
         </div>
         
         <button class="theme-toggle" onclick="toggleTheme()">
-            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-        </button>
+    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+</button>
     </div>
 
     <div id="quiz-content">
+      
         
         <div class="lab-wrapper" data-subject="Anatomy">
-            <div class="lab-center"><div class="lab-title">ANATOMY - END-ROTATION - PRACTICAL</div></div>
+            <div class="lab-center"><div class="lab-title">ANATOMY 🦴 <span class="Q-number">6 questions</span></div></div>
             
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q1.</h3>
+                    <h3 class="question-number">1.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> Name the structure A.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1a', this)">Show Answer</button>
-                        <div id="ans1a" class="answer-box">Ilium</div>
+                        <div id="ans1a" class="answer-box">Ilium.</div>
                     </div>
                     <div class="question-item">
                         <span><strong>B.</strong> Name the structure B.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1b', this)">Show Answer</button>
-                        <div id="ans1b" class="answer-box">Appendix</div>
+                        <div id="ans1b" class="answer-box">Appendix.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="Ilium-Appendix.jpg" alt="Exam Image"></div>
@@ -246,16 +265,16 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                       <h3 class="question-number">Q2.</h3>
+                       <h3 class="question-number">2.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> What is the pointed area?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1c', this)">Show Answer</button>
-                        <div id="ans1c" class="answer-box">Esophagus opening</div>
+                        <div id="ans1c" class="answer-box">Esophagus opening.</div>
                     </div>
                     <div class="question-item">
                         <span><strong>B.</strong> What is its vertebral level?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1d', this)">Show Answer</button>
-                        <div id="ans1d" class="answer-box">T10</div>
+                        <div id="ans1d" class="answer-box">T10.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="Esophagus opening.jpg" alt="Exam Image"></div>
@@ -263,16 +282,16 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                       <h3 class="question-number">Q3.</h3>
+                       <h3 class="question-number">3.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> Name the structure A.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1e', this)">Show Answer</button>
-                        <div id="ans1e" class="answer-box">Brachiocephalic artery</div>
+                        <div id="ans1e" class="answer-box">Brachiocephalic artery.</div>
                     </div>
                     <div class="question-item">
                         <span><strong>B.</strong> Name the structure B.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1f', this)">Show Answer</button>
-                        <div id="ans1f" class="answer-box">Left subclavian artery</div>
+                        <div id="ans1f" class="answer-box">Left subclavian artery.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="Arteries.jpg" alt="Exam Image"></div>
@@ -280,16 +299,16 @@
         
             <div class="quiz-card">
                 <div class="question-section">
-                       <h3 class="question-number">Q4.</h3>
+                       <h3 class="question-number">4.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> Name the structure A.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1g', this)">Show Answer</button>
-                        <div id="ans1g" class="answer-box">Transverse proccess</div>
+                        <div id="ans1g" class="answer-box">Transverse proccess.</div>
                     </div>
                     <div class="question-item">
                         <span><strong>B.</strong> Name the structure B.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1h', this)">Show Answer</button>
-                        <div id="ans1h" class="answer-box">Transverse costal facet</div>
+                        <div id="ans1h" class="answer-box">Transverse costal facet.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="Transverse process.jpg" alt="Exam Image"></div>
@@ -297,16 +316,16 @@
       
             <div class="quiz-card">
                 <div class="question-section">
-                     <h3 class="question-number">Q5.</h3>
+                     <h3 class="question-number">5.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> Name the structure A.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1i', this)">Show Answer</button>
-                        <div id="ans1i" class="answer-box">Trigone</div>
+                        <div id="ans1i" class="answer-box">Trigone.</div>
                     </div>
                     <div class="question-item">
                         <span><strong>B.</strong> Name the structure B.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1l', this)">Show Answer</button>
-                        <div id="ans1l" class="answer-box">Bulbourethral glands (Cowper's gland)</div>
+                        <div id="ans1l" class="answer-box">Bulbourethral glands (Cowper's gland).</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="Trigone.jpg" alt="Exam Image" style="height:260px; width:900px;"></div>
@@ -314,16 +333,16 @@
       
             <div class="quiz-card">
                 <div class="question-section">
-                    <h3 class="question-number">Q6.</h3>
+                    <h3 class="question-number">6.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> Name the pointed area.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1m', this)">Show Answer</button>
-                        <div id="ans1m" class="answer-box">Auditory opening (not sure)</div>
+                        <div id="ans1m" class="answer-box">Auditory opening.</div>
                     </div>
                     <div class="question-item">
                         <span><strong>B.</strong> Location.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans1n', this)">Show Answer</button>
-                        <div id="ans1n" class="answer-box">Lateral wall of nasopharynx</div>
+                        <div id="ans1n" class="answer-box">Lateral wall of nasopharynx.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="Nasopharynx.jpg" alt="Exam Image"></div>
@@ -336,20 +355,20 @@
         
 
         <div class="lab-wrapper" data-subject="Microbiology">
-            <div class="lab-center"><div class="lab-title">MICROBIOLOGY LABS - END ROTATION - PRACTICAL</div></div>
+            <div class="lab-center"><div class="lab-title">MICROBIOLOGY LABS 🧫 <span class="Q-number">4 questions</span></div></div>
 
              <div class="quiz-card">
                 <div class="question-section">
-                      <h3 class="question-number">Q7.</h3>
+                      <h3 class="question-number">7.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> What is this called?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans2b', this)">Show Answer</button>
-                        <div id="ans2b" class="answer-box">Autoclave</div>
+                        <div id="ans2b" class="answer-box">Autoclave.</div>
                     </div>
                     <div class="question-item">
                         <span><strong>B.</strong> What is used for?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans2c', this)">Show Answer</button>
-                        <div id="ans2c" class="answer-box">Sterilizing culture media</div>
+                        <div id="ans2c" class="answer-box">Sterilizing culture media.</div>
                     </div>
                 </div>
                 <div class="image-section"><img src="Autoclave.jpg" alt="Exam Image"></div>
@@ -359,22 +378,22 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                 <h3 class="question-number">Q8.</h3>
+                 <h3 class="question-number">8.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> Type of sample A?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans2x', this)">Show Answer</button>
-                        <div id="ans2x" class="answer-box">Swab sample</div>
+                        <div id="ans2x" class="answer-box">Swab sample.</div>
                     </div>
                     <div class="question-item">
                         <span><strong>B.</strong> Type of sample B?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans2z', this)">Show Answer</button>
-                        <div id="ans2z" class="answer-box">Blood samlple</div>
+                        <div id="ans2z" class="answer-box">Blood samlple.</div>
                     </div>
                 </div>
                 <div class="samplps">
                   
                     <div class="image-section"><img src="Swabsample.jpg" alt="Exam Image" style="height:160px;"></div>
-                <div class="image-section"><img src="Bloodsample.jpg" alt="Exam Image" style="height:160px;"></div>
+                <div class="image-section"><img src="Bloodsample.jpg" alt="Exam Image" style="height:150px;"></div>
                   
                 </div>
               
@@ -382,9 +401,9 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                        <h3 class="question-number">Q9.</h3>
+                        
                     <div class="question-item">
-                        <span class="question-text"><strong>Q9.</strong> Which of the following is acid-fast bacteria?</span>
+                        <span class="question-text"><strong>9.</strong> Which of the following is acid-fast bacteria?</span>
     
     <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
         <div>A. Staphylococcus aureus</div>
@@ -402,16 +421,16 @@
 
             <div class="quiz-card">
                 <div class="question-section">
-                     <h3 class="question-number">Q10.</h3>
+                     <h3 class="question-number">10.</h3>
                     <div class="question-item">
                         <span><strong>A.</strong> Identify the media.</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans2e', this)">Show Answer</button>
-                        <div id="ans2e" class="answer-box">SDA agar</div>
+                        <div id="ans2e" class="answer-box">SDA agar.</div>
                     </div>
                     <div class="question-item">
                         <span><strong>B.</strong> What type of organism?</span><br>
                         <button class="ans-btn" onclick="toggleAnswer('ans2f', this)">Show Answer</button>
-                        <div id="ans2f" class="answer-box">Mold</div>
+                        <div id="ans2f" class="answer-box">Mold.</div>
                     </div>
                 </div>
                 <div>
@@ -430,17 +449,24 @@
            
 <script>
     function toggleTheme() {
-        const body = document.body;
-        const icon = document.getElementById('theme-icon');
-        const isDark = body.getAttribute('data-theme') === 'dark';
-        if (isDark) {
-            body.removeAttribute('data-theme');
-            icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-        } else {
-            body.setAttribute('data-theme', 'dark');
-            icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-        }
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    
+    // Check if we are currently in light mode
+    const isLight = body.getAttribute('data-theme') === 'light';
+
+    if (isLight) {
+        // Switch to DARK (The Default)
+        body.removeAttribute('data-theme');
+        // Change icon to SUN (so user can switch back to Light)
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        // Switch to LIGHT
+        body.setAttribute('data-theme', 'light');
+        // Change icon to MOON (so user can switch back to Dark)
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
+}
 
     function filterLabs(subject, btn) {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
