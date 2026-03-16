@@ -6,7 +6,23 @@
     <title>End-Rotation_HDSF_2025-2026</title>
 
     <style>
-        :root {
+      :root {
+            /* Dark Mode */
+             --bg-body: #0c0d0e;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #334155;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --filter-bg: #161a1d;
+           
+        }
+
+        [data-theme="light"] {
             /* Light Mode */
             --bg-body: #ffffff;
             --text-main: #000000;
@@ -19,21 +35,6 @@
             --ans-bg: #f1f8e9;
             --ans-text: #2e7d32;
             --filter-bg: #f8f9fa;
-        }
-
-        [data-theme="dark"] {
-            /* Dark Mode */
-            --bg-body: #0c0d0e;
-            --text-main: #f1f5f9;
-            --text-opts: #f1f5f9;
-            --header-bg: #1e293b;
-            --header-text: #38bdf8;
-            --border-color: #26292b;
-            --input-bg: #1a1c1e;
-            --input-border: #334155;
-            --ans-bg: #1e293b;
-            --ans-text: #f0cf6a;
-            --filter-bg: #161a1d;
         }
 
         body {
@@ -178,8 +179,10 @@
             <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
         </div>
         <button class="theme-toggle" onclick="toggleTheme()">
-            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-        </button>
+    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+</button>
     </div>
    
 
@@ -207,15 +210,23 @@
 function toggleTheme() {
     const body = document.body;
     const icon = document.getElementById('theme-icon');
-    const isDark = body.getAttribute('data-theme') === 'dark';
-    if (isDark) {
+    
+    // Check if we are currently in light mode
+    const isLight = body.getAttribute('data-theme') === 'light';
+
+    if (isLight) {
+        // Switch to DARK (The Default)
         body.removeAttribute('data-theme');
-        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-    } else {
-        body.setAttribute('data-theme', 'dark');
+        // Change icon to SUN (so user can switch back to Light)
         icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        // Switch to LIGHT
+        body.setAttribute('data-theme', 'light');
+        // Change icon to MOON (so user can switch back to Dark)
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
 }
+
 
 const data = [
     { n: 1, s: "Anatomy", q: "The nucleus of parasympathetic preganglionic neurons is located in:", o: ["A. Lateral horns (T1-T5)", "B. Lateral horns (C5-C8)", "C. Lateral horns (S2-S4)", "D. Anterior horns (T1-T4)", "E. Lateral horns (S2-S4)"], a: "E" },
