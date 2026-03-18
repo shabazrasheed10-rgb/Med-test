@@ -43,7 +43,6 @@
       left: 0;
       width: 100%;
       height: 100%;
-      /* Layer 1: The Grid Lines | Layer 2 & 3: The Glows */
       background-image: 
         linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -54,7 +53,7 @@
       z-index: -1;
     }
 
-    /* IMPORTANT: Ensure content is visible above the background */
+
     .main-header, 
     .year-selection-container, 
     .year-content, 
@@ -115,7 +114,7 @@
 
     .year-nav {
       display: flex;
-      gap: 12px; /* Space between the two year buttons */
+      gap: 12px;
     }
 
     .year-chip {
@@ -127,13 +126,13 @@
       cursor: pointer;
       transition: var(--transition);
       background: rgba(255, 255, 255, 0.03); 
-      border: 1px solid var(--border-color);   /* Border around each button */
+      border: 1px solid var(--border-color);
     }
 
     .year-chip.active {
       background: rgba(56, 189, 248, 0.05);
       color: var(--accent-bbb);
-      border: 1px solid var(--accent-bbb); /* Blue border for active one */
+      border: 1px solid var(--accent-bbb); 
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
@@ -179,7 +178,7 @@
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--border-color);
       border-radius: 14px;
-      padding: 16px; /* Restored padding */
+      padding: 16px; 
       transition: var(--transition);
     }
 
@@ -438,7 +437,7 @@
     const btn = document.getElementById('activate-btn');
     const status = document.getElementById('status-msg');
 
-    // CHECK IF ALREADY ACTIVATED
+  
     if (localStorage.getItem('medq_active') === 'true') {
       overlay.style.display = 'none';
       document.body.classList.remove('locked');
