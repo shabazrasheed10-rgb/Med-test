@@ -7,8 +7,7 @@
 
     <style>
         :root {
-            /* Dark Mode */
-             --bg-body: #0c0d0e;
+            --bg-body: #0c0d0e;
             --text-main: #f1f5f9;
             --text-opts: #f1f5f9;
             --header-bg: #1e293b;
@@ -19,11 +18,10 @@
             --ans-bg: #1e293b;
             --ans-text: #f0cf6a;
             --filter-bg: #161a1d;
-           
+            --badge: #f0cf6a
         }
 
         [data-theme="light"] {
-            /* Light Mode */
             --bg-body: #ffffff;
             --text-main: #000000;
             --text-opts: #333333;
@@ -35,6 +33,7 @@
             --ans-bg: #f1f8e9;
             --ans-text: #2e7d32;
             --filter-bg: #f8f9fa;
+             --badge: #2e7d32;
         }
 
         body {
@@ -49,14 +48,10 @@
             transition: background-color 0.3s ease;
         }
 
-        .container {
-            width: 100%;
-            max-width: none;
-            padding: 20px 30px;
-        }
+        .container { width: 100%; max-width: none; padding: 20px 30px; }
 
-        .header { 
-            text-align: center; 
+        .header {
+            text-align: center;
             margin-bottom: 20px;
             background-color: var(--header-bg);
             color: var(--header-text);
@@ -67,22 +62,10 @@
             align-items: center;
         }
 
-     
         .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
 
-        .search-wrapper {
-            position: relative;
-            flex: 1;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-wrapper svg {
-            position: absolute;
-            left: 12px;
-            color: var(--text-opts);
-            z-index: 1;
-        }
+        .search-wrapper { position: relative; flex: 1; display: flex; align-items: center; }
+        .search-wrapper svg { position: absolute; left: 12px; color: var(--text-opts); z-index: 1; }
 
         #search-input {
             width: 100%;
@@ -99,13 +82,10 @@
             background-color: var(--input-bg);
             border: 1px solid var(--input-border);
             color: var(--text-main);
-            width: 48px;
-            height: 48px;
+            width: 48px; height: 48px;
             border-radius: 8px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
         }
 
         .filter-container {
@@ -131,10 +111,25 @@
             transition: all 0.2s;
         }
 
-        .filter-btn.active {
-            background-color: #729fcf;
-            color: white;
-            border-color: #729fcf;
+        .filter-btn.active { background-color: #729fcf; color: white; border-color: #729fcf; }
+
+        .subject-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .subject-banner-label { font-size: 1.2rem; font-weight: 700; color: var(--text-main); }
+
+        .subject-count-badge {
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--badge);
+            border: 1px solid var(--badge);
+            border-radius: 4px;
+            padding: 2px 6px;
+            background: transparent;
         }
 
         .divider { border: none; border-top: 1px solid var(--border-color); margin-bottom: 25px; }
@@ -160,35 +155,45 @@
     </style>
 </head>
 
-<body oncontextmenu="return false;"> 
+<body oncontextmenu="return false;">
 <div class="container">
+
     <div class="header">
         <div style="text-align: left;">
             <h3 style="margin: 0; font-size: 1.4rem;">End-Rotation</h3>
-            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">BBB • 2025-2026</p>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">BBB &bull; 2025-2026</p>
         </div>
-        
     </div>
 
     <div class="controls-row">
         <div class="search-wrapper">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
             <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
         </div>
-         <button class="theme-toggle" onclick="toggleTheme()">
-    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-    </svg>
-</button>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
     </div>
 
     <div class="filter-container" id="filter-bar">
         <button class="filter-btn active" onclick="filterBySubject('All', this)">All</button>
-        <button class="filter-btn" onclick="filterBySubject('Biochemistry', this)">Biochemistry 🧪</button>
-        <button class="filter-btn" onclick="filterBySubject('Biophysics', this)">Biophysics ⚛️</button>
-        <button class="filter-btn" onclick="filterBySubject('Basic emergency care', this)">Basic emergency care ⚕️</button>
-      
-           
+        <button class="filter-btn" onclick="filterBySubject('Biochemistry', this)">Biochemistry &#x1F9EA;</button>
+        <button class="filter-btn" onclick="filterBySubject('Biophysics', this)">Biophysics &#x269B;&#xFE0F;</button>
+        <button class="filter-btn" onclick="filterBySubject('Basic emergency care', this)">Basic emergency care &#x2695;&#xFE0F;</button>
+    </div>
+
+    <div class="subject-banner" id="subject-banner">
+        <span class="subject-banner-label" id="banner-label"></span>
+        <span class="subject-count-badge" id="banner-count"></span>
     </div>
 
     <hr class="divider">
@@ -196,244 +201,119 @@
 </div>
 
 <script>
-function toggleTheme() {
-    const body = document.body;
-    const icon = document.getElementById('theme-icon');
-    
-    // Check if we are currently in light mode
-    const isLight = body.getAttribute('data-theme') === 'light';
+var subjectLabels = {
+    'Biochemistry': 'Biochemistry \uD83E\uDDEA',
+    'Biophysics': 'Biophysics \u269B\uFE0F',
+    'Basic emergency care': 'Basic emergency care \u2695\uFE0F'
+};
 
-    if (isLight) {
-        // Switch to DARK (The Default)
+var data = [
+    { n:1,  s:"Biochemistry",         q:"What is another name for resorcinol?",                                                                                o:["A. 1,3-dihydroxybenzene (meta-dihydroxybenzene)","B. Para-hydroxyphenol","C. Ortho-hydroxyphenol","D. Para-methylphenol","E. Benzyl alcohol"], a:"A" },
+    { n:2,  s:"Biochemistry",         q:"Uric acid is a product of the metabolism of:",                                                                        o:["A. Adenine","B. Pyrimidines","C. Lipids","D. Proteins","E. Carbohydrates"], a:"A" },
+    { n:3,  s:"Biochemistry",         q:"Which of the following are essential fatty acids?",                                                                   o:["A. Linolenic acid","B. Arachidonic acid","C. Linolenic acid structure (18:3 19,12,15)","D. Arachidonic acid structure (20:4 15,8,11,14)","E. All of the above"], a:"E" },
+    { n:4,  s:"Biochemistry",         q:"Which of the following sentences are correct about carbohydrate digestion?",                                          o:["A. Cellulose can partially be digested by colonic bacteria","B. Isomaltose is formed during the digestion of starch and starch dextrins","C. Starch digestion is completely carried out by human enzymes","D. Carbohydrate digestion occurs only in the stomach","E. Humans cannot digest any disaccharides"], a:"B" },
+    { n:5,  s:"Biochemistry",         q:"Which of the following is a polar, uncharged essential amino acid that contains a hydroxyl group?",                  o:["A. Tyrosine","B. Serine","C. Threonine","D. Methionine","E. Cysteine"], a:"C" },
+    { n:6,  s:"Biochemistry",         q:"Which of the following statements about free radicals are correct?",                                                 o:["A. H\u2082O\u2082 is converted into harmless substances via glutathione peroxidase and catalase","B. Free radicals are formed by heterolytic fission of a covalent bond","C. Endogenous sources of free radicals include ultraviolet radiation and chemicals","D. Reactive oxygen species are only oxygen free radicals","E. NO free radical increases blood pressure"], a:"A" },
+    { n:7,  s:"Biochemistry",         q:"Which of the following toxic substances can be detoxified by methylation?",                                          o:["A. Quinoline","B. Cyanide","C. Ethanol","D. Acetaminophen","E. Methanol"], a:"A" },
+    { n:8,  s:"Biochemistry",         q:"Which of the following statements about metabolic acidosis is incorrect?",                                           o:["A. It is associated with hypokalemia","B. It can result from diabetic ketoacidosis","C. It can result from renal failure","D. It can result from diarrhea (loss of bicarbonate)","E. It leads to low blood pH"], a:"A" },
+    { n:9,  s:"Biochemistry",         q:"Which of the following is the function of Vitamin D3 (cholecalciferol)?",                                           o:["A. Regulates calcium and phosphate levels","B. Acts as an antioxidant","C. Increases iron absorption","D. Promotes blood clotting","E. Synthesizes vitamin C"], a:"A" },
+    { n:10, s:"Biochemistry",         q:"Which of the following is a correct difference between starch and cellulose?",                                       o:["A. Starch is linear and branched, while cellulose is only linear","B. Starch is made of \u03B2-glucose, cellulose of \u03B1-glucose","C. Both starch and cellulose are highly branched","D. Cellulose is soluble in water, starch is not","E. Starch contains amino acids, cellulose does not"], a:"A" },
+    { n:11, s:"Biochemistry",         q:"Which of the following substances is oxidized into formaldehyde?",                                                   o:["A. Methanol","B. Ethanol","C. Glucose","D. Acetone","E. Benzene"], a:"A" },
+    { n:12, s:"Biochemistry",         q:"Hyperactivity of the adrenal cortex causes increased sodium levels in which disease?",                               o:["A. Cushing syndrome","B. Addison disease","C. Hypothyroidism","D. Diabetes mellitus","E. Anemia"], a:"A" },
+    { n:13, s:"Biophysics",           q:"What is the main physical principle difference between CT and MRI?",                                                 o:["A. CT depends on protons, while MRI depends on electrons","B. CT depends on sound waves, while MRI depends on X-rays","C. CT depends on electron density and X-ray attenuation, while MRI depends on hydrogen protons","D. CT and MRI both depend on electron movement only","E. CT depends on magnetic waves, while MRI depends on gamma radiation"], a:"C" },
+    { n:14, s:"Biophysics",           q:"Which of the following affects cellular radiosensitivity?",                                                          o:["A. Oxygen level, cell cycle phase, degree of differentiation, and cell type","B. Radiation machine voltage, room temperature, and patient weight","C. X-ray tube color and exposure room size","D. Patient blood group and heart rate","E. Contrast media concentration"], a:"A" },
+    { n:15, s:"Biophysics",           q:"The time constant of the lung depends on resistance and:",                                                           o:["A. Compliance","B. Charging","C. Inverse","D. Constriction","E. Elastic recoil"], a:"A" },
+    { n:16, s:"Biophysics",           q:"A patient with a persistent cough undergoes a chest X-ray (CXR). Which tissue is the most radiopaque?",             o:["A. Bone","B. Muscle","C. Fat","D. Lung","E. Air"], a:"A" },
+    { n:17, s:"Biophysics",           q:"A pregnant woman undergoes an ultrasound (U/S). Which property shows that it is safe for her and the fetus?",       o:["A. It uses acoustic (sound) waves, not ionizing radiation","B. It uses X-rays at very low doses","C. It emits gamma rays","D. It generates radioactive isotopes","E. It uses magnetic resonance"], a:"A" },
+    { n:18, s:"Biophysics",           q:"Why is the total radiation dose given in fractions in radiotherapy?",                                                o:["A. To kill cancer cells completely","B. To reduce damage to healthy tissue","C. To shrink all cells","D. To damage both cancer cells and surrounding tissue","E. All of the above"], a:"B" },
+    { n:19, s:"Basic emergency care", q:"A conscious diabetic patient presents with confusion, sweating, and shaking. What is the first management step?",   o:["A. Give a sugary drink orally","B. Start IV insulin","C. Give IV sodium bicarbonate","D. Restrict fluids","E. Immediate CT scan"], a:"A" },
+    { n:20, s:"Basic emergency care", q:"An unresponsive adult is breathing normally. What is the appropriate management?",                                  o:["A. Start chest compressions immediately","B. Give 2 rescue breaths","C. Place the patient in the recovery position and monitor","D. Start defibrillation","E. Give IV epinephrine"], a:"C" }
+];
+
+var container = document.getElementById('quiz-content');
+
+function toggleTheme() {
+    var body = document.body;
+    var icon = document.getElementById('theme-icon');
+    if (body.getAttribute('data-theme') === 'light') {
         body.removeAttribute('data-theme');
-        // Change icon to SUN (so user can switch back to Light)
         icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
     } else {
-        // Switch to LIGHT
         body.setAttribute('data-theme', 'light');
-        // Change icon to MOON (so user can switch back to Dark)
         icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
     }
 }
 
-const data = [
-  
-    { 
-        n: 1, 
-        s: "Biophysics", 
-        q: "What is the main physical principle difference between CT and MRI?", 
-        o: ["A. CT depends on protons, while MRI depends on electrons", "B. CT depends on sound waves, while MRI depends on X-rays", "C. CT depends on electron density and X-ray attenuation, while MRI depends on hydrogen protons", "D. CT and MRI both depend on electron movement only", "E. CT depends on magnetic waves, while MRI depends on gamma radiation"], 
-        a: "C" 
-    },
-    { 
-        n: 2, 
-        s: "Biophysics", 
-        q: "Which of the following affects cellular radiosensitivity?", 
-        o: ["A. Oxygen level, cell cycle phase, degree of differentiation, and cell type", "B. Radiation machine voltage, room temperature, and patient weight", "C. X-ray tube color and exposure room size", "D. Patient blood group and heart rate", "E. Contrast media concentration"], 
-        a: "A" 
-    },
-    { 
-        n: 3, 
-        s: "Basic emergency care", 
-        q: "A conscious diabetic patient presents with confusion, sweating, and shaking. What is the first management step?", 
-        o: ["A. Give a sugary drink orally", "B. Start IV insulin", "C. Give IV sodium bicarbonate", "D. Restrict fluids", "E. Immediate CT scan"], 
-        a: "A" 
-    },
-    { 
-        n: 4, 
-        s: "Basic emergency care", 
-        q: "An unresponsive adult is breathing normally. What is the appropriate management?", 
-        o: ["A. Start chest compressions immediately", "B. Give 2 rescue breaths", "C. Place the patient in the recovery position and monitor", "D. Start defibrillation", "E. Give IV epinephrine"], 
-        a: "C" 
-    },
-    { 
-        n: 5, 
-        s: "Biochemistry", 
-        q: "What is another name for resorcinol?", 
-        o: ["A. 1,3-dihydroxybenzene (meta-dihydroxybenzene)", "B. Para-hydroxyphenol", "C. Ortho-hydroxyphenol", "D. Para-methylphenol", "E. Benzyl alcohol"], 
-        a: "A" 
-    },
-    { 
-        n: 6, 
-        s: "Biochemistry", 
-        q: "Uric acid is a product of the metabolism of:", 
-        o: ["A. Adenine", "B. Pyrimidines", "C. Lipids", "D. Proteins", "E. Carbohydrates"], 
-        a: "A" 
-    },
-    { 
-        n: 7, 
-        s: "Biochemistry", 
-        q: "Which of the following are essential fatty acids?", 
-        o: ["A. Linolenic acid", "B. Arachidonic acid", "C. Linolenic acid structure (18:3 19,12,15)", "D. Arachidonic acid structure (20:4 15,8,11,14)", "E. All of the above"], 
-        a: "E" 
-    },
-    { 
-        n: 8, 
-        s: "Biochemistry", 
-        q: "Which of the following sentences are correct about carbohydrate digestion?", 
-        o: ["A. Cellulose can partially be digested by colonic bacteria", "B. Isomaltose is formed during the digestion of starch and starch dextrins", "C. Starch digestion is completely carried out by human enzymes", "D. Carbohydrate digestion occurs only in the stomach", "E. Humans cannot digest any disaccharides"], 
-        a: "B" 
-    },
-    { 
-        n: 9, 
-        s: "Biochemistry", 
-        q: "Which of the following is a polar, uncharged essential amino acid that contains a hydroxyl group?", 
-        o: ["A. Tyrosine", "B. Serine", "C. Threonine", "D. Methionine", "E. Cysteine"], 
-        a: "C" 
-    },
-    { 
-        n: 10, 
-        s: "Biochemistry", 
-        q: "Which of the following statements about free radicals are correct?", 
-        o: ["A. H₂O₂ is converted into harmless substances via glutathione peroxidase and catalase", "B. Free radicals are formed by heterolytic fission of a covalent bond", "C. Endogenous sources of free radicals include ultraviolet radiation and chemicals", "D. Reactive oxygen species are only oxygen free radicals", "E. NO free radical increases blood pressure"], 
-        a: "A" 
-    },
-    { 
-        n: 11, 
-        s: "Biochemistry", 
-        q: "Which of the following toxic substances can be detoxified by methylation?", 
-        o: ["A. Quinoline", "B. Cyanide", "C. Ethanol", "D. Acetaminophen", "E. Methanol"], 
-        a: "A" 
-    },
-    { 
-        n: 12, 
-        s: "Biophysics", 
-        q: "The time constant of the lung depends on resistance and:", 
-        o: ["A. Compliance", "B. Charging", "C. Inverse", "D. Constriction", "E. Elastic recoil"], 
-        a: "A" 
-    },
-    { 
-        n: 13, 
-        s: "Biochemistry", 
-        q: "Which of the following statements about metabolic acidosis is incorrect?", 
-        o: ["A. It is associated with hypokalemia", "B. It can result from diabetic ketoacidosis", "C. It can result from renal failure", "D. It can result from diarrhea (loss of bicarbonate)", "E. It leads to low blood pH"], 
-        a: "A" 
-    },
-    { 
-        n: 14, 
-        s: "Biophysics", 
-        q: "A patient with a persistent cough undergoes a chest X-ray (CXR). Which tissue is the most radiopaque?", 
-        o: ["A. Bone", "B. Muscle", "C. Fat", "D. Lung", "E. Air"], 
-        a: "A" 
-    },
-    { 
-        n: 15, 
-        s: "Biochemistry", 
-        q: "Which of the following is the function of Vitamin D3 (cholecalciferol)?", 
-        o: ["A. Regulates calcium and phosphate levels", "B. Acts as an antioxidant", "C. Increases iron absorption", "D. Promotes blood clotting", "E. Synthesizes vitamin C"], 
-        a: "A" 
-    },
-    { 
-        n: 16, 
-        s: "Biophysics", 
-        q: "A pregnant woman undergoes an ultrasound (U/S). Which property shows that it is safe for her and the fetus?", 
-        o: ["A. It uses acoustic (sound) waves, not ionizing radiation", "B. It uses X-rays at very low doses", "C. It emits gamma rays", "D. It generates radioactive isotopes", "E. It uses magnetic resonance"], 
-        a: "A" 
-    },
-    { 
-        n: 17, 
-        s: "Biochemistry", 
-        q: "Which of the following substances is oxidized into formaldehyde?", 
-        o: ["A. Methanol", "B. Ethanol", "C. Glucose", "D. Acetone", "E. Benzene"], 
-        a: "A" 
-    },
-    { 
-        n: 18, 
-        s: "Biochemistry", 
-        q: "Which of the following is a correct difference between starch and cellulose?", 
-        o: ["A. Starch is linear and branched, while cellulose is only linear", "B. Starch is made of β-glucose, cellulose of α-glucose", "C. Both starch and cellulose are highly branched", "D. Cellulose is soluble in water, starch is not", "E. Starch contains amino acids, cellulose does not"], 
-        a: "A" 
-    },
-    { 
-        n: 19, 
-        s: "Biophysics", 
-        q: "Why is the total radiation dose given in fractions in radiotherapy?", 
-        o: ["A. To kill cancer cells completely", "B. To reduce damage to healthy tissue", "C. To shrink all cells", "D. To damage both cancer cells and surrounding tissue", "E. All of the above"], 
-        a: "B" 
-    },
-    { 
-        n: 20, 
-        s: "Biochemistry", 
-        q: "Hyperactivity of the adrenal cortex causes increased sodium levels in which disease?", 
-        o: ["A. Cushing syndrome", "B. Addison disease", "C. Hypothyroidism", "D. Diabetes mellitus", "E. Anemia"], 
-        a: "A" 
+function updateBanner(subject) {
+    var label = document.getElementById('banner-label');
+    var count = document.getElementById('banner-count');
+    if (subject === 'All') {
+        label.textContent = 'All';
+        count.textContent = data.length + ' MCQs';
+    } else {
+        label.textContent = subjectLabels[subject] || subject;
+        count.textContent = data.filter(function(i){ return i.s === subject; }).length + ' MCQs';
     }
-
-
-];
-
-const container = document.getElementById('quiz-content');
+}
 
 function renderQuiz() {
     container.innerHTML = '';
-    data.forEach(item => {
-        const div = document.createElement('div');
+    data.forEach(function(item) {
+        var div = document.createElement('div');
         div.className = 'q-block';
         div.dataset.subject = item.s;
-        div.dataset.searchText = (item.s + " " + item.q + " " + item.o.join(" ")).toLowerCase();
-        div.innerHTML = `
-            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
-            <ul class="opts">
-                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
-            </ul>
-            <div class="ans-row">
-                <span class="ans-text">Answer: ${item.a}</span>
-                <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
-            </div>
-        `;
+        div.dataset.searchText = (item.s + ' ' + item.q + ' ' + item.o.join(' ')).toLowerCase();
+        div.innerHTML =
+            '<div class="q-text" data-original="' + item.n + '. ' + item.q.replace(/"/g,'&quot;') + '">' + item.n + '. ' + item.q + '</div>' +
+            '<ul class="opts">' + item.o.map(function(o){ return '<li data-original="' + o.replace(/"/g,'&quot;') + '">' + o + '</li>'; }).join('') + '</ul>' +
+            '<div class="ans-row">' +
+                '<span class="ans-text">Answer: ' + item.a + '</span>' +
+                '<button class="ans-btn" onclick="this.closest(\'.q-block\').classList.toggle(\'revealed\')">Answer</button>' +
+            '</div>';
         container.appendChild(div);
     });
 }
 
 function filterBySubject(subject, btn) {
     document.getElementById('search-input').value = '';
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
     btn.classList.add('active');
+    updateBanner(subject);
 
-    const blocks = document.querySelectorAll('.q-block');
-    blocks.forEach(block => {
-        const qTextElem = block.querySelector('.q-text');
-        const optElems = block.querySelectorAll('li');
-        qTextElem.innerHTML = qTextElem.dataset.original;
-        optElems.forEach(li => li.innerHTML = li.dataset.original);
-        block.style.order = "0";
-
-        if (subject === 'All' || block.dataset.subject === subject) {
-            block.style.display = "block";
-        } else {
-            block.style.display = "none";
-        }
+    document.querySelectorAll('.q-block').forEach(function(block) {
+        block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').dataset.original;
+        block.querySelectorAll('li').forEach(function(li){ li.innerHTML = li.dataset.original; });
+        block.style.display = (subject === 'All' || block.dataset.subject === subject) ? 'block' : 'none';
     });
 }
 
 function handleSearch() {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
     document.querySelector('.filter-btn').classList.add('active');
+    updateBanner('All');
 
-    const searchTerm = document.getElementById('search-input').value.toLowerCase();
-    const blocks = document.querySelectorAll('.q-block');
-    blocks.forEach(block => {
-        const qTextElem = block.querySelector('.q-text');
-        const optElems = block.querySelectorAll('li');
-        qTextElem.innerHTML = qTextElem.dataset.original;
-        optElems.forEach(li => li.innerHTML = li.dataset.original);
+    var term = document.getElementById('search-input').value.toLowerCase();
+    document.querySelectorAll('.q-block').forEach(function(block) {
+        var qElem = block.querySelector('.q-text');
+        var liElems = block.querySelectorAll('li');
+        qElem.innerHTML = qElem.dataset.original;
+        liElems.forEach(function(li){ li.innerHTML = li.dataset.original; });
 
-        if (searchTerm === "") {
-            block.style.display = "block";
-            block.style.order = "0";
-        } else if (block.dataset.searchText.includes(searchTerm)) {
-            block.style.display = "block";
-            block.style.order = "-1";
-            const regex = new RegExp(`(${searchTerm})`, 'gi');
-            qTextElem.innerHTML = qTextElem.innerHTML.replace(regex, '<mark>$1</mark>');
-            optElems.forEach(li => li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>'));
+        if (term === '') {
+            block.style.display = 'block';
+        } else if (block.dataset.searchText.includes(term)) {
+            block.style.display = 'block';
+            var re = new RegExp('(' + term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi');
+            qElem.innerHTML = qElem.innerHTML.replace(re, '<mark>$1</mark>');
+            liElems.forEach(function(li){ li.innerHTML = li.innerHTML.replace(re, '<mark>$1</mark>'); });
         } else {
-            block.style.display = "none";
+            block.style.display = 'none';
         }
     });
 }
 
 renderQuiz();
+updateBanner('All');
 </script>
 </body>
 </html>
