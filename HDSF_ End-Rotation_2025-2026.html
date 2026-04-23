@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined End-Rotation</title>
+    <style>
+        :root {
+            --bg-body: #0c0d0e;
+            --text-main: #f1f5f9;
+            --text-opts: #f1f5f9;
+            --header-bg: #1e293b;
+            --header-text: #38bdf8;
+            --border-color: #26292b;
+            --input-bg: #1a1c1e;
+            --input-border: #334155;
+            --ans-bg: #1e293b;
+            --ans-text: #f0cf6a;
+            --filter-bg: #161a1d;
+            /* Practical Specific */
+            --card-bg: #1a1c1e;
+            --card-border: #26292b;
+            --ans-border: #2e7d32;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #ffffff;
+            --text-main: #000000;
+            --text-opts: #333333;
+            --header-bg: #2D2D2D;
+            --header-text: #ffffff;
+            --border-color: #e0e0e0;
+            --input-bg: #ffffff;
+            --input-border: #cccccc;
+            --ans-bg: #f1f8e9;
+            --ans-text: #2e7d32;
+            --filter-bg: #f8f9fa;
+            /* Practical Light */
+            --card-bg: #ffffff;
+            --card-border: #cccccc;
+        }
+
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden; 
+        }
+
+        .container { width: 100%; max-width: none; padding: 20px 30px; }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 10px;
+            display: block; 
+        }
+
+        .controls-row { 
+            display: flex; 
+            gap: 12px; 
+            margin-bottom: 15px; 
+            align-items: center; 
+            justify-content: flex-end; 
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1; 
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .theme-toggle, .swap-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+
+        .filter-container {
+            background-color: var(--filter-bg);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        #prac-filters { overflow-x: auto; flex-wrap: nowrap; }
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .filter-btn.active { background-color: #729fcf; color: white; border-color: #729fcf; }
+
+        .divider { border: none; border-top: 1px solid var(--border-color); margin-bottom: 25px; }
+        .q-block { margin-bottom: 40px; border-bottom: 1px solid var(--border-color); padding-bottom: 30px; }
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+        .ans-row { display: flex; justify-content: space-between; align-items: center; }
+        .ans-text { font-weight: 700; color: var(--ans-text); visibility: hidden; background-color: var(--ans-bg); padding: 6px 12px; border-radius: 4px; }
+        .q-block.revealed .ans-text { visibility: visible; }
+        .ans-btn-theo { background-color: #729fcf; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+
+        .quiz-card {
+            display: flex;
+            flex-direction: row; 
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            margin-bottom: 30px; 
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .question-section { flex: 1.2; padding: 25px; }
+        .image-section {
+            flex: 1;
+            padding: 15px;
+            background-color: var(--card-bg); 
+            border-left: 1px solid var(--card-border);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .image-section img { max-width: 100%; height: auto; border-radius: 6px; }
+        .question-item { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--card-border); }
+        .question-item:last-child { border-bottom: none; }
+        .question-number { margin-bottom: 40px; }
+        
+        button.prac-ans-btn {
+            background-color: #729fcf;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            display: inline-block;
+            width: auto;
+        }
+
+        .lab-title {
+            text-align: left;
+            margin: 40px 0 20px 0;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #729fcf;
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .Q-number {
+            font-size: 12px;
+            border: 1px solid green;
+            padding: 3px;
+            border-radius: 3px;
+            color: green;
+        }
+
+        .hidden { display: none !important; }
+        mark { background-color: #f0cf6a; color: #000; }
+        .site-footer { margin-top: 80px; padding: 15px; text-align: center; font-size: 0.75rem; opacity: 0.5; border-top: 1px solid var(--card-border); }
+
+        @media (max-width: 700px) {
+            .quiz-card { flex-direction: column-reverse; }
+            .image-section { border-left: none; border-bottom: 1px solid var(--card-border); }
+            .controls-row { flex-wrap: wrap; }
+            .search-wrapper { order: 2; width: 100%; flex: none; }
+            #prac-filters { flex-wrap: nowrap; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+<div class="container">
+    
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 id="main-title" style="margin: 0; font-size: 1.4rem;">End-Rotation</h3>
+            <p id="sub-title" style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">HDSF • Theory Exam • 2025-2026</p>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper" id="search-container">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+
+        <button class="swap-btn" id="view-swap-btn" onclick="toggleView()" title="To practical questions">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.7153 1.71609C18.3241 1.32351 18.3241 0.687013 18.7153 0.294434C19.1066 -0.0981448 19.7409 -0.0981448 20.1321 0.294434L22.4038 2.57397L22.417 2.58733C23.1935 3.37241 23.1917 4.64056 22.4116 5.42342L20.1371 7.70575C19.7461 8.09808 19.1122 8.09808 18.7213 7.70575C18.3303 7.31342 18.3303 6.67733 18.7213 6.285L20.0018 5L4.99998 5C4.4477 5 3.99998 5.44772 3.99998 6V13C3.99998 13.5523 3.55227 14 2.99998 14C2.4477 14 1.99998 13.5523 1.99998 13V6C1.99998 4.34315 3.34313 3 4.99998 3H19.9948L18.7153 1.71609Z" fill="currentColor"/>
+                <path d="M22 11C22 10.4477 21.5523 10 21 10C20.4477 10 20 10.4477 20 11V18C20 18.5523 19.5523 19 19 19L4.00264 19L5.28213 17.7161C5.67335 17.3235 5.67335 16.687 5.28212 16.2944C4.8909 15.9019 4.2566 15.9019 3.86537 16.2944L1.59369 18.574L1.58051 18.5873C0.803938 19.3724 0.805727 20.6406 1.58588 21.4234L3.86035 23.7058C4.25133 24.0981 4.88523 24.0981 5.2762 23.7058C5.66718 23.3134 5.66718 22.6773 5.2762 22.285L3.99563 21L19 21C20.6568 21 22 19.6569 22 18L22 11Z" fill="currentColor"/>
+            </svg>
+        </button>
+
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="filter-container" id="theo-filters">
+        <button class="filter-btn active" onclick="filterBySubject('All', this)">All</button>
+        <button class="filter-btn" onclick="filterBySubject('Anatomy', this)">Anatomy 🦴</button>
+        <button class="filter-btn" onclick="filterBySubject('Physiology', this)">Physiology 🫀</button>
+        <button class="filter-btn" onclick="filterBySubject('Microbiology', this)">Microbiology 🦠</button>
+        <button class="filter-btn" onclick="filterBySubject('Genetics', this)">Genetics 🧬</button>
+        <button class="filter-btn" onclick="filterBySubject('Cell Biology', this)">Cell Biology 🔬</button>
+        <button class="filter-btn" onclick="filterBySubject('Molecular Biology', this)">Molecular biology 🧬</button>
+        <button class="filter-btn" onclick="filterBySubject('Histology', this)">Histology 🫁</button>
+        <button class="filter-btn" onclick="filterBySubject('Embryology', this)">Embryology 👶</button>
+    </div>
+
+    <div class="filter-container hidden" id="prac-filters">
+        <button class="filter-btn active" onclick="filterLabs('All', this)">All Labs</button>
+        <button class="filter-btn" onclick="filterLabs('Anatomy', this)">Anatomy 🦴</button>
+        <button class="filter-btn" onclick="filterLabs('Microbiology', this)">Microbiology 🧫</button>
+    </div>
+
+    <hr class="divider">
+
+    <div id="theo-view">
+        <div id="quiz-content"></div>
+    </div>
+
+    <div id="prac-view" class="hidden">
+        <div class="lab-wrapper" data-subject="Anatomy">
+            <div class="lab-title">ANATOMY 🦴 <span class="Q-number">6 questions</span></div>
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">1.</h3>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>A.</strong> Name the structure A.</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Ilium.')">Show Answer</button>
+                    </div>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>B.</strong> Name the structure B.</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Appendix.')">Show Answer</button>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Ilium-Appendix.jpg" alt="Exam Image"></div>
+            </div>
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">2.</h3>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>A.</strong> What is the pointed area?</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Esophagus opening.')">Show Answer</button>
+                    </div>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>B.</strong> What is its vertebral level?</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'T10.')">Show Answer</button>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Esophagus opening.jpg" alt="Exam Image"></div>
+            </div>
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">3.</h3>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>A.</strong> Name the structure A.</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Brachiocephalic artery.')">Show Answer</button>
+                    </div>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>B.</strong> Name the structure B.</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Left subclavian artery.')">Show Answer</button>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Arteries.jpg" alt="Exam Image"></div>
+            </div>
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">4.</h3>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>A.</strong> Name the structure A.</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Transverse proccess.')">Show Answer</button>
+                    </div>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>B.</strong> Name the structure B.</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Transverse costal facet.')">Show Answer</button>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Transverse process.jpg" alt="Exam Image"></div>
+            </div>
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">5.</h3>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>A.</strong> Name the structure A.</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Trigone.')">Show Answer</button>
+                    </div>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>B.</strong> Name the structure B.</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Bulbourethral glands (Cowper\'s gland).')">Show Answer</button>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Trigone.jpg" alt="Exam Image"></div>
+            </div>
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">6.</h3>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>A.</strong> Name the pointed area.</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Auditory opening.')">Show Answer</button>
+                    </div>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>B.</strong> Location.</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Lateral wall of nasopharynx.')">Show Answer</button>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Nasopharynx.jpg" alt="Exam Image"></div>
+            </div>
+        </div>
+
+        <div class="lab-wrapper" data-subject="Microbiology">
+            <div class="lab-title">MICROBIOLOGY LABS 🧫 <span class="Q-number">4 questions</span></div>
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">7.</h3>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>A.</strong> What is this called?</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Autoclave.')">Show Answer</button>
+                    </div>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>B.</strong> What is used for?</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Sterilizing culture media.')">Show Answer</button>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Autoclave.jpg" alt="Exam Image"></div>
+            </div>
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">8.</h3>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>A.</strong> Type of sample A?</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Swab sample.')">Show Answer</button>
+                    </div>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>B.</strong> Type of sample B?</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Blood sample.')">Show Answer</button>
+                    </div>
+                </div>
+                <div style="display:flex; flex-direction:column;">
+                    <div class="image-section"><img src="Swabsample.jpg" alt="Exam Image" style="height:160px;"></div>
+                    <div class="image-section"><img src="Bloodsample.jpg" alt="Exam Image" style="height:150px;"></div>
+                </div>
+            </div>
+            <div class="quiz-card">
+                <div class="question-section">
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>9.</strong> Which of the following is acid-fast bacteria?</span>
+                        <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
+                            <li>Staphylococcus aureus</li>
+                            <li>Mycobacterium tuberculosis</li>
+                            <li>Streptococcus pneumoniae</li>
+                            <li>Neisseria gonorrhoeae</li>
+                            <li>Escherichia coli</li>
+                        </ul>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'B. Mycobacterium tuberculosis')">Show Answer</button>
+                    </div>
+                </div>
+                <div class="image-section"><img src="Acid-fast.jpg" alt="Exam Image"></div>
+            </div>
+            <div class="quiz-card">
+                <div class="question-section">
+                    <h3 class="question-number">10.</h3>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>A.</strong> Identify the media.</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'SDA agar.')">Show Answer</button>
+                    </div>
+                    <div class="question-item">
+                        <span class="q-p-text"><strong>B.</strong> What type of organism?</span><br><br>
+                        <button class="prac-ans-btn" onclick="togglePracAns(this, 'Mold.')">Show Answer</button>
+                    </div>
+                </div>
+                <div style="display:flex; flex-direction:column;">
+                    <div class="image-section"><img src="Fungi.jpg" alt="Exam Image" style="height:140px;"></div>
+                    <div class="image-section"><img src="Mold.jpg" alt="Exam Image" style="height:195px;"></div>
+                </div>
+            </div>
+        </div>
+        <footer class="site-footer">Developed by <strong>Shabaz Rasheed</strong></footer>
+    </div>
+</div>
+
+<script>
+const data = [
+    { n: 1,  s: "Anatomy",           q: "The nucleus of parasympathetic preganglionic neurons is located in:",                                                                          o: ["A. Lateral horns (T1-T5)", "B. Lateral horns (C5-C8)", "C. Lateral horns (S2-S4)", "D. Anterior horns (T1-T4)", "E. Lateral horns (S2-S4)"], a: "E" },
+    { n: 2,  s: "Anatomy",           q: "Which one of the following all cervical vertebrae have?",                                                                                      o: ["A. Body", "B. Spinous", "C. Bifid spinous", "D. Criocoid tubercle", "E. Transverse foramen"], a: "E" },
+    { n: 3,  s: "Anatomy",           q: "The superior tibiofibular joint is:",                                                                                                         o: ["A. Gliding joint", "B. Biaxial joint", "C. Multiaxial joint", "D. Uniaxial joint", "E. Fibrous joint"], a: "A" },
+    { n: 4,  s: "Anatomy",           q: "Dorsal ramus of spinal cord contains:",                                                                                                       o: ["A. Motor neurons", "B. Sensory neurons", "C. Mixed neurons (sensory and motor neurons)", "D. Parasympathetic nucleus", "E. Sympathetic nucleus"], a: "B" },
+    { n: 5,  s: "Physiology",        q: "Which of the following is responsible for the production of most ATP during cellular respiration and glucose metabolism?",                    o: ["A. Glycolysis", "B. Acetyl coenzyme A formation", "C. Krebs cycle", "D. Beta oxidation", "E. Electron transport chain"], a: "E" },
+    { n: 6,  s: "Physiology",        q: "Ketone bodies are formed during the normal catabolism of:",                                                                                   o: ["A. Fatty acids", "B. Carbohydrates", "C. Nucleic acids", "D. Proteins", "E. Vitamins"], a: "A" },
+    { n: 7,  s: "Physiology",        q: "First cell that migrates to injured area during inflammation:",                                                                               o: ["A. Lymphocytes", "B. Monocytes", "C. Basophils", "D. Neutrophils", "E. Eosinophils"], a: "D" },
+    { n: 8,  s: "Microbiology",      q: "Which of the following is correct about bacterial plasmids?",                                                                                 o: ["A. It is only found in gram-negative bacteria", "B. It is an essential structure of bacteria", "C. It replicates independently of the bacterial chromosome and may carry antibiotic resistance genes", "D. It is located inside the bacterial ribosome", "E. It is composed of RNA"], a: "C" },
+    { n: 9,  s: "Microbiology",      q: "Which term in antimicrobial chemotherapy refers to inhibition of microbial growth without harming the host?",                                o: ["A. Bactericidal", "B. Selective toxicity", "C. Bacteriostatic", "D. Broad-spectrum activity", "E. Superinfection"], a: "B" },
+    { n: 10, s: "Microbiology",      q: "Terminal-spined eggs are characteristic of which of the following trematodes?",                                                               o: ["A. Schistosoma haematobium", "B. Schistosoma mansions", "C. Schistosoma japonicum", "D. Clonorchis sinensis", "E. Paragonimus westermani"], a: "A" },
+        { n: 11, s: "Microbiology",      q: "What is the primary underlying cause of an Id reaction in patients with a fungal infection?",                                                 o: ["A. Fungal invasion forming abscesses at distant sites", "B. Dissemination of fungal spores into the bloodstream", "C. Hypersensitivity reaction to fungal antigens", "D. Formation of IgG antibodies against the fungus", "E. Secondary bacterial infection at the site of fungal infection"], a: "C" },
+    { n: 12, s: "Genetics",          q: "Cri-du-chat syndrome is caused by which of the following chromosomal abnormalities?",                                                         o: ["A. Deletion of the short arm q arm of chromosome 3", "B. Deletion of the short arm q arm of chromosome 5", "C. Deletion of the short arm p arm of chromosome 5", "D. Duplication of the long arm p arm of chromosome 3", "E. Duplication of the long arm q arm of chromosome 3"], a: "C" },
+    { n: 13, s: "Genetics",          q: "Which of the following is a monogenic disease?",                                                                                              o: ["A. Cystic fibrosis", "B. Down syndrome", "C. Diabetes mellitus", "D. Sickle cell anemia", "E. Hypertension"], a: "D" },
+    { n: 14, s: "Genetics",          q: "Deletion of two alpha-globin genes results in which of the following conditions?",                                                            o: ["A. Silent carrier state", "B. Alpha thalassemia trait", "C. Hemoglobin H disease", "D. Hydrops fetalis (Hb Bart's)", "E. Beta thalassemia major"], a: "B" },
+    { n: 15, s: "Cell Biology",      q: "Glycolipids are located in which part of the plasma membrane?",                                                                              o: ["A. Cannot be identified, it changes based on the cell type", "B. Outer membrane", "C. Inner membrane", "D. Distributed evenly throughout the membrane", "E. None of the above"], a: "B" },
+    { n: 16, s: "Cell Biology",      q: "Which of the following is correct about heterochromatin:",                                                                                    o: ["A. Loosely packaged and transcriptionally active", "B. Loosely packaged and transcriptionally inactive", "C. The region where ribosomes are made", "D. Tightly compacted and transcriptionally active", "E. Tightly compacted and transcriptionally inactive"], a: "E" },
+   
+  
+    { n: 17, s: "Molecular Biology", q: "What does 5' and 3' mean in the DNA nucleic acid molecules?",                                                                                o: ["A. The amino group at position 5' carbon of one sugar joins the hydroxyl group at position 3' carbon of the next sugar by means of phosphodiester bond", "B. The phosphate group at position 5' carbon of one sugar joins the nitrogen group at position 3' carbon of the next sugar by means of phosphodiester bond", "C. The hydroxyl group at position 5' carbon of one sugar joins the phosphate group at position 3' carbon of the next sugar by means of a phosphodiester bond", "D. The phosphate group at position 5' carbon of one sugar joins the amino group at position 3' carbon of the next sugar by means of a phosphodiester bond", "E. The phosphate group at position 5' carbon of one sugar joins the hydroxyl group at position 3' carbon of the next sugar by means of phosphodiester bond"], a: "E" },
+    { n: 18, s: "Molecular Biology", q: "If a DNA template is 5'TTCAGGCGA'3, the complementary DNA template will be?",                                                               o: ["A. 5'AAGTCCGCT'3", "B. 3'TCGCCTGAA'5", "C. 5'UUCAGGCGA'3", "D. 5'TCGCCTGAA'3", "E. 5'GGCAACGTT'3"], a: "D" },
+      { n: 19, s: "Histology",         q: "Which of the following is a characteristic feature of epithelial cells?",                                                                    o: ["A. Richly supplied with blood vessels to provide nutrients directly to the cells", "B. Surrounded by a large volume of extracellular fluid", "C. Attached to the underlying connective tissue by a specialized basement membrane", "D. Exhibits a very slow rate of cell division compared to other tissue types", "E. None of the above"], a: "C" },
+     { n: 20, s: "Embryology",        q: "The critical period for the development of congenital anomalies occurs during which stage?",                                                  o: ["A. Pre-embryonic stage (week 1-2)", "B. Fetal stage (week 9 until birth)", "C. Embryonic stage (week 3-8)", "D. Puberty", "E. Maturation"], a: "C" },
+    
+];
+
+let currentMode = 'theo';
+
+function toggleView() {
+    currentMode = (currentMode === 'theo') ? 'prac' : 'theo';
+    document.getElementById('theo-view').classList.toggle('hidden', currentMode === 'prac');
+    document.getElementById('prac-view').classList.toggle('hidden', currentMode === 'theo');
+    document.getElementById('theo-filters').classList.toggle('hidden', currentMode === 'prac');
+    document.getElementById('prac-filters').classList.toggle('hidden', currentMode === 'theo');
+    
+    // Clear search when switching modes
+    document.getElementById('search-input').value = '';
+    handleSearch(); 
+
+    document.getElementById('main-title').innerText = currentMode === 'theo' ? "End-Rotation" : "End-Rotation";
+    document.getElementById('sub-title').innerText = currentMode === 'theo' ? "HDSF • Theory Exam • 2025-2026" : "HDSF • Practical Exam • 2025-2026";
+
+    const swapBtn = document.getElementById('view-swap-btn');
+    swapBtn.title = currentMode === 'theo' ? "To practical questions" : "To theory questions";
+}
+
+function renderQuiz() {
+    const container = document.getElementById('quiz-content');
+    container.innerHTML = '';
+    data.forEach(function(item) {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.subject = item.s;
+        div.dataset.searchText = (item.s + ' ' + item.q + ' ' + item.o.join(' ')).toLowerCase();
+        div.innerHTML = `<div class="q-text">${item.n}. ${item.q}</div>
+            <ul class="opts">${item.o.map(opt => `<li>${opt}</li>`).join('')}</ul>
+            <div class="ans-row">
+                <span class="ans-text">Answer: ${item.a}</span>
+                <button class="ans-btn-theo" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
+            </div>`;
+        container.appendChild(div);
+    });
+}
+
+function filterBySubject(subject, btn) {
+    document.getElementById('search-input').value = '';
+    document.querySelectorAll('#theo-filters .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderQuiz();
+    document.querySelectorAll('.q-block').forEach(block => {
+        block.style.display = (subject === 'All' || block.dataset.subject === subject) ? 'block' : 'none';
+    });
+}
+
+function filterLabs(subject, btn) {
+    document.getElementById('search-input').value = '';
+    document.querySelectorAll('#prac-filters .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.lab-wrapper').forEach(wrap => {
+        wrap.style.display = (subject === 'All' || wrap.dataset.subject === subject) ? "block" : "none";
+        // Reset visibility of cards when filtering by lab
+        wrap.querySelectorAll('.quiz-card').forEach(card => card.style.display = 'flex');
+    });
+}
+
+function handleSearch() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const regex = new RegExp('(' + searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+
+    if (currentMode === 'theo') {
+        document.querySelectorAll('.q-block').forEach(block => {
+            const text = block.dataset.searchText;
+            if (searchTerm === '' || text.includes(searchTerm)) {
+                block.style.display = 'block';
+                if (searchTerm !== '') {
+                    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').textContent.replace(regex, '<mark>$1</mark>');
+                    block.querySelectorAll('li').forEach(li => li.innerHTML = li.textContent.replace(regex, '<mark>$1</mark>'));
+                } else {
+                    block.querySelector('.q-text').innerHTML = block.querySelector('.q-text').textContent;
+                    block.querySelectorAll('li').forEach(li => li.innerHTML = li.textContent);
+                }
+            } else { block.style.display = 'none'; }
+        });
+    } else {
+        document.querySelectorAll('.quiz-card').forEach(card => {
+            const cardText = card.innerText.toLowerCase();
+            if (searchTerm === '' || cardText.includes(searchTerm)) {
+                card.style.display = 'flex';
+                if (searchTerm !== '') {
+                    card.querySelectorAll('.q-p-text').forEach(span => {
+                        span.innerHTML = span.textContent.replace(regex, '<mark>$1</mark>');
+                    });
+                } else {
+                    card.querySelectorAll('.q-p-text').forEach(span => span.innerHTML = span.textContent);
+                }
+            } else { card.style.display = 'none'; }
+        });
+    }
+}
+
+function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    const isLight = body.getAttribute('data-theme') === 'light';
+    if (isLight) {
+        body.removeAttribute('data-theme');
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        body.setAttribute('data-theme', 'light');
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}
+
+function togglePracAns(btn, text) {
+    if (btn.innerText === "Show Answer") {
+        btn.innerText = text;
+        btn.style.backgroundColor = "var(--ans-border)";
+    } else {
+        btn.innerText = "Show Answer";
+        btn.style.backgroundColor = "#729fcf";
+    }
+}
+
+renderQuiz();
+</script>
+</body>
+</html>
