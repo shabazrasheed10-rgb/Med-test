@@ -215,13 +215,25 @@
         mark { background-color: #f0cf6a; color: #000; }
         .site-footer { margin-top: 80px; padding: 15px; text-align: center; font-size: 0.75rem; opacity: 0.5; border-top: 1px solid var(--card-border); }
 
-        @media (max-width: 700px) {
-            .quiz-card { flex-direction: column-reverse; }
-            .image-section { border-left: none; border-bottom: 1px solid var(--card-border); }
-            .controls-row { flex-wrap: wrap; }
-            .search-wrapper { order: 2; width: 100%; flex: none; }
-            #prac-filters { flex-wrap: nowrap; overflow-x: auto; }
-        }
+       @media (max-width: 700px) {
+    .quiz-card { flex-direction: column-reverse; }
+    .image-section { border-left: none; border-bottom: 1px solid var(--card-border); }
+    
+    /* FIX: Keep items on the same line */
+    .controls-row { 
+        flex-wrap: nowrap; /* Prevents jumping to a new line */
+        gap: 8px; /* Slightly tighter gap for small screens */
+    }
+    
+    .search-wrapper { 
+        order: 0; /* Keeps it in its original HTML position */
+        width: auto; 
+        flex: 1; /* Allows search bar to take up remaining space */
+    }
+
+    #prac-filters { flex-wrap: nowrap; overflow-x: auto; }
+}
+
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -408,11 +420,11 @@
                     <div class="question-item">
                         <span class="q-p-text"><strong>9.</strong> Which of the following is acid-fast bacteria?</span>
                         <ul style="list-style-type: disc; margin-left: 20px; padding: 0; line-height: 1.8;">
-                            <li>Staphylococcus aureus</li>
-                            <li>Mycobacterium tuberculosis</li>
-                            <li>Streptococcus pneumoniae</li>
-                            <li>Neisseria gonorrhoeae</li>
-                            <li>Escherichia coli</li>
+                            <div>A. Staphylococcus aureus</div>
+                            <div>B. Mycobacterium tuberculosis</div>
+                            <div>C. Streptococcus pneumoniae</div>
+                            <div>D. Neisseria gonorrhoeae</div>
+                            <div>E. Escherichia coli</div>
                         </ul>
                         <button class="prac-ans-btn" onclick="togglePracAns(this, 'B. Mycobacterium tuberculosis')">Show Answer</button>
                     </div>
@@ -589,3 +601,4 @@ renderQuiz();
 </script>
 </body>
 </html>
+
