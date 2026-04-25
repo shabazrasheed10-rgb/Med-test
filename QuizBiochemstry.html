@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biochemistry_Quiz_2015-2025</title>
+
+    <style>
+        :root {
+    /* Dark Mode (Now Default) */
+    --bg-body: #0c0d0e;
+    --text-main: #f1f5f9;
+    --text-opts: #f1f5f9;
+    --header-bg: #1e293b;
+    --header-text: #38bdf8;
+    --border-color: #26292b;
+    --input-bg: #1a1c1e;
+    --input-border: #334155;
+    --ans-bg: #1e293b;
+    --ans-text: #f0cf6a;
+}
+
+[data-theme="light"] {
+    /* Light Mode */
+    --bg-body: #ffffff;
+    --text-main: #000000;
+    --text-opts: #333333;
+    --header-bg: #2D2D2D;
+    --header-text: #ffffff;
+    --border-color: #e0e0e0;
+    --input-bg: #ffffff;
+    --input-border: #cccccc;
+    --ans-bg: #f1f8e9;
+    --ans-text: #2e7d32;
+}
+
+        body {
+            -webkit-user-select: none;
+            user-select: none;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+            overflow-x: hidden;
+        }
+      
+
+        .container {
+    width: 100%;
+    max-width: 1150px;
+    padding: 20px;
+    box-sizing: border-box;   /* 🔥 THIS fixes everything */
+}
+
+        .header { 
+            text-align: center; 
+            margin-bottom: 20px;
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 16px;
+            border-radius: 7px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        
+
+        .controls-row { display: flex; gap: 12px; margin-bottom: 15px; }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            color: var(--text-opts);
+            z-index: 1;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 1.1rem;
+            border: 1px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .theme-toggle {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            width: 48px;
+            height: 48px;
+            border-radius: 7px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+.filter-container {
+    background-color: var(--filter-bg);
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+}
+      
+
+
+        .filter-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-main);
+            padding: 6px 14px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 0 0 auto;
+            white-space: nowrap;
+        }
+        
+  
+
+        .filter-btn.active {
+            background-color: #729fcf;
+            color: white;
+            border-color: #729fcf;
+        }
+
+        .divider { border: none; border-top: 1px solid var(--border-color); margin-bottom: 25px; }
+
+        .q-block {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .q-block:last-child { border-bottom: none; }
+        .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; line-height: 1.5; }
+        .opts { list-style-type: none; padding: 0; line-height: 1.7; font-size: 1.05rem; color: var(--text-opts); margin-bottom: 15px; }
+        .ans-row { display: flex; justify-content: space-between; align-items: center; }
+        .ans-text { font-weight: 700; color: var(--ans-text); visibility: hidden; background-color: var(--ans-bg); padding: 6px 12px; border-radius: 4px; }
+        .q-block.revealed .ans-text { visibility: visible; }
+        .ans-btn { background-color: #729fcf; color: white; border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+
+        mark { background-color: #f0cf6a; color: #000; }
+        a { color: inherit; text-decoration: none; }
+
+        @media (max-width: 600px) { .header { flex-direction: column; gap: 12px; } }
+    </style>
+</head>
+
+<body oncontextmenu="return false;"> 
+<div class="container">
+    <div class="header">
+        <div style="text-align: left;">
+            <h3 style="margin: 0; font-size: 1.4rem;">Quizzes</h3>
+            <p style="margin: 2px 0 0; font-size: 0.9rem; opacity: 0.8;">Biochemistry 🧪 • 2015-2025</p>
+        </div>
+        
+    </div>
+
+    <div class="controls-row">
+        <div class="search-wrapper">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" placeholder="Search questions..." onkeyup="handleSearch()">
+        </div>
+           <button class="theme-toggle" onclick="toggleTheme()">
+    <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+</button>
+    </div>
+   
+
+    <div class="filter-container" id="filter-bar">
+        <button class="filter-btn active" onclick="filterBySubject('All', this)">All</button>
+        <button class="filter-btn" onclick="filterBySubject('15', this)">2014 - 2015</button>
+        <button class="filter-btn" onclick="filterBySubject('20', this)">2019 - 2020</button>
+        <button class="filter-btn" onclick="filterBySubject('21', this)">2020 - 2021</button>
+        <button class="filter-btn" onclick="filterBySubject('U', this)">Unkown year</button>
+        
+        
+    
+    </div>
+   
+
+    <hr class="divider">
+    <div id="quiz-content"></div>
+</div>
+
+
+
+
+<script>
+function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    
+    // Check if we are currently in light mode
+    const isLight = body.getAttribute('data-theme') === 'light';
+
+    if (isLight) {
+        // Switch to DARK (The Default)
+        body.removeAttribute('data-theme');
+        // Change icon to SUN (so user can switch back to Light)
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        // Switch to LIGHT
+        body.setAttribute('data-theme', 'light');
+        // Change icon to MOON (so user can switch back to Dark)
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
+}
+
+const data = [
+      { 
+  n: 1, 
+  s: "15", 
+  q: "The first organic compound prepared in laboratory was:", 
+  o: [
+    "A. Methanol",
+    "B. Ammonia",
+    "C. Methanol",
+    "D. Urea",
+    "E. Acetic acid"
+  ], 
+  a: "D" 
+},
+
+{ 
+  n: 2, 
+  s: "15", 
+  q: "Xylene is:", 
+  o: [
+    "A. Methyl benzene",
+    "B. Dimethyl benzene",
+    "C. Trimethyl benzene",
+    "D. Amino benzene",
+    "E. Ester compound"
+  ], 
+  a: "B" 
+},
+{ n: 3, s: "15", q: "Nitration of benzene is reaction between:", o: ["A. Benzene + HCl", "B. Benzene + HNO₃", "C. Benzene + H₂SO₄", "D. Benzene + HBr", "E. Benzene + HI"], a: "B" },
+ { n: 4, s: "15", q: "The chemical name of Aspirin is:", o: ["A. Methyl salicylate", "B. Acetyl salicylic acid", "C. Sodium salicylate", "D. Phenyl salicylate", "E. Benzoic acid"], a: "B" },
+  
+   { n: 5, s: "15", q: "Benzapyrine is:", o: [
+    "A. Inflammatory compound",
+    "B. Non-inflammatory compound",
+    "C. Carcinogenic compound",
+    "D. Analgesic drug",
+    "E. Anti-fever" ], a: "C" },
+{ n: 6, s: "15", q: "All the followings are derivatives of benzene except:", o: ["A. Aspirin", "B. Phenylalanine", "C. Acetyl acetate", "D. Toluene", "E. Benzaldehyde"], a: "C" },
+  { n: 7, s: "15", q: "Which of the following is a cycloether?", o: ["A. Pyridine", "B. Furan", "C. Tetrahydrofuran", "D. Methanol", "E. Phenol"], a: "C" },
+
+{ n: 8, s: "15", q: "Which of the following is a heterocyclic compound containing oxygen?", o: ["A. Pyridine", "B. Furan", "C. Methanol", "D. Isopropanol", "E. Hydrogen sulfide (H₂S)"], a: "B" },
+
+{ n: 9, s: "15", q: "Which of the following is a part of nicotine?", o: ["A. Pyridine", "B. Glycerol", "C. Phenol", "D. Methanol", "E. Quinine"], a: "A" },
+
+{ n: 10, s: "15", q: "Which of the following is used for preparation of thiols?", o: ["A. 2-propenethiol", "B. Hydrogen sulfide (H₂S)", "C. Methanol", "D. Phenol", "E. Isopropanol"], a: "B" },
+
+{ n: 11, s: "15", q: "Which of the following is a strong antiseptic?", o: ["A. Methanol", "B. Isopropanol", "C. Phenol", "D. Glycerol", "E. Pyridine"], a: "C" },
+
+{ n: 12, s: "15", q: "Which of the following is a heterocyclic compound containing two nitrogen atoms?", o: ["A. Methanol", "B. Isopropanol", "C. Phenol", "D. Glycerol", "E. Imidazole"], a: "E" },
+
+{ n: 13, s: "15", q: "Which of the following is an alcohol containing three hydroxyl groups?", o: ["A. Glycerol ", "B. Isopropanol", "C. Phenol", "D. Methanol", "E. Pyridine"], a: "A" },
+  { n: 14, s: "20", q: "Resorcinol is:", o: ["A. 1,2-dihydroxy benzene", "B. 1,3-dihydroxy benzene", "C. 1,2-dimethyl benzene", "D. 1,3-dimethyl benzene", "E. 1,2-dihydroxy benzaldehyde"], a: "B" },
+  
+  { n: 15, s: "20", q: "The chemical name of Aspirin is:", o: ["A. Methyl salicylate", "B. Acetyl salicylic acid", "C. Sodium salicylate", "D. Phenyl salicylate", "E. Benzoic acid"], a: "B" },
+  
+   { n: 16, s: "20", q: "Benzapyrine is:", o: [
+    "A. Inflammatory compound",
+    "B. Non-inflammatory compound",
+    "C. Carcinogenic compound",
+    "D. Analgesic drug",
+    "E. Anti-fever" ], a: "C" },
+    { n: 17, s: "20", q: "One of the causes of respiratory alkalosis is:", o: ["A. Diabetes mellitus", "B. Fauvism", "C. Fever", "D. Hypertension", "E. Hypothyroidism"], a: "C" },
+
+{ n: 18, s: "20", q: "One of the following compounds used as preservative of urine samples:", o: ["A. Xylene", "B. Phenol", "C. Sodium hydroxide", "D. Tyrosine", "E. Toluene"], a: "E" },
+
+{ n: 19, s: "20", q: "Imidazole is found in:", o: ["A. Benzpyrine", "B. Cimetidine", "C. Heme", "D. Metronidazole", "E. Nicotine"], a: "B" },
+ { n: 20, s: "20", q: "Tetrahydrofuran is:", o: ["A. Cyclic alkane", "B. Cyclic alkene", "C. Cyclic ether", "D. Normal ether", "E. heterocyclic compound"], a: "C" }, 
+ { n: 21, s: "20", q: "Reaction between a ketone with an alcohol produce:", o: ["A. Acetal", "B. Ester", "C. Hemicetal", "D. Hemiketal", "E. Ketal"], a: "D" }, 
+ { n: 22, s: "20", q: "In living cells malate is converted to oxaloacetate by:", o: ["A. Malate dehydrogenase", "B. Malate hydrogenase", "C. Malate deoxygenase", "D. Malate monooxygenase", "E. Malate oxidase"], a: "A" },
+  { n: 23, s: "20", q: "Phenols are regarded as:", o: ["A. Strong bases", "B. Weak bases", "C. Weak acids", "D. Strong acids", "E. Weak esters"], a: "C" },
+  { n: 24, s: "20", q: "One of the causes of respiratory acidosis is:", o: ["A. Diabetes mellitus", "B. Emphysema", "C. Fever", "D. Hypertension", "E. Hypothyroidism"], a: "B" },
+  { n: 25, s: "20", q: "One of the causes of respiratory alkalosis is:", o: ["A. Diabetes mellitus", "B. Favism", "C. Fever", "D. Hypertension", "E. Hypothyroidism"], a: "C" },
+  
+   { n: 26, s: "20", q: "Dehydration of alcohols produces corresponding:", o: ["A. Ethers", "B. Aldehydes", "C. Ketones", "D. Carboxylic acids", "E. Alkenes"], a: "B" },
+   
+   { n: 27, s: "20", q: "The normal range of blood PH is between:", o: ["A. 7.00 - 7.10", "B. 7.25 - 7.35", "C. 7.35 - 7.45", "D. 7.45 - 7.55", "E. 7.55 - 7.65"], a: "C" },
+  
+  { n: 28, s: "20", q: "Which of the following is a poisonous liquid?", o: ["A. Cholesterol", "B. Ethanol", "C. Phenol", "D. Methanol", "E. Propanol"], a: "D" },
+{ n: 29, s: "21", q: "Benzopyrene is a carcinogenic agent is:", o: ["A. An alcohol", "B. An amide", "C. An amine", "D. A heterocyclic compound", "E. A polycyclic aromatic compound"], a: "E" },
+  { n: 30, s: "21", q: "Xylene is:", o: ["A. Methyl benzene", "B. Dimethyl benzene", "C. Trimethyl benzene", "D. Dihydroxy benzene", "E. Ester compound"], a: "B" },
+
+{ n: 31, s: "21", q: "One of the following is carcinogenic polycyclic aromatic compound:", o: ["A. Ammonia", "B. Benzene", "C. Benzopyrene", "D. Pyridine", "E. Pyrimidine"], a: "C" },
+
+{ n: 32, s: "21", q: "Pick out the non-correct one about extensive ingestion of alcohol over a long period of time:", o: ["A. Cirrhosis", "B. Deterioration of the liver", "C. Diarrhea", "D. Loss of memory", "E. Strong physiological addiction"], a: "C" },
+
+{ n: 33, s: "21", q: "Catechol is:", o: ["A. 1,2-dihydroxy benzene", "B. 1,2-dimethyl benzene", "C. 1,3-dihydroxy benzene", "D. 1,3-dimethyl benzene", "E. 1,2-dihydroxy hexane"], a: "A" },
+{ n: 34, s: "21", q: "Hydroquinone is:", o: ["A. 1,2-dihydroxy benzene", "B. 1,3-dihydroxy benzene", "C. 1,2-dimethyl benzene", "D. 1,3-dimethyl benzene", "E. 1,4-dihydroxy benzene"], a: "E" },
+
+{ n: 35, s: "21", q: "Preparation of ethane thiol required reactants:", o: ["A. Ethanal + H₂S", "B. Ethane + H₂S", "C. Ethanol + H₂S", "D. Ethane chloride + H₂S", "E. Ethane fluoride + H₂S"], a: "D" },
+
+{ n: 36, s: "21", q: "Ethylene oxide is:", o: ["A. Cyclic alkane", "B. Cyclic alkene", "C. Cyclic ether", "D. Normal ether", "E. Heterocyclic compound"], a: "C" },
+
+{ n: 37, s: "21", q: "The disease that causes metabolic acidosis is:", o: ["A. Asthma", "B. Diabetes mellitus", "C. Emphysema", "D. Parkinson's disease", "E. Pneumonia"], a: "B" },
+  
+ { n: 38, s: "21", q: "One of the following heterocyclic compound is part of nicotine:", o: ["A. Furan", "B. Purine", "C. Pyridine", "D. Pyrimidine", "E. Pyrrole"], a: "C" },
+
+{ n: 39, s: "21", q: "Ethylene glycol is:", o: ["A. Primary alcohol with one hydroxyl group", "B. Primary alcohol with two hydroxyl group", "C. Secondary alcohol with one hydroxyl group", "D. Secondary alcohol with two hydroxyl group", "E. Tertiary alcohol with one hydroxyl group"], a: "B" },
+
+{ n: 40, s: "21", q: "Salicylic acid is:", o: ["A. Meta hydroxyl benzoic acid", "B. Meta hydroxyl toluene", "C. Ortho hydroxyl benzoic acid", "D. Ortho hydroxyl toluene", "E. Para hydroxyl benzoic acid"], a: "C" },
+
+{ n: 41, s: "21", q: "Pyrrole is heterocyclic aromatic compound is:", o: ["A. Hexacyclic contain one nitrogen", "B. Hexacyclic contain one oxygen", "C. Hexacyclic contain two nitrogen", "D. Pentacyclic contain one nitrogen", "E. Pentacyclic contain one oxygen"], a: "D" },
+
+{ n: 42, s: "21", q: "Glycerol is an alcohol with:", o: ["A. One hydroxyl group", "B. Two hydroxyl groups both primary alcohols", "C. Three hydroxyl groups, all primary alcohols", "D. Three hydroxyl groups, one primary and two secondary alcohols", "E. Three hydroxyl groups, two primary and one secondary alcohol"], a: "E" },
+{ n: 43, s: "21", q: "M-Xylene is:", o: ["A. 1,2-dihydroxy benzene", "B. 1,3-dihydroxy benzene", "C. 1,2-dimethyl benzene", "D. 1,3-dimethyl benzene", "E. 1,2-dihydroxy benzaldehyde"], a: "D" },
+
+{ n: 44, s: "21", q: "One of the following is incorrect about aldol condensation:", o: ["A. Increase the number of carbon atoms", "B. Increase the number of functional groups", "C. Occur in living system catalyzed by aldolase", "D. Required strong acid as a catalyst", "E. Required strong base as a catalyst"], a: "D" },
+
+{ n: 45, s: "21", q: "Pick out the disease that does NOT cause respiratory acidosis:", o: ["A. Asthma", "B. Diabetes mellitus", "C. Emphysema", "D. Lung disease", "E. Pneumonia"], a: "B" },
+{ n: 46, s: "21", q: "Pyridine is found in:", o: ["A. Benzopyrene", "B. Cimetidine", "C. Heme", "D. Metronidazole", "E. Nicotine"], a: "B" },
+
+{ n: 47, s: "21", q: "Secondary alcohols are oxidized to:", o: ["A. Aldehydes", "B. Carboxylic acids", "C. Ketones", "D. No oxidation", "E. Phenols"], a: "C" },
+
+{ n: 48, s: "21", q: "One of the following is solid alcohol:", o: ["A. Cholesterol", "B. Ethanol", "C. Methanol", "D. Phenol", "E. Propanol"], a: "A" },
+
+{ n: 49, s: "21", q: "One of the following heterocyclic aromatic compounds contain one nitrogen atom:", o: ["A. Furan", "B. Imidazole", "C. Purine", "D. Pyrimidine", "E. Pyrrole"], a: "E" },
+
+{ n: 50, s: "21", q: "Conversion of malate to oxaloacetate is:", o: ["A. Acid hydrolysis reaction", "B. Basic hydrolysis reaction", "C. Hydrolysis reaction", "D. Oxidation reaction", "E. Reduction reaction"], a: "D" },
+
+{ n: 51, s: "21", q: "Ethylene oxide is:", o: ["A. Cyclic ether", "B. Ether", "C. Heterocyclic aromatic compound", "D. Secondary amine", "E. Tertiary amide"], a: "A" },
+{ n: 52, s: "21", q: "Catechol is:", o: ["A. Methyl benzene", "B. Dimethyl benzene", "C. Trimethyl benzene", "D. Dihydroxy benzene", "E. Ester compound"], a: "D" },
+
+{ n: 53, s: "21", q: "Imidazole is heterocyclic aromatic compound is:", o: ["A. Hexa with one nitrogen", "B. Hexa with one oxygen", "C. Hexa with two nitrogen", "D. Penta with one nitrogen", "E. Penta with two nitrogen"], a: "E" },
+
+{ n: 54, s: "21", q: "Pick out incorrect statement about malate:", o: ["A. Found in human body", "B. Is primary alcohol", "C. Is secondary alcohol", "D. Required malate dehydrogenase as a catalyst", "E. Required NAD as a coenzyme"], a: "B" },
+
+{ n: 55, s: "U", q: "Organic compounds are:", o: ["A. Soluble in water", "B. Most have ionic bonds", "C. Insoluble in water", "D. Almost all are insoluble in organic solvents", "E. Aqueous solutions form ions that conduct electricity"], a: "C" },
+
+{ n: 56, s: "U", q: "Nitration of benzene is reaction between:", o: ["A. Benzene + nitric acid catalyzed by sulfuric acid", "B. Benzene + nitric acid catalyzed by acetic acid", "C. Benzene + nitric acid catalyzed by sodium hydroxide", "D. Benzene + nitric acid catalyzed by carbonic acid", "E. Benzene + nitric acid catalyzed by potassium hydroxide"], a: "A" },
+
+{ n: 57, s: "U", q: "Tertiary alcohols are oxidized to:", o: ["A. Aldehydes", "B. Carboxylic acids", "C. Ketones", "D. Non-oxidized", "E. Phenols"], a: "D" },
+
+{ n: 58, s: "U", q: "Condensation reaction occurs in living cells in:", o: ["A. Carbohydrate metabolism", "B. Lipid metabolism", "C. Nucleotide metabolism", "D. Protein metabolism", "E. Purine metabolism"], a: "D" },
+
+{ n: 59, s: "U", q: "Acetone is an important product of:", o: ["A. Carbohydrate metabolism", "B. Lipid metabolism", "C. Nucleotide metabolism", "D. Protein metabolism", "E. Purine metabolism"], a: "B" },
+
+{ n: 60, s: "U", q: "Acetic acid is one of the components of:", o: ["A. Apple", "B. Banana", "C. Grape", "D. Malossis", "E. Vinegar"], a: "E" },
+
+{ n: 61, s: "U", q: "Urea is:", o: ["A. Primary amide", "B. Primary amine", "C. Secondary amide", "D. Secondary amine", "E. Tertiary amide"], a: "A" },
+
+{ n: 62, s: "U", q: "Osmolality of Na2HPO4 is equal to:", o: ["A. Molarity × 2", "B. Molarity × 3", "C. Molarity + 2", "D. Molarity + 3", "E. Molarity"], a: "B" },
+
+{ n: 63, s: "U", q: "One of the following minerals is a macromineral:", o: ["A. Co", "B. Cu", "C. Mg", "D. Mn", "E. Zn"], a: "C" },
+{ n: 64, s: "U", q: "Pick out non denaturizing protein:", o: ["A. Heat", "B. Organic solvents", "C. Strong acids", "D. Strong bases", "E. Vitamin C"], a: "E" },
+{ n: 65, s: "U", q: "Monosaccharides are the simplest carbohydrates that consist of:", o: ["A. A carbonyl group aldehyde", "B. A carbonyl group ketone", "C. A carbonyl group aldehyde with several hydroxyl group", "D. A carbonyl group aldehyde or ketone with several hydroxyl group", "E. Multiple hydroxyl groups"], a: "D" },
+
+   { n: 66, s: "U", q: "Methyl group donors during detoxification pathway by methylation are:", o: ["A. Choline, inositol, methionine", "B. Cysteine, glutamic acid, and glycine", "C. Alanine, glutamic acid, and glycine", "D. Methionine, glutamic acid, and serine", "E. Methionine, glutamic acid, and aspartic acid"], a: "A" },
+
+];
+
+
+const container = document.getElementById('quiz-content');
+
+function renderQuiz() {
+    container.innerHTML = '';
+    data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'q-block';
+        div.dataset.subject = item.s;
+        div.dataset.searchText = (item.s + " " + item.q + " " + item.o.join(" ")).toLowerCase();
+        div.innerHTML = `
+            <div class="q-text" data-original="${item.n}. ${item.q}">${item.n}. ${item.q}</div>
+            <ul class="opts">
+                ${item.o.map(opt => `<li data-original="${opt}">${opt}</li>`).join('')}
+            </ul>
+            <div class="ans-row">
+                <span class="ans-text">Answer: ${item.a}</span>
+                <button class="ans-btn" onclick="this.closest('.q-block').classList.toggle('revealed')">Answer</button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function filterBySubject(subject, btn) {
+    currentSubject = subject;   // 🔥 remember selection
+    document.getElementById('search-input').value = '';
+
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const blocks = document.querySelectorAll('.q-block');
+    blocks.forEach(block => {
+        resetBlock(block);
+
+        if (subject === 'All' || block.dataset.subject === subject) {
+            block.style.display = "block";
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+
+function handleSearch() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const blocks = document.querySelectorAll('.q-block');
+
+    blocks.forEach(block => {
+        resetBlock(block);
+
+        const matchesSubject =
+            currentSubject === "All" ||
+            block.dataset.subject === currentSubject;
+
+        const matchesSearch =
+            searchTerm === "" ||
+            block.dataset.searchText.includes(searchTerm);
+
+        if (matchesSubject && matchesSearch) {
+            block.style.display = "block";
+
+            if (searchTerm !== "") {
+                highlight(block, searchTerm);
+            }
+        } else {
+            block.style.display = "none";
+        }
+    });
+}
+
+function resetBlock(block) {
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+
+    qText.innerHTML = qText.dataset.original;
+    opts.forEach(li => li.innerHTML = li.dataset.original);
+}
+
+function highlight(block, term) {
+    const regex = new RegExp(`(${term})`, 'gi');
+    const qText = block.querySelector('.q-text');
+    const opts = block.querySelectorAll('li');
+
+    qText.innerHTML = qText.innerHTML.replace(regex, '<mark>$1</mark>');
+    opts.forEach(li => {
+        li.innerHTML = li.innerHTML.replace(regex, '<mark>$1</mark>');
+    });
+}
+
+renderQuiz();
+
+/* 🔥 INITIALIZE FILTER PROPERLY */
+const firstFilterBtn = document.querySelector('.filter-btn');
+filterBySubject("All", firstFilterBtn);
+</script>
+</body>
+</html>
